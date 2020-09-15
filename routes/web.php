@@ -24,16 +24,20 @@ Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function(){
-
+    Route::middleware('can:user')->group(function (){
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    });
+        Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->name('admin.')->middleware('can:admin')->group(function (){
+            Route::resource('/users', UserController::class)->except(
+                'show', 'create', 'store'
+            );
+            Route::resource('/ideas', IdeasController::class)->except(
+                'show', 'create', 'store'
+            );
+            Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+            Route::get('/data', [App\Http\Controllers\HomeController::class, 'getData']);
+        });
 });
 
-Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->name('admin.')->middleware('can:admin')->group(function (){
-    Route::resource('/users', UserController::class)->except(
-        'show', 'create', 'store'
-    );
-    Route::resource('/ideas', IdeasController::class)->except(
-        'show', 'create', 'store'
-    );
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-});
+

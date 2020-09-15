@@ -18,8 +18,8 @@
 
         <div>
             <ul class="block-menu">
-                <router-link to="/">
-                    <li data-toggle="tooltip" data-placement="bottom" title="Dashboard" :class="[currentPage('Welcome') ? activeClass : '', 'menu-item']">
+                <router-link to="/admin/home">
+                    <li data-toggle="tooltip" data-placement="bottom" title="Dashboard" :class="[currentPage('admin-home') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
                             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-house-door-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6.5 10.995V14.5a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5V11c0-.25-.25-.5-.5-.5H7c-.25 0-.5.25-.5.495z"/>
@@ -29,8 +29,8 @@
                         </div>
                     </li>
                 </router-link>
-                <router-link to="/users">
-                    <li data-toggle="tooltip" data-placement="bottom" title="Users" :class="[currentPage('Users') ? activeClass : '', 'menu-item']">
+                <router-link to="/admin/users">
+                    <li data-toggle="tooltip" data-placement="bottom" title="Users" :class="[currentPage('admin-users') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
                             <!-- <img class="logo-img-menu"  src="/images/side-menu-icons/lamp.svg" alt=""> -->
                             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-people-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -240,7 +240,11 @@ export default {
     mounted() {
 
     },
-
+    computed: {
+        route(){
+            return this.$route.path;
+        }
+    },
     methods: {
         hamb_click() {
             let e = document.querySelector("#side-menu");

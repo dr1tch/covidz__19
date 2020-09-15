@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\Models\User;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -22,9 +23,27 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
+    {            
         return view('app');
     }
+
+    public function getData(){
+       
+        $users = User::latest()->get();
+        $user = Auth::user();
+        $role = $user->role();
+        if($user->hasRole('admin')){
+            $role = 'admin';
+        }
+        if($user->hasRole('user')){
+            $role = 'user';
+        }
+        $authCheck = Auth::check();
+        return ["user" => $user,
+                "role" => $role,
+                 "auth" =>  $authCheck,
+                 "users" => $users];
+        }
 
     
 }

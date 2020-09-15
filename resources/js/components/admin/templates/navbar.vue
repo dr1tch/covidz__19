@@ -83,6 +83,15 @@ nav {
 
 <script>
 export default {
-
+    data() {
+        return {
+            csrf_token: window.csrf_token
+        }
+    },
+    methods: {
+        logout() {
+            document.getElementById('logout').submit();
+        }
+    }
 }
 </script>

@@ -15,7 +15,15 @@ class UserController extends Controller
 
     public function index()
     {   
+        return view('app');
+    }
+
+    public function indexAPI(){
+
         $users = User::all();
-        return view('app', ['users' => json_decode($users, true)]);
+        $user = Auth::user();
+        $authCheck = Auth::check();
+        $data = [$user, $authCheck, $users];
+        return response()->json($data);
     }
 }

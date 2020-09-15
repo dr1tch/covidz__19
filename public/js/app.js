@@ -2688,15 +2688,48 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _admin_templates_sidebar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admin/templates/sidebar */ "./resources/js/components/admin/templates/sidebar.vue");
+/* harmony import */ var _admin_templates_navbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./admin/templates/navbar */ "./resources/js/components/admin/templates/navbar.vue");
 //
 //
 //
 //
 //
 //
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      data: {
+        user: '',
+        role: '',
+        auth: '',
+        users: ''
+      }
+    };
+  },
+  components: {
+    Sidebar: _admin_templates_sidebar__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Navbar: _admin_templates_navbar__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   mounted: function mounted() {
+    var _this = this;
+
     console.log('Component mounted.');
+    axios.get('/admin/data').then(function (response) {
+      console.log(response.data);
+      _this.data = response.data;
+
+      _this.$store.commit('addData', _this.data);
+    });
+  },
+  methods: {
+    logout: function logout() {
+      document.getElementById('logout').submit();
+    }
   }
 });
 
@@ -2988,8 +3021,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3001,11 +3032,6 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Sidebar: _templates_sidebar__WEBPACK_IMPORTED_MODULE_0__["default"],
     Navbar: _templates_navbar__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  methods: {
-    logout: function logout() {
-      document.getElementById('logout').submit();
-    }
   }
 });
 
@@ -3103,7 +3129,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      csrf_token: window.csrf_token
+    };
+  },
+  methods: {
+    logout: function logout() {
+      document.getElementById('logout').submit();
+    }
+  }
+});
 
 /***/ }),
 
@@ -3353,6 +3390,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {},
+  computed: {
+    route: function route() {
+      return this.$route.path;
+    }
+  },
   methods: {
     hamb_click: function hamb_click() {
       var e = document.querySelector("#side-menu");
@@ -39693,7 +39735,7 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "container-fluid", staticStyle: { height: "100%" } },
-    [_c("router-view")],
+    [_c("Navbar"), _vm._v(" "), _c("Sidebar"), _vm._v(" "), _c("router-view")],
     1
   )
 }
@@ -40468,9 +40510,20 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("Navbar"), _vm._v(" "), _c("Sidebar")], 1)
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "container main-wall border-0" }, [
+        _vm._v("\n        Hello,\n        Welcome Boss!\n    ")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -40492,25 +40545,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container main-wall border-0" }, [
+    _vm._v("\n    Hello,\n    Users list\n")
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "div",
-        {
-          staticClass:
-            "flex justify-content-center align-items-center alert alert-success width-auto"
-        },
-        [_vm._v("\n        Hello,\n        Users list\n    ")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -40740,12 +40779,12 @@ var render = function() {
           "ul",
           { staticClass: "block-menu" },
           [
-            _c("router-link", { attrs: { to: "/" } }, [
+            _c("router-link", { attrs: { to: "/admin/home" } }, [
               _c(
                 "li",
                 {
                   class: [
-                    _vm.currentPage("Welcome") ? _vm.activeClass : "",
+                    _vm.currentPage("admin-home") ? _vm.activeClass : "",
                     "menu-item"
                   ],
                   attrs: {
@@ -40799,12 +40838,12 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("router-link", { attrs: { to: "/users" } }, [
+            _c("router-link", { attrs: { to: "/admin/users" } }, [
               _c(
                 "li",
                 {
                   class: [
-                    _vm.currentPage("Users") ? _vm.activeClass : "",
+                    _vm.currentPage("admin-users") ? _vm.activeClass : "",
                     "menu-item"
                   ],
                   attrs: {
@@ -55376,11 +55415,36 @@ axios__WEBPACK_IMPORTED_MODULE_3___default.a.defaults.headers.common = {
   state: {
     auth: false,
     role: '',
-    users: []
+    users: [],
+    user: []
   },
   getters: {},
-  mutations: {},
-  actions: {}
+  mutations: {
+    addData: function addData(state, data) {
+      console.log('here');
+      state.auth = data.auth;
+      state.role = data.role;
+      state.users = data.users;
+      state.user = data.user;
+    }
+  },
+  actions: {
+    callAPI: function callAPI(method, url) {
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_3___default.a[method](url, data).then(function (response) {
+          resolve(response.data);
+        })["catch"](function (error) {
+          reject(error.response.data);
+        });
+      });
+    },
+    asset: function asset(path) {
+      var base_path = window.asset || '';
+      console.log(base_path);
+      return base_path + 'storage/' + path;
+    }
+  }
 }));
 
 /***/ }),

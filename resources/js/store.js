@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
+import Vuex, { Store } from 'vuex';
 Vue.use(Vuex);
 
 import router from './router';
@@ -15,16 +15,38 @@ export default new Vuex.Store({
       auth: false,
       role: '',
       users: [],
+      user: [],
     },
     getters: {
         
     },
 
     mutations: {
-        
+        addData(state, data){
+          console.log('here');
+          state.auth = data.auth;
+          state.role = data.role;
+          state.users = data.users;
+          state.user = data.user;
+        }
     },
 
     actions :{
-       
+      callAPI (method, url, data=null){
+        return new Promise((resolve, reject) => {
+          axios[method](url, data)
+              .then(response => {
+                  resolve(response.data);
+              })
+              .catch(error => {
+                  reject(error.response.data);
+              });
+        });
+      },
+      asset(path) {
+          let base_path = window.asset || '';
+          console.log(base_path);
+          return base_path + 'storage/' + path;
+      }
     }
 });

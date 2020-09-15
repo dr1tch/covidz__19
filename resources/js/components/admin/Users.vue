@@ -1,8 +1,6 @@
 <template>
-<div>
-    <div class='flex justify-content-center align-items-center alert alert-success width-auto'>
+    <div class="container main-wall border-0">
         Hello,
         Users list
     </div>
-</div>
 </template>
