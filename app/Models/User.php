@@ -13,13 +13,16 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
+
+    
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'username', 'fname','lname', 'email', 'avatar', 'password','gender', 'birth_date'
+        'username', 'fname','lname', 'email', 'avatar', 'password','gender', 'birth_date', 'role'
     ];
 
     /**
@@ -40,24 +43,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function role()
-    {
-        return $this->belongsToMany(Role::class);
-    }
-
-    // public function hasAnyRoles($roles)
-    // {
-    //     if($this->roles()->whereIn('name', $roles)->first()) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
-    public function hasRole($role)
-    {
-        if($this->role()->where('name', $role)->first()) {
-            return true;
-        }
-        return false;
-    }
+   
 }

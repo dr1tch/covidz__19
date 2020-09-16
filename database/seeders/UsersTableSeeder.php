@@ -19,9 +19,9 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         User::truncate();
-        DB::table('role_user')->truncate();
-        $adminRole = Role::where('name', 'admin')->first();
-        $userRole = Role::where('name', 'user')->first();
+        // DB::table('role_user')->truncate();
+        // $adminRole = Role::where('name', 'admin')->first();
+        // $userRole = Role::where('name', 'user')->first();
         
         $user1 = User::create([
         	'username' => 'temabens',
@@ -31,6 +31,7 @@ class UsersTableSeeder extends Seeder
         	'password' => Hash::make('password'),
         	'gender' => '1',
 			'birth_date' => '1997-8-5',
+			"role" => '0',
 			
         ]);
 
@@ -42,7 +43,7 @@ class UsersTableSeeder extends Seeder
         	'password' => Hash::make('1HRMBD99DYH'),
         	'gender' => '0',
 			'birth_date' => '1997-8-5',
-			
+			"role" => '0',
         ]);
 
         $user3 = User::create([
@@ -53,7 +54,7 @@ class UsersTableSeeder extends Seeder
         	'password' => Hash::make('password'),
         	'gender' => '0',
 			'birth_date' => '1997-8-5',
-			
+			"role" => '0',
         ]);
 
         $user4 = User::create([
@@ -64,7 +65,7 @@ class UsersTableSeeder extends Seeder
         	'password' => Hash::make('password'),
         	'gender' => '0',
 			'birth_date' => '1997-8-5',
-			
+			"role" => '0',
         ]);
 
         $user5 = User::create([
@@ -75,7 +76,7 @@ class UsersTableSeeder extends Seeder
         	'password' => Hash::make('password'),
         	'gender' => '0',
 			'birth_date' => '1997-8-5',
-			
+			"role" => '0',
         ]);
         $admin = User::create([
         	'username' => '4dm1n',
@@ -83,14 +84,14 @@ class UsersTableSeeder extends Seeder
         	'lname' => 'Bahar',
         	'email' => 'admin@covidz19.dz',
             'password' => Hash::make('ycef5411@gmail.com'),
-            
+            "role" => '1',
         ]);
 
-        $admin->role()->attach($adminRole);
-        $user1->role()->attach($userRole);
-        $user2->role()->attach($userRole);
-        $user3->role()->attach($userRole);
-        $user4->role()->attach($userRole);
-        $user5->role()->attach($userRole);
+        // $admin->role()->attach($adminRole);
+        // $user1->role()->attach($userRole);
+        // $user2->role()->attach($userRole);
+        // $user3->role()->attach($userRole);
+        // $user4->role()->attach($userRole);
+        // $user5->role()->attach($userRole);
     }
 }

@@ -1,6 +1,6 @@
 <template>
 <div>
-    <nav class="flex justify-content-between align-items-center mb-3">
+    <nav class="flex justify-content-between align-items-center mb-3 mx-5">
         <!-- Logo Part -->
         <!-- <div class="flex justify-content-between align-items-center top-logo"> -->
 
@@ -12,14 +12,7 @@
                     </button>
             </div> -->
 
-            <div class="top-logo">
-                <a class="logo hide-menu" href="">
-                    <div class="logo-container logo-container-sidebar" style="width: max-content;">
-                        <img class="logo-img-sidebar" src="/images/logo.svg" alt="">
-                        <h4 class="ml-2 header-logo-side" style="font-weight: bold;">COVIDZ-19</h4>
-                    </div>
-                </a>
-            </div>
+           
 
             <!-- </div>
         <div></div> -->
@@ -87,6 +80,11 @@ export default {
         return {
             csrf_token: window.csrf_token
         }
+    },
+    computed:{
+        // auth(){
+        //     return this.$state.getAuth();
+        // }
     },
     methods: {
         logout() {

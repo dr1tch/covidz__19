@@ -28,21 +28,23 @@ class HomeController extends Controller
     }
 
     public function getData(){
-       
-        $users = User::latest()->get();
+        
+        $users = User::all();
+        $users =  $users->except(6);
         $user = Auth::user();
-        $role = $user->role();
-        if($user->hasRole('admin')){
+        $role = $user->role;
+        if($user->role){
             $role = 'admin';
         }
-        if($user->hasRole('user')){
+        if(!$user->role){
             $role = 'user';
         }
         $authCheck = Auth::check();
-        return ["user" => $user,
+        $data =  ["user" => $user,
                 "role" => $role,
                  "auth" =>  $authCheck,
                  "users" => $users];
+        return $data;
         }
 
     

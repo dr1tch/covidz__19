@@ -473,7 +473,7 @@ ul a:hover {
 
 .fixed-left {
     position: fixed;
-    top: 100px;
+    top: 0px;
     /*left:0;*/
     z-index: 1030;
     width: 275px;
@@ -562,7 +562,7 @@ ul a:hover {
     border-top: none;
     border-bottom: none;
     padding: 0;
-    height: 120%;
+    height: 100%;
     max-width: 750px;
     min-width: 400px;
 }

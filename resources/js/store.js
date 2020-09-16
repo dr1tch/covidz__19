@@ -18,6 +18,12 @@ export default new Vuex.Store({
       user: [],
     },
     getters: {
+        auth: state =>{
+          return state.auth;
+        },
+        users: state =>{
+          return state.users;
+        }
         
     },
 
@@ -28,7 +34,11 @@ export default new Vuex.Store({
           state.role = data.role;
           state.users = data.users;
           state.user = data.user;
-        }
+        },
+        removeAdmin: (state) => {
+          state.users.slice(3,1);
+        },
+        length: (state) => {console.log(state.users.length);return state.users.length;}
     },
 
     actions :{
@@ -42,11 +52,20 @@ export default new Vuex.Store({
                   reject(error.response.data);
               });
         });
+        
       },
       asset(path) {
           let base_path = window.asset || '';
           console.log(base_path);
           return base_path + 'storage/' + path;
-      }
+      },
+      prevPage() {
+        state.loading = true
+        state.page--
+      },
+      nextPage() {
+          state.loading = true
+          state.page++
+      },
     }
 });

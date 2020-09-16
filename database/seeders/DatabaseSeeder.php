@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         
         //disable foreign key check for this connection before running seeders
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-    	$this->call(RolesTableSeeder::class);
+    	// $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         
         // supposed to only apply to a single connection and reset it's self

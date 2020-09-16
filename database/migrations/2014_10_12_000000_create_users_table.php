@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();            
             $table->boolean('isActivated')->default(0);
+            // 0 for user and 1 for admin
+            $table->boolean('role')->default(0);
             // 0 => Male , 1 => female
             $table->boolean('gender')->nullable();
             $table->date('birth_date')->nullable();

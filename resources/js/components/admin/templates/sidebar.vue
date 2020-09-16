@@ -3,17 +3,24 @@
     <div class="fixed-left">
 
         <!-- Logo Part -->
-        <!-- <div class="flex justify-content-between align-items-center top-logo">
-            
-            <div>
+        
+             <div class="top-logo">
+                <a class="logo hide-menu" href="">
+                    <div class="logo-container logo-container-sidebar" style="width: max-content;">
+                        <img class="logo-img-sidebar" src="/images/logo.svg" alt="">
+                        <h4 class="ml-2 header-logo-side" style="font-weight: bold;">COVIDZ-19</h4>
+                    </div>
+                </a>
+            </div>
+            <!-- <div>
                  <button @click="hamb_click" class="btn btn-sm btn-outline-success arrow-menu font-weight-bold">
                         <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-arrow-left font-weight-bold" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
                         </svg>
                     </button>
             </div>
-            
-        </div> -->
+             -->
+        
         <!-- SideBar-Menu  -->
 
         <div>

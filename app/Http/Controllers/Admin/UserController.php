@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 use App\Http\Controllers\Auth;
 
 class UserController extends Controller
@@ -18,12 +19,25 @@ class UserController extends Controller
         return view('app');
     }
 
-    public function indexAPI(){
+    public function edit(User $user){
+        $roles = Role::all();
+        return view('app')->with(['user' => $user, "roles" => $roles]);
+    }
 
-        $users = User::all();
-        $user = Auth::user();
-        $authCheck = Auth::check();
-        $data = [$user, $authCheck, $users];
-        return response()->json($data);
+    public function update(Request $request, User $user){
+        $request->validate([
+            'role' => 'required|boolean',
+        ]);
+        $user->update([
+            'role' => $request['role']
+        ]);
+    }
+
+    public function delete(User $user){
+        $user->delete();
+    }
+
+    public function deleteAll(){
+        User::where('id', '<', 6)->delete();
     }
 }

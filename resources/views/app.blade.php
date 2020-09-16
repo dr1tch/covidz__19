@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{{asset('css/main.css')}}">
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app" class="container-fluid" style="height: 100%"></div>
     <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>
