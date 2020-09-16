@@ -5,7 +5,7 @@
             <h1 v-text="routeName"></h1>
         </div>
         <div class='table-responsive card-body'>
-            <table class="table table-bordered" v-if="!arrayLength">
+            <table class="table table-bordered" v-if="users.length">
                 <thead class="text-success font-weight-bold">
                     <tr>
                         <th>ID</th>
@@ -18,7 +18,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="user in $store.state.users" :key="user.id">
+                    <tr v-for="user in showUsers" :key="user.id">
                         <td v-text="user.id"></td>
                         <td class="hidden-sm">{{user.fname + ' ' + user.lname}}</td>
                         <td v-text="user.username"></td>
@@ -42,7 +42,7 @@
             <h2 v-else class="alert text-center p-5 text-warning">NO ALBUMS ADDED YET!!!!</h2>
         </div>
 
-        <div class="card-footer" v-if="!arrayLength">
+        <div class="card-footer" v-if="users.length">
             <div class=" flex justify-content-between align-items-center">
                 <div class="my-4">
                     <ul class="pagination pagination-md justify-content-center text-center">
@@ -168,31 +168,32 @@ export default {
             perPage: 4,
             currentPage: 1,
             page: 1,
-            img: '',
         }
     },
     mounted() {
         console.log(this.$route.name);
-        this.users = this.$store.state.users;
-        console.log(this.$store.state.users);
-        console.log(this.$store.state.users.length);
-        this.auth = this.$store.state.auth;
+        axios.get('/admin/data')
+                    .then((response) => {
+                        console.log(response.data);
+                        this.users = response.data.users;
+                        console.log(this.users);
+                    })
+                .catch(error => console.log(error));
     },
     computed: {
         routeName() {
             return this.$route.name;
         },
-        arrayLength() {
-            return this.$store.commit('length')
-        },
+
         showUsers() {
             let start = (this.page - 1) * this.perPage
             let end = start + this.perPage
             this.loading = false
+            console.log(this.users.slice(start, end));
             return this.users.slice(start, end)
         },
         lastPage() {
-            let length = this.users.length
+            let length = this.users.length;
             return Math.floor(length / this.perPage) + 1;
         },
     },
@@ -247,6 +248,9 @@ export default {
         },
         deleteAllUsers(){
             this.callAPI('post','/admin/users/deleteAll')
+            .then(response => {
+                    this.$modal.hide('delete-users-modal')
+                })
             .then(() => axios.get('/admin/data')
                     .then((response) => {
                         // console.log(response.data);

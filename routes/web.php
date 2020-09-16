@@ -29,19 +29,13 @@ Route::middleware('auth')->group(function(){
 
     });
         Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->name('admin.')->middleware('can:admin')->group(function (){
-            // Route::resource('/users', UserController::class)->except(
-            //     'show', 'create', 'store'
-            // );
-            // Route::resource('/ideas', IdeasController::class)->except(
-            //     'show', 'create', 'store'
-            // );
             Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
             Route::get('/data', [App\Http\Controllers\HomeController::class, 'getData']);
+            // Users:
             Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index']);
             Route::post('/users/{user:id}/update', [App\Http\Controllers\Admin\UserController::class, 'update']);
             Route::post('/users/{user:id}/delete', [App\Http\Controllers\Admin\UserController::class, 'delete']);
             Route::post('/users/deleteAll', [App\Http\Controllers\Admin\UserController::class, 'deleteAll']);
-            // Route::get('/admin/users/{user:id}', [App\Http\Controllers\UserController::class, 'edit']);
         });
 });
 

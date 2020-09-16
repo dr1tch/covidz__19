@@ -38,7 +38,9 @@ export default new Vuex.Store({
         removeAdmin: (state) => {
           state.users.slice(3,1);
         },
-        length: (state) => {console.log(state.users.length);return state.users.length;}
+        afterPagination : (state, users) => {
+          state.users = users;
+        }
     },
 
     actions :{

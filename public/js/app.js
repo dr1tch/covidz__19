@@ -13249,28 +13249,30 @@ __webpack_require__.r(__webpack_exports__);
       fresh: {},
       perPage: 4,
       currentPage: 1,
-      page: 1,
-      img: ''
+      page: 1
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     console.log(this.$route.name);
-    this.users = this.$store.state.users;
-    console.log(this.$store.state.users);
-    console.log(this.$store.state.users.length);
-    this.auth = this.$store.state.auth;
+    axios.get('/admin/data').then(function (response) {
+      console.log(response.data);
+      _this.users = response.data.users;
+      console.log(_this.users);
+    })["catch"](function (error) {
+      return console.log(error);
+    });
   },
   computed: {
     routeName: function routeName() {
       return this.$route.name;
     },
-    arrayLength: function arrayLength() {
-      return this.$store.commit('length');
-    },
     showUsers: function showUsers() {
       var start = (this.page - 1) * this.perPage;
       var end = start + this.perPage;
       this.loading = false;
+      console.log(this.users.slice(start, end));
       return this.users.slice(start, end);
     },
     lastPage: function lastPage() {
@@ -13302,26 +13304,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     // Users APIs:
     editUser: function editUser() {
-      var _this = this;
+      var _this2 = this;
 
       this.data.set('role', this.role);
       console.log(this.role);
       axios.post("/admin/users/".concat(this.editedUser.id, "/update"), this.data).then(function (response) {
-        _this.$modal.hide('edit-user-modal');
-      }).then(function () {
-        return axios.get('/admin/data').then(function (response) {
-          // console.log(response.data);
-          _this.afterRequest(response.data);
-        });
-      })["catch"](function (error) {
-        return console.log(error);
-      });
-    },
-    deleteUser: function deleteUser() {
-      var _this2 = this;
-
-      this.callAPI('post', "/admin/users/".concat(this.editedUser.id, "/delete")).then(function (response) {
-        _this2.$modal.hide('delete-user-modal');
+        _this2.$modal.hide('edit-user-modal');
       }).then(function () {
         return axios.get('/admin/data').then(function (response) {
           // console.log(response.data);
@@ -13331,13 +13319,29 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(error);
       });
     },
-    deleteAllUsers: function deleteAllUsers() {
+    deleteUser: function deleteUser() {
       var _this3 = this;
 
-      this.callAPI('post', '/admin/users/deleteAll').then(function () {
+      this.callAPI('post', "/admin/users/".concat(this.editedUser.id, "/delete")).then(function (response) {
+        _this3.$modal.hide('delete-user-modal');
+      }).then(function () {
         return axios.get('/admin/data').then(function (response) {
           // console.log(response.data);
           _this3.afterRequest(response.data);
+        });
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    },
+    deleteAllUsers: function deleteAllUsers() {
+      var _this4 = this;
+
+      this.callAPI('post', '/admin/users/deleteAll').then(function (response) {
+        _this4.$modal.hide('delete-users-modal');
+      }).then(function () {
+        return axios.get('/admin/data').then(function (response) {
+          // console.log(response.data);
+          _this4.afterRequest(response.data);
         });
       })["catch"](function (error) {
         return console.log(error);
@@ -50976,13 +50980,13 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "table-responsive card-body" }, [
-          !_vm.arrayLength
+          _vm.users.length
             ? _c("table", { staticClass: "table table-bordered" }, [
                 _vm._m(0),
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.$store.state.users, function(user) {
+                  _vm._l(_vm.showUsers, function(user) {
                     return _c("tr", { key: user.id }, [
                       _c("td", { domProps: { textContent: _vm._s(user.id) } }),
                       _vm._v(" "),
@@ -51073,7 +51077,7 @@ var render = function() {
               ])
         ]),
         _vm._v(" "),
-        !_vm.arrayLength
+        _vm.users.length
           ? _c("div", { staticClass: "card-footer" }, [
               _c(
                 "div",
@@ -66509,9 +66513,8 @@ axios__WEBPACK_IMPORTED_MODULE_3___default.a.defaults.headers.common = {
     removeAdmin: function removeAdmin(state) {
       state.users.slice(3, 1);
     },
-    length: function length(state) {
-      console.log(state.users.length);
-      return state.users.length;
+    afterPagination: function afterPagination(state, users) {
+      state.users = users;
     }
   },
   actions: {
