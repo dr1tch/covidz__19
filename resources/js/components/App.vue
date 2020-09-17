@@ -12,11 +12,11 @@
 </template>
 
 <style scoped>
-    .main-wall {
+    /* .main-wall {
         border: none;
         max-width: 100%;
         margin-right:auto;
-    }
+    } */
 </style>
 
 

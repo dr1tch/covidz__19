@@ -60,6 +60,8 @@ class RegisterController extends Controller
             'birth_date' => ['date'],
             'gender' => ['boolean'],
             'avatar' => ['mimes:jpeg,jpg,png|max:2048'],
+            'wilaya' => ['string'],
+            'profession' => ['string']
         ]);
     }
 
@@ -79,6 +81,8 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             // 'avatar' => $data['avatar'],
             'gender' => $data['gender'],
+            'wilaya' => $data['wilaya'],
+            'profession' => $data['profession'],
         ]);
 
         

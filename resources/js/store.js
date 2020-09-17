@@ -29,7 +29,6 @@ export default new Vuex.Store({
 
     mutations: {
         addData(state, data){
-          console.log('here');
           state.auth = data.auth;
           state.role = data.role;
           state.users = data.users;

@@ -31,6 +31,8 @@ class UsersTableSeeder extends Seeder
         	'password' => Hash::make('password'),
         	'gender' => '1',
 			'birth_date' => '1997-8-5',
+			'wilaya' => 'Tlemcen',
+			'profession' => 'etudiant',
 			"role" => '0',
 			
         ]);
@@ -43,6 +45,8 @@ class UsersTableSeeder extends Seeder
         	'password' => Hash::make('1HRMBD99DYH'),
         	'gender' => '0',
 			'birth_date' => '1997-8-5',
+			'wilaya' => 'Naama',
+			'profession' => 'etudiant',
 			"role" => '0',
         ]);
 
@@ -54,6 +58,8 @@ class UsersTableSeeder extends Seeder
         	'password' => Hash::make('password'),
         	'gender' => '0',
 			'birth_date' => '1997-8-5',
+			'wilaya' => 'Tlemcen',
+			'profession' => 'etudiant',
 			"role" => '0',
         ]);
 
@@ -65,6 +71,8 @@ class UsersTableSeeder extends Seeder
         	'password' => Hash::make('password'),
         	'gender' => '0',
 			'birth_date' => '1997-8-5',
+			'wilaya' => 'Tlemcen',
+			'profession' => 'etudiant',
 			"role" => '0',
         ]);
 
@@ -76,6 +84,8 @@ class UsersTableSeeder extends Seeder
         	'password' => Hash::make('password'),
         	'gender' => '0',
 			'birth_date' => '1997-8-5',
+			'wilaya' => 'Tlemcen',
+			'profession' => 'etudiant',
 			"role" => '0',
         ]);
         $admin = User::create([
@@ -83,7 +93,9 @@ class UsersTableSeeder extends Seeder
         	'fname' => 'Aymen',
         	'lname' => 'Bahar',
         	'email' => 'admin@covidz19.dz',
-            'password' => Hash::make('ycef5411@gmail.com'),
+			'password' => Hash::make('ycef5411@gmail.com'),
+			'wilaya' => 'none',
+			'profession' => 'admin',
             "role" => '1',
         ]);
 

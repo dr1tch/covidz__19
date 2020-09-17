@@ -5,7 +5,7 @@
             <h1 v-text="routeName"></h1>
         </div>
         <div class='table-responsive card-body'>
-            <table class="table table-bordered" v-if="users.length">
+            <table class="table table-bordered" v-if="!arrayLength">
                 <thead class="text-success font-weight-bold">
                     <tr>
                         <th>ID</th>
@@ -42,7 +42,7 @@
             <h2 v-else class="alert text-center p-5 text-warning">NO ALBUMS ADDED YET!!!!</h2>
         </div>
 
-        <div class="card-footer" v-if="users.length">
+        <div class="card-footer" v-if="!arrayLength">
             <div class=" flex justify-content-between align-items-center">
                 <div class="my-4">
                     <ul class="pagination pagination-md justify-content-center text-center">
@@ -118,7 +118,7 @@
 
      <!-- Delete All Albums Modal -->
 
-    <modal name="delete-userss-modal" height="auto" width="500px" classes="text-light bg-secondary">
+    <modal name="delete-users-modal" height="auto" width="500px" classes="text-light bg-secondary">
         <div class="card">
             <div class="card-header">
                 <h4 class="font-weight-bold">Delete All Userss</h4>
@@ -174,9 +174,8 @@ export default {
         console.log(this.$route.name);
         axios.get('/admin/data')
                     .then((response) => {
-                        console.log(response.data);
+                        // console.log(response.data);
                         this.users = response.data.users;
-                        console.log(this.users);
                     })
                 .catch(error => console.log(error));
     },
@@ -184,16 +183,18 @@ export default {
         routeName() {
             return this.$route.name;
         },
-
+        arrayLength() {
+            console.log(this.$store.commit('length') > 0);
+            return this.$store.commit('length') > 0;
+        },
         showUsers() {
             let start = (this.page - 1) * this.perPage
             let end = start + this.perPage
             this.loading = false
-            console.log(this.users.slice(start, end));
             return this.users.slice(start, end)
         },
         lastPage() {
-            let length = this.users.length;
+            let length = this.$store.commit('length');
             return Math.floor(length / this.perPage) + 1;
         },
     },
@@ -201,7 +202,6 @@ export default {
         showModal(name, user = this.editedUser) {
             this.editedUser = user;
             this.$modal.show(name);
-            console.log("blabla!" + this.editUser);
         },
         afterRequest(data) {
             this.fresh = data;
@@ -209,6 +209,7 @@ export default {
             this.$store.commit('removeAdmin');
             this.role = '';
             this.editedUser = {};
+            this.users = data.users;
         },
         prevPage() {
             this.loading = true
@@ -229,7 +230,8 @@ export default {
                 })
                 .then(() => axios.get('/admin/data')
                     .then((response) => {
-                        // console.log(response.data);
+                        console.log('kjdlkqjljd' +response.data.users);
+                        this.users = response.data.users;
                         this.afterRequest(response.data);
                     }))
                 .catch(error => console.log(error));
@@ -242,6 +244,7 @@ export default {
                 .then(() => axios.get('/admin/data')
                     .then((response) => {
                         // console.log(response.data);
+                        this.users = response.data.users;
                         this.afterRequest(response.data);
                     }))
                 .catch(error => console.log(error));
@@ -254,6 +257,7 @@ export default {
             .then(() => axios.get('/admin/data')
                     .then((response) => {
                         // console.log(response.data);
+                        this.users = response.data.users;
                         this.afterRequest(response.data);
                     }))
                 .catch(error => console.log(error));

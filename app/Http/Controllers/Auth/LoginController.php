@@ -43,7 +43,7 @@ class LoginController extends Controller
     }
 
     public function redirectTo(){
-        if(Auth::user()->hasRole('admin')){
+        if(Auth::user()->role === 'admin'){
             $this->redirectTo = '/admin/home';
             return $this->redirectTo;
         } 

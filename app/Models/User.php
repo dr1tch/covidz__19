@@ -8,10 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Role;
 use App\Http\Controllers\Auth;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, HasFactory;
 
 
     
@@ -22,7 +23,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'fname','lname', 'email', 'avatar', 'password','gender', 'birth_date', 'role'
+        'username', 'fname','lname', 'email', 'avatar', 'password','gender', 'birth_date', 'role', 'profession', 'wilaya'
     ];
 
     /**
@@ -42,6 +43,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function ideas(){
+        return $this->hasMany(Idea::class)->latest();
+    }
 
    
 }

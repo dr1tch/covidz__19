@@ -60,3 +60,9 @@
 
         </div>
 </template>
+
+<style scoped>
+    .main-wall{
+      
+    }
+</style>
