@@ -10,9 +10,11 @@
     <title>COVIDZ-19</title>
 
     <!-- Scripts -->
+    {{-- <script src="https://kit.fontawesome.com/97a6e3f48a.js" crossorigin="anonymous"></script> --}}
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     <script>
         window.csrf_token = "{{ csrf_token() }}"
+        window.asset = '{{ asset('') }}';
     </script>
 
     <!-- Fonts -->
@@ -22,6 +24,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/main.css')}}">
+    <link rel="stylesheet" href="{{asset('css/all.css')}}">
+
 </head>
 <body>
     <div id="app" class="container-fluid" style="height: 100%"></div>

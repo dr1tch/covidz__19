@@ -27,9 +27,11 @@ class UserFactory extends Factory
             'fname' => $this->faker->firstname,
             'lname' => $this->faker->lastname,
             'email' => $this->faker->unique()->safeEmail,
+            'bio' => $this->faker->realText(rand(10,20)),
             'gender' => $this->faker->boolean,
             'birth_date' => $this->faker->date,
             'email_verified_at' => now(),
+            'avatar' => '/images/default.jpg',
             'wilaya' => $this->faker->state,
             'profession' => $this->faker->realText(rand(10,20)),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

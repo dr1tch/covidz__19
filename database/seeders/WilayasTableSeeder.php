@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Wilaya;
 use Illuminate\Database\Seeder;
 
-class WillayasTableSeeder extends Seeder
+class WilayasTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

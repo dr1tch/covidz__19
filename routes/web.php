@@ -19,11 +19,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\AppController::class, 'get']);
 
+
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function(){
+    Route::get('/data', [App\Http\Controllers\HomeController::class, 'getData']);
+    Route::get('/{user:username}/edit', [App\Http\Controllers\User\ProfileController::class, 'edit']);
+    Route::patch('/{user:username}/update', [App\Http\Controllers\User\ProfileController::class, 'update']);
+    Route::get('/getData/{user:username}', [App\Http\Controllers\User\ProfileController::class, 'getData']);
+
     Route::middleware('can:user')->group(function (){
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -36,7 +42,7 @@ Route::middleware('auth')->group(function(){
     });
         Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->name('admin.')->middleware('can:admin')->group(function (){
             Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-            Route::get('/data', [App\Http\Controllers\HomeController::class, 'getData']);
+            
             // Users:
             Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index']);
             Route::post('/users/{user:id}/update', [App\Http\Controllers\Admin\UserController::class, 'update']);
@@ -48,5 +54,6 @@ Route::middleware('auth')->group(function(){
         });
 });
 
-// Route::get('/admin/data', [App\Http\Controllers\HomeController::class, 'getData'])->middleware('auth:api');
-// ->middleware('can:admin');
+// Profile Part: 
+Route::get('/{user:username}', [App\Http\Controllers\User\ProfileController::class, 'index']);
+

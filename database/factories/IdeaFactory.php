@@ -24,9 +24,12 @@ class IdeaFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory(),
+            'user_id' => random_int(1, 20),
             'title' => $this->faker->realText(rand(10,20)),
-            'body' => $this->faker->text,
+            'body' => $this->faker->realText(rand(100,500)),
+            'likes' => $this->faker->randomDigitNotNull,
+            'created_at' => $this->faker->dateTimeThisYear(),
+            'status' => '0'
         ];
     }
 }

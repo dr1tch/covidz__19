@@ -16,16 +16,16 @@ class CreateWilayaUserTable extends Migration
         Schema::create('wilaya_user', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('tag_id')->unsigned();
+            $table->foreignId('user_id')->unsigned();
             $table->foreignId('wilaya_id')->unsigned();
             $table->foreign('wilaya_id')
               ->references('id')
               ->on('wilayas')
               ->onDelete('cascade');
 
-            $table->foreign('idea_id')
+            $table->foreign('user_id')
               ->references('id')
-              ->on('ideas')
+              ->on('users')
               ->onDelete('cascade');
         });
     }

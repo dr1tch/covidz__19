@@ -13,15 +13,15 @@
             <!-- Logo Part -->
             <div class="logo-container">
                 <img class="logo-img" src="/images/logo.svg" alt="">
-                <h1 class="header-logo-text" style="font-weight: bold;">COVIDZ-19</h1>
+                <h1 class="header-logo-text" style="font-weight: bold; margin-bottom: 0;">COVIDZ-19</h1>
             </div>
             <!-- TODO: Make the Buttons responsive -->
-            <div class="header-title">
+            <!-- <div class="header-title">
                 <button class="btn" style="background-color: #E5E5E5; "><img style="width: 25px; height: 25px;" src="/images/google.svg">Sign in with Google </button>
                 <button class="btn" style="background-color: #3B5999;">fb</button>
                 <button class="btn" style="background-color: #50ABF1">twitter</button>
-            </div>
-            <div style="margin: 3% auto;"><span style="margin: auto; display: table;">Or</span></div>
+            </div> -->
+            <!-- <div style="margin: 3% auto;"><span style="margin: auto; display: table;">Or</span></div> -->
             <div class="auth-buttons" style="margin: 6% auto;">
                 <form method="POST" action="/login">
                     <input type="hidden" name="_token" :value="csrf_token">

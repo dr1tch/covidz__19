@@ -15,24 +15,36 @@ class IdeaController extends Controller
 {
     public function getData()
     {
-      // dd(Idea::all());
-      return Idea::all();
+      return [Idea::with('user')->orderBy('likes', 'desc')->get()];
     }
 
     public function index()
     {
-        return view('app')->with(["ideas" => Idea::all()]);
+        return view('app');
     }
+
+    // public function like(Idea $idea, Request $request)
+    // {
+    //     $value = $post->like;
+    //     $post->like = $value+1;
+    //     $post->save();
+    //     return response()->json([
+    //         'message'=>'Thanks',
+    //     ]);
+    // }
+
+
 
     public function store(Request $request){
         $attributes = request()->validate([
             'title' => 'required|max:255',
             'body' => 'required',
             'categorie' => '',
-            'image' => 'mimes:jpeg,jpg,png|max:2048',
+            // 'image' => 'file',
             'video' => 'file'
           ]);
           if(request('image')){
+
             $attributes['image'] = request('image')->store('covers');
           } else {
             $attributes['image'] = null;

@@ -1,7 +1,8 @@
 <template>
-<div>
-    <Sidebar v-if="admin"></Sidebar>
-    <div class="container main-wall border-0">
+<div style="height: 100%;">
+    <AdminSidebar v-if="admin"></AdminSidebar>
+    <UserSidebar v-if="user"></UserSidebar>
+    <div :class="[auth ? 'container-fluid main-wall' : 'container-fluid welcome']" style="height: 100%;">
         <Navbar v-if="admin"></Navbar>
         <router-view></router-view>
     </div>
@@ -12,17 +13,28 @@
 </template>
 
 <style scoped>
-    /* .main-wall {
+    .welcome {
         border: none;
-        max-width: 100%;
+        width: 100%;
         margin-right:auto;
-    } */
+        margin-left: 0 !important;
+    }
+    .main-wall {
+        border: none;
+    }
 </style>
 
 
 <script>
-import Sidebar from './admin/templates/sidebar'
+
+// Admin Templates:
+import AdminSidebar from './admin/templates/sidebar'
 import Navbar from './admin/templates/navbar'
+
+
+// User Templates:
+import UserSidebar from './user/templates/sidebar'
+
 // import admin from './admin'
 // import user from './user'
 // import guest from './guest'
@@ -39,19 +51,20 @@ export default {
         }
     },
     components: {
-        Sidebar,
+        AdminSidebar,
         Navbar,
+        UserSidebar
         // admin,
         // user,
         // guest,
     },
     computed: {
         admin() {
-            console.log('admin: ' + this.role === 'admin' && this.auth === true);
+            // console.log('admin: ' + this.role === 'admin' && this.auth === true);
             return this.data.role === 'admin';
         },
         user() {
-            console.log('User: ' + this.role === 'user' && this.auth === true);
+            // console.log('User: ' + this.role === 'user' && this.auth === true);
             return this.data.role === 'user';
         },
         auth(){
@@ -59,9 +72,9 @@ export default {
         }
     },
     beforeMount() {
-        axios.get('/admin/data')
+        axios.get('/data')
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 this.data = response.data;
                 this.$store.commit('addData', this.data);
                 this.$store.commit('removeAdmin');
@@ -69,9 +82,9 @@ export default {
     },
     mounted() {
         console.log('Component mounted.');
-        axios.get('/admin/data')
+        axios.get('/data')
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 this.data = response.data;
                 this.$store.commit('addData', this.data);
             });
@@ -80,9 +93,9 @@ export default {
     methods: {
         logout() {
             document.getElementById('logout').submit();
-            axios.get('/admin/data')
+            axios.get('/data')
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     this.data = response.data;
                     this.$store.commit('addData', this.data);
                 });

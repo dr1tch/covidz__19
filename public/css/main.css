@@ -167,10 +167,34 @@ div.card {
     color: #F4F4F5;
 }
 
+.react {
+    font-size: 1.25em;
+}
 
-a .post:hover {
+.red {
+    background-color: rgba(237, 58, 42, .24);
+    color: rgb(237, 58, 42);
+    /* padding: 2em; */
+    border-radius: 50%;
+}
+
+.green {
+    background-color: rgba(58, 193, 114, .24);
+    color: rgb(58, 193, 114);
+    /* padding: 2em; */
+    border-radius: 50%;
+}
+
+.cyan {
+    background-color: rgba(50, 154, 240, .24);
+    color: rgb(50, 154, 240);
+    /* padding: 2em; */
+    border-radius: 50%;
+}
+
+.post:hover {
     color: #f8f9fa;
-    background-color: rgba(254, 80, 96, 0.1) !important;
+    background-color: rgba(58, 193, 114, 0.1) !important;
     /*background-color: #F4F4F5;*/
 }
 
@@ -434,7 +458,7 @@ ul a:hover {
 .btn-sidebar {
     display: block;
     width: 80%;
-    border-radius: 21px;
+    /* border-radius: 21px; */
     font-weight: 600;
     padding: 10px;
 }
@@ -567,6 +591,10 @@ ul a:hover {
     min-width: 400px;
 }
 
+.logo {
+    font-size: 1.5em;
+}
+
 .img-md {
     width: 50px;
     height: 50px;
@@ -592,8 +620,7 @@ ul a:hover {
 }
 
 .profile-sidebar:hover {
-    background-color: rgba(254, 80, 96, 0.1);
-}
+    background-color: rgba(58, 193, 114, .24);}
 
 .profile-link-right-side {
     display: flex;

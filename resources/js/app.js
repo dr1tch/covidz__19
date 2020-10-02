@@ -4,19 +4,24 @@ import store from './store';
 import common from './common'
 import Vue from 'vue';
 import "core-js/fn/object/assign";
-
+import '@fortawesome/fontawesome-free/css/all.css';
+import '@fortawesome/fontawesome-free/js/all.js';
 import VModal from 'vue-js-modal'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+// import { library } from '@fortawesome/fontawesome-svg-core'
+// import { fas } from '@fortawesome/free-solid-svg-icons'
+// library.add(fas)
+// import { far } from '@fortawesome/free-solid-svg-icons'
+// library.add(far)
 
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import moment from 'moment';
+Vue.prototype.moment = moment;
 require('./bootstrap');
 window.Vue = require('vue');
 window.axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
 };
 Vue.use(VModal);
-library.add(faSpinner)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.mixin(common);
 

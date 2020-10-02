@@ -25,4 +25,7 @@ class Idea extends Model
     {
     	return $this->hasMany(Tag::class);
     }
+    // public function likes(){
+    //     return $this->belongsToMany(Like::class);
+    // }
 }
