@@ -72,7 +72,7 @@
                 </form>
             </div>
             <div class="row" style="margin: auto;">
-                <p style="margin: auto;">You don't have An account! <a class="login-link" href="">Signup</a> here</p>
+                <p style="margin: auto;">You don't have An account! <a class="login-link" href="/register">Signup</a> here</p>
             </div>
         </div>
     </div>

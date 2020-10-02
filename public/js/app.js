@@ -70462,7 +70462,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row", staticStyle: { margin: "auto" } }, [
       _c("p", { staticStyle: { margin: "auto" } }, [
         _vm._v("You don't have An account! "),
-        _c("a", { staticClass: "login-link", attrs: { href: "" } }, [
+        _c("a", { staticClass: "login-link", attrs: { href: "/register" } }, [
           _vm._v("Signup")
         ]),
         _vm._v(" here")
@@ -70812,7 +70812,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row", staticStyle: { margin: "auto" } }, [
       _c("p", { staticStyle: { margin: "auto" } }, [
         _vm._v("Already Have an account! "),
-        _c("a", { staticClass: "login-link", attrs: { href: "" } }, [
+        _c("a", { staticClass: "login-link", attrs: { href: "/login" } }, [
           _vm._v("Log In")
         ]),
         _vm._v(" here")

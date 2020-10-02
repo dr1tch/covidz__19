@@ -123,7 +123,7 @@
       </form>
       </div>
       <div class="row" style="margin: auto;">
-         <p style="margin: auto;">Already Have an account! <a class="login-link" href="">Log In</a> here</p> 
+         <p style="margin: auto;">Already Have an account! <a class="login-link" href="/login">Log In</a> here</p> 
       </div>
    </div>
     </div>
