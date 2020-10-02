@@ -3,7 +3,7 @@
     <AdminSidebar v-if="admin"></AdminSidebar>
     <UserSidebar v-if="user"></UserSidebar>
     <div :class="mainWall()" style="height: 100%;">
-        <Navbar v-if="admin" style="position: fixed; width: 50%;"></Navbar>
+        <Navbar v-if="admin"></Navbar>
         <router-view></router-view>
     </div>
     <!-- <admin v-if="admin"></admin>

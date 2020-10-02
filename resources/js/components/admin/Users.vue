@@ -1,5 +1,5 @@
 <template>
-<div style="position: relative; top: 70px;">
+<div>
     <div class="card bg-card">
         <div class="card-header">
             <h1 v-text="routeName"></h1>
@@ -195,7 +195,7 @@ export default {
             return this.users.slice(start, end)
         },
         lastPage() {
-            let length = this.$store.commit('length');
+            let length = this.users.length;
             return Math.floor(length / this.perPage) + 1;
         },
     },

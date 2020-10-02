@@ -1,20 +1,20 @@
 <template lang="">
 <div class="post flex">
     <div class="mr-3 mt-1 flex-shrink-0">
-        <a :href="'/' + idea.user.username">
-            <img class="img-md" style="margin: 10%; margin-left: 13%" :src="idea.user.avatar" alt="">
+        <a :href="'/' + user.username">
+            <img class="img-md" style="margin: 10%; margin-left: 13%" :src="user.avatar" alt="">
         </a>
     </div>
     <div style="width: -webkit-fill-available;">
         <div class="post-header">
             <div class="profile-link-right-side">
                 <div>
-                    <a class="post-name text-light" :href="'/' + idea.user.username">
-                        <h6 style="font-weight: bold; margin-bottom: 0;">{{ idea.user.fname + ' ' + idea.user.lname}}</h6>
+                    <a class="post-name text-light" :href="'/' + user.username">
+                        <h6 style="font-weight: bold; margin-bottom: 0;">{{ user.fname + ' ' + user.lname}}</h6>
                     </a>
                 </div>
                 <div class="ml-2">
-                    <span class="text-secondary" style="font-size: .9em;"> {{ '@' + idea.user.username}}</span>
+                    <span class="text-secondary" style="font-size: .9em;"> {{ '@' + user.username}}</span>
                 </div>
             </div>
             <div class="bookmark">

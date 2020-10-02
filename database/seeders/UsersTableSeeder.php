@@ -35,7 +35,7 @@ class UsersTableSeeder extends Seeder
 			// 'wilaya' => 'Tlemcen',
 			// 'profession' => 'etudiant',
 			"role" => '0',
-			// "avatar" => "/images/default.jpg"
+			"avatar" => "/images/default.jpg"
 
         ]);
 
@@ -51,7 +51,7 @@ class UsersTableSeeder extends Seeder
 			// 'wilaya' => 'Naama',
 			// 'profession' => 'etudiant',
 			"role" => '0',
-			// "avatar" => "/images/default.jpg"
+			"avatar" => "/images/default.jpg"
 
         ]);
 
@@ -67,7 +67,7 @@ class UsersTableSeeder extends Seeder
 			// 'wilaya' => 'Tlemcen',
 			// 'profession' => 'etudiant',
 			"role" => '0',
-			// "avatar" => "/images/default.jpg"
+			"avatar" => "/images/default.jpg"
 
         ]);
 
@@ -75,7 +75,7 @@ class UsersTableSeeder extends Seeder
         	'username' => 'dritch12',
         	'fname' => 'Sofiane',
 			'lname' => 'Haicha',
-			// 'bio' => 'Linux Lover and Full Stack Web Developer',
+			'bio' => 'Linux Lover and Full Stack Web Developer',
         	'email' => 'sofiane@gmail.com',
         	'password' => Hash::make('password'),
         	'gender' => '0',
@@ -83,7 +83,7 @@ class UsersTableSeeder extends Seeder
 			// 'wilaya' => 'Tlemcen',
 			// 'profession' => 'etudiant',
 			"role" => '0',
-			// "avatar" => "/images/default.jpg"
+			"avatar" => "/images/default.jpg"
 
         ]);
 
@@ -99,7 +99,7 @@ class UsersTableSeeder extends Seeder
 			// 'wilaya' => 'Tlemcen',
 			// 'profession' => 'etudiant',
 			"role" => '0',
-			// "avatar" => "/images/default.jpg"
+			"avatar" => "/images/default.jpg"
         ]);
         $admin = User::create([
         	'username' => '4dm1n',

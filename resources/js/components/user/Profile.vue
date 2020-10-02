@@ -1,8 +1,8 @@
 <template>
     <div>
         <Header :route ="$route.name"></Header>
-        <ProfileHeader :user="$store.state.user"></ProfileHeader>
-        <Ideas :user="$store.state.user"></Ideas>
+        <ProfileHeader :user="userInfo.user"></ProfileHeader>
+        <ProfileIdeas :user="userInfo.user" :ideas='userInfo.ideas'></ProfileIdeas>
         
     </div>
 </template>
@@ -10,12 +10,24 @@
 <script>
 import ProfileHeader from './templates/Header-Profile'
 import Header from './templates/header'
-import Ideas from './templates/Ideas'
+import ProfileIdeas from './templates/ProfileIdeas'
 export default {
+    data() {
+        return {
+            userInfo: '',
+            path: this.$route.path,
+        }
+    },
     components: {
         ProfileHeader,
-        Ideas,
+        ProfileIdeas,
         Header,
     },
+    mounted() {
+        this.callAPI('get', `/getData${this.path}`).then((response) => {
+            this.userInfo = response;
+            console.log(this.userInfo);
+        }).catch(error => console.log(error));
+    }
 }
 </script>

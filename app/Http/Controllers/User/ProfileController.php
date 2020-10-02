@@ -11,10 +11,11 @@ use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
     public function index(User $user){
-        return view('app')->with(['ideas' => Idea::where('user_id', $user->id)->get(),  'auth' => Auth::user()]);
+        return view('app');
     }
     public function getData(User $user){
-        return ['ideas' => Idea::where('user_id', $user->id)->get(),  'auth' => Auth::user()];
+        // return ['ideas' => Idea::where('user_id', $user->id)->get(),  'auth' => Auth::user()];
+        return array("user" => $user, "ideas" => $user->ideas);
     }
     public function edit(User $user){
         return view('app');

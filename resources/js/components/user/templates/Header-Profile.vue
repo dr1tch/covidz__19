@@ -22,9 +22,9 @@
             <p class="mt-4 font-weight-bold" v-text="user.bio"></p>
         </div>
         <div style="margin-top: -15%; display: block;">
-            <button type="button" class="btn btn-outline-light rounded-pill full-width">Edit Profile</button>
-            <button type="button" class="btn btn-success rounded-pill">Follow</button>
-            <button type="button" class="btn btn-outline-success rounded-pill">Unfollow</button>
+            <button v-if='isSelf' class="btn btn-outline-light rounded-pill full-width">Edit Profile</button>
+            <button v-if="!isSelf" type="button" class="btn btn-success rounded-pill">Follow</button>
+            <button v-if="!isSelf" type="button" class="btn btn-outline-success rounded-pill">Unfollow</button>
         </div>
     </div>
 
@@ -50,5 +50,22 @@ img.transform {
 import moment from 'moment'
 export default {
     props: ["user"],
+    data() {
+        return {
+            // user: {},    
+        }
+    },
+    mounted() {
+        
+    },
+    computed: {
+        isSelf(){
+            if(this.user.username == this.$store.state.user.username){
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
 }
 </script>
