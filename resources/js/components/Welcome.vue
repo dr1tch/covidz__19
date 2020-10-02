@@ -24,7 +24,7 @@
 
             <div class="tweet-button-container">
                         <div class="row">
-                          <a href="/home" class="discover-ideas">Discover Our Ideas to fight it!</a>
+                          <a href="/ideas" class="discover-ideas">Discover Our Ideas to fight it!</a>
                         </div>
 
             </div>
@@ -34,11 +34,11 @@
 
             <div class="auth-buttons">
                         <div class="row">
-                          <a class="login" href="">Log In</a>
+                          <a href="/login" class="login">Log In</a>
                         </div>
                         <div class="row">
                          
-                              <a class="signup" href="">Sign Up</a>
+                              <a href="/register" class="signup">Sign Up</a>
 
                         </div>
 

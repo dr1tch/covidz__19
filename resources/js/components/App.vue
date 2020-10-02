@@ -2,8 +2,8 @@
 <div style="height: 100%;">
     <AdminSidebar v-if="admin"></AdminSidebar>
     <UserSidebar v-if="user"></UserSidebar>
-    <div :class="[auth ? 'container-fluid main-wall' : 'container-fluid welcome']" style="height: 100%;">
-        <Navbar v-if="admin"></Navbar>
+    <div :class="mainWall()" style="height: 100%;">
+        <Navbar v-if="admin" style="position: fixed; width: 50%;"></Navbar>
         <router-view></router-view>
     </div>
     <!-- <admin v-if="admin"></admin>
@@ -21,6 +21,10 @@
     }
     .main-wall {
         border: none;
+    }
+    .admin {
+        max-width: 100%;
+        margin-right: auto;
     }
 </style>
 
@@ -69,7 +73,8 @@ export default {
         },
         auth(){
             return this.data.auth;
-        }
+        },
+        
     },
     beforeMount() {
         axios.get('/data')
@@ -91,6 +96,26 @@ export default {
 
     },
     methods: {
+        adminClass() {
+            // console.log('admin: ' + this.role === 'admin' && this.auth === true);
+            return this.data.role === 'admin';
+        },
+        userClass() {
+            // console.log('User: ' + this.role === 'user' && this.auth === true);
+            return this.data.role === 'user';
+        },
+        authClass(){
+            return this.data.auth;
+        },
+        mainWall(){
+            if(this.authClass() && this.userClass()){
+                return 'container-fluid main-wall';
+            } else if(this.authClass() && this.adminClass()){
+                return 'container-fluid main-wall admin';
+            } else {
+                return 'container-fluid welcome';
+            }
+        },
         logout() {
             document.getElementById('logout').submit();
             axios.get('/data')

@@ -27,8 +27,8 @@ class CreateUsersTable extends Migration
             // 0 for user and 1 for admin
             $table->boolean('role')->default(0);
             // 0 => Male , 1 => female
-            $table->string('wilaya');
-            $table->string('profession');
+            $table->string('wilaya')->nullable();
+            $table->string('profession')->nullable();
             $table->boolean('gender')->nullable();
             $table->date('birth_date')->nullable();
             $table->text('avatar')->nullable();

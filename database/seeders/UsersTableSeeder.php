@@ -30,12 +30,12 @@ class UsersTableSeeder extends Seeder
         	'email' => 'tema@gmail.com',
         	'password' => Hash::make('password'),
 			'gender' => '1',
-			'bio' => 'Linux Lover and Full Stack Web Developer',
-			'birth_date' => '1997-8-5',
-			'wilaya' => 'Tlemcen',
-			'profession' => 'etudiant',
+			// 'bio' => 'Linux Lover and Full Stack Web Developer',
+			// 'birth_date' => '1997-8-5',
+			// 'wilaya' => 'Tlemcen',
+			// 'profession' => 'etudiant',
 			"role" => '0',
-			"avatar" => "/images/default.jpg"
+			// "avatar" => "/images/default.jpg"
 
         ]);
 
@@ -44,14 +44,14 @@ class UsersTableSeeder extends Seeder
         	'fname' => 'Youssouf',
         	'lname' => 'Kacemi',
 			'email' => 'ycef5411@gmail.com',
-			'bio' => 'Linux Lover and Full Stack Web Developer',
+			// 'bio' => 'Linux Lover and Full Stack Web Developer',
         	'password' => Hash::make('1HRMBD99DYH'),
         	'gender' => '0',
-			'birth_date' => '1997-8-5',
-			'wilaya' => 'Naama',
-			'profession' => 'etudiant',
+			// 'birth_date' => '1997-8-5',
+			// 'wilaya' => 'Naama',
+			// 'profession' => 'etudiant',
 			"role" => '0',
-			"avatar" => "/images/default.jpg"
+			// "avatar" => "/images/default.jpg"
 
         ]);
 
@@ -60,14 +60,14 @@ class UsersTableSeeder extends Seeder
         	'fname' => 'Mouh',
         	'lname' => 'Berradia',
 			'email' => 'mouh@gmail.com',
-			'bio' => 'Linux Lover and Full Stack Web Developer',
+			// 'bio' => 'Linux Lover and Full Stack Web Developer',
         	'password' => Hash::make('password'),
         	'gender' => '0',
-			'birth_date' => '1997-8-5',
-			'wilaya' => 'Tlemcen',
-			'profession' => 'etudiant',
+			// 'birth_date' => '1997-8-5',
+			// 'wilaya' => 'Tlemcen',
+			// 'profession' => 'etudiant',
 			"role" => '0',
-			"avatar" => "/images/default.jpg"
+			// "avatar" => "/images/default.jpg"
 
         ]);
 
@@ -75,15 +75,15 @@ class UsersTableSeeder extends Seeder
         	'username' => 'dritch12',
         	'fname' => 'Sofiane',
 			'lname' => 'Haicha',
-			'bio' => 'Linux Lover and Full Stack Web Developer',
+			// 'bio' => 'Linux Lover and Full Stack Web Developer',
         	'email' => 'sofiane@gmail.com',
         	'password' => Hash::make('password'),
         	'gender' => '0',
-			'birth_date' => '1997-8-5',
-			'wilaya' => 'Tlemcen',
-			'profession' => 'etudiant',
+			// 'birth_date' => '1997-8-5',
+			// 'wilaya' => 'Tlemcen',
+			// 'profession' => 'etudiant',
 			"role" => '0',
-			"avatar" => "/images/default.jpg"
+			// "avatar" => "/images/default.jpg"
 
         ]);
 
@@ -91,15 +91,15 @@ class UsersTableSeeder extends Seeder
         	'username' => 'dritch1995',
         	'fname' => 'Jallile',
 			'lname' => 'Ayad',
-			'bio' => 'Linux Lover and Full Stack Web Developer',
+			// 'bio' => 'Linux Lover and Full Stack Web Developer',
         	'email' => 'jallile@gmail.com',
         	'password' => Hash::make('password'),
         	'gender' => '0',
-			'birth_date' => '1997-8-5',
-			'wilaya' => 'Tlemcen',
-			'profession' => 'etudiant',
+			// 'birth_date' => '1997-8-5',
+			// 'wilaya' => 'Tlemcen',
+			// 'profession' => 'etudiant',
 			"role" => '0',
-			"avatar" => "/images/default.jpg"
+			// "avatar" => "/images/default.jpg"
         ]);
         $admin = User::create([
         	'username' => '4dm1n',

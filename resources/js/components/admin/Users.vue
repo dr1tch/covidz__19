@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style="position: relative; top: 70px;">
     <div class="card bg-card">
         <div class="card-header">
             <h1 v-text="routeName"></h1>
@@ -147,8 +147,9 @@
 <style scoped>
 .main-wall {
     border: none;
-    max-width: 100%;
+    max-width: auto;
     margin-right: auto;
+
 }
 </style>
 
@@ -172,7 +173,7 @@ export default {
     },
     mounted() {
         console.log(this.$route.name);
-        axios.get('/admin/data')
+        axios.get('/data')
                     .then((response) => {
                         // console.log(response.data);
                         this.users = response.data.users;
@@ -228,7 +229,7 @@ export default {
                 .then(response => {
                     this.$modal.hide('edit-user-modal')
                 })
-                .then(() => axios.get('/admin/data')
+                .then(() => axios.get('/data')
                     .then((response) => {
                         console.log('kjdlkqjljd' +response.data.users);
                         this.users = response.data.users;
@@ -241,7 +242,7 @@ export default {
                 .then(response => {
                     this.$modal.hide('delete-user-modal')
                 })
-                .then(() => axios.get('/admin/data')
+                .then(() => axios.get('/data')
                     .then((response) => {
                         // console.log(response.data);
                         this.users = response.data.users;
@@ -254,7 +255,7 @@ export default {
             .then(response => {
                     this.$modal.hide('delete-users-modal')
                 })
-            .then(() => axios.get('/admin/data')
+            .then(() => axios.get('/data')
                     .then((response) => {
                         // console.log(response.data);
                         this.users = response.data.users;

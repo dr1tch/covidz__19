@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Laravel\Passport\HasApiTokens;
+// use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Role;
@@ -12,8 +12,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable, HasFactory;
-
+    // use HasApiTokens, Notifiable, HasFactory;
+    use HasFactory, Notifiable;
 
     
 

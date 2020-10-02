@@ -10377,6 +10377,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 // Admin Templates:
 
  // User Templates:
@@ -10441,6 +10445,26 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    adminClass: function adminClass() {
+      // console.log('admin: ' + this.role === 'admin' && this.auth === true);
+      return this.data.role === 'admin';
+    },
+    userClass: function userClass() {
+      // console.log('User: ' + this.role === 'user' && this.auth === true);
+      return this.data.role === 'user';
+    },
+    authClass: function authClass() {
+      return this.data.auth;
+    },
+    mainWall: function mainWall() {
+      if (this.authClass() && this.userClass()) {
+        return 'container-fluid main-wall';
+      } else if (this.authClass() && this.adminClass()) {
+        return 'container-fluid main-wall admin';
+      } else {
+        return 'container-fluid welcome';
+      }
+    },
     logout: function logout() {
       var _this3 = this;
 
@@ -10904,6 +10928,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -10923,7 +10948,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     console.log(this.$route.name);
-    axios.get('/admin/data').then(function (response) {
+    axios.get('/data').then(function (response) {
       // console.log(response.data);
       _this.users = response.data.users;
     })["catch"](function (error) {
@@ -10980,7 +11005,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("/admin/users/".concat(this.editedUser.id, "/update"), this.data).then(function (response) {
         _this2.$modal.hide('edit-user-modal');
       }).then(function () {
-        return axios.get('/admin/data').then(function (response) {
+        return axios.get('/data').then(function (response) {
           console.log('kjdlkqjljd' + response.data.users);
           _this2.users = response.data.users;
 
@@ -10996,7 +11021,7 @@ __webpack_require__.r(__webpack_exports__);
       this.callAPI('post', "/admin/users/".concat(this.editedUser.id, "/delete")).then(function (response) {
         _this3.$modal.hide('delete-user-modal');
       }).then(function () {
-        return axios.get('/admin/data').then(function (response) {
+        return axios.get('/data').then(function (response) {
           // console.log(response.data);
           _this3.users = response.data.users;
 
@@ -11012,7 +11037,7 @@ __webpack_require__.r(__webpack_exports__);
       this.callAPI('post', '/admin/users/deleteAll').then(function (response) {
         _this4.$modal.hide('delete-users-modal');
       }).then(function () {
-        return axios.get('/admin/data').then(function (response) {
+        return axios.get('/data').then(function (response) {
           // console.log(response.data);
           _this4.users = response.data.users;
 
@@ -16807,7 +16832,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.welcome[data-v-332fccf4] {\n    border: none;\n    width: 100%;\n    margin-right:auto;\n    margin-left: 0 !important;\n}\n.main-wall[data-v-332fccf4] {\n    border: none;\n}\n", ""]);
+exports.push([module.i, "\n.welcome[data-v-332fccf4] {\n    border: none;\n    width: 100%;\n    margin-right:auto;\n    margin-left: 0 !important;\n}\n.main-wall[data-v-332fccf4] {\n    border: none;\n}\n.admin[data-v-332fccf4] {\n    max-width: 100%;\n    margin-right: auto;\n}\n", ""]);
 
 // exports
 
@@ -16845,7 +16870,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.main-wall[data-v-fa2043a6] {\n    border: none;\n    max-width: 100%;\n    margin-right: auto;\n}\n", ""]);
+exports.push([module.i, "\n.main-wall[data-v-fa2043a6] {\n    border: none;\n    max-width: auto;\n    margin-right: auto;\n}\n", ""]);
 
 // exports
 
@@ -70235,13 +70260,14 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        {
-          class: [
-            _vm.auth ? "container-fluid main-wall" : "container-fluid welcome"
-          ],
-          staticStyle: { height: "100%" }
-        },
-        [_vm.admin ? _c("Navbar") : _vm._e(), _vm._v(" "), _c("router-view")],
+        { class: _vm.mainWall(), staticStyle: { height: "100%" } },
+        [
+          _vm.admin
+            ? _c("Navbar", { staticStyle: { position: "fixed", width: "50%" } })
+            : _vm._e(),
+          _vm._v(" "),
+          _c("router-view")
+        ],
         1
       )
     ],
@@ -70881,7 +70907,7 @@ var staticRenderFns = [
           _c("div", { staticClass: "row" }, [
             _c(
               "a",
-              { staticClass: "discover-ideas", attrs: { href: "/home" } },
+              { staticClass: "discover-ideas", attrs: { href: "/ideas" } },
               [_vm._v("Discover Our Ideas to fight it!")]
             )
           ])
@@ -70891,13 +70917,13 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("div", { staticClass: "auth-buttons" }, [
           _c("div", { staticClass: "row" }, [
-            _c("a", { staticClass: "login", attrs: { href: "" } }, [
+            _c("a", { staticClass: "login", attrs: { href: "/login" } }, [
               _vm._v("Log In")
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
-            _c("a", { staticClass: "signup", attrs: { href: "" } }, [
+            _c("a", { staticClass: "signup", attrs: { href: "/register" } }, [
               _vm._v("Sign Up")
             ])
           ])
@@ -70981,6 +71007,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticStyle: { position: "relative", top: "70px" } },
     [
       _c("div", { staticClass: "card bg-card" }, [
         _c("div", { staticClass: "card-header" }, [

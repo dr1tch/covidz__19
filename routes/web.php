@@ -37,23 +37,26 @@ Route::middleware('auth')->group(function(){
         Route::get('/ideas', [App\Http\Controllers\User\IdeaController::class, 'index']);
         Route::get('ideas/data', [App\Http\Controllers\User\IdeaController::class, 'getData']);
         Route::patch('/ideas/create', [App\Http\Controllers\User\IdeaController::class, 'store']);
+        Route::get('/{user:username}', [App\Http\Controllers\User\ProfileController::class, 'index']);
+
 
 
     });
-        Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->name('admin.')->middleware('can:admin')->group(function (){
-            Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-            
-            // Users:
-            Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index']);
-            Route::post('/users/{user:id}/update', [App\Http\Controllers\Admin\UserController::class, 'update']);
-            Route::post('/users/{user:id}/delete', [App\Http\Controllers\Admin\UserController::class, 'delete']);
-            Route::post('/users/deleteAll', [App\Http\Controllers\Admin\UserController::class, 'deleteAll']);
+    
+    Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->name('admin.')->middleware('can:admin')->group(function (){
+        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        
+        // Users:
+        Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index']);
+        Route::post('/users/{user:id}/update', [App\Http\Controllers\Admin\UserController::class, 'update']);
+        Route::post('/users/{user:id}/delete', [App\Http\Controllers\Admin\UserController::class, 'delete']);
+        Route::post('/users/deleteAll', [App\Http\Controllers\Admin\UserController::class, 'deleteAll']);
 
-            // Ideas:
-            Route::get('/ideas', [App\Http\Controllers\Admin\IdeaController::class, 'index']);
-        });
+        // Ideas:
+        Route::get('/ideas', [App\Http\Controllers\Admin\IdeaController::class, 'index']);
+    });
 });
 
 // Profile Part: 
-Route::get('/{user:username}', [App\Http\Controllers\User\ProfileController::class, 'index']);
+// Route::get('/{user:username}', [App\Http\Controllers\User\ProfileController::class, 'index']);
 

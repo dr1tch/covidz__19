@@ -46,5 +46,4 @@ class IdeaController extends Controller
   
           return auth()->id();
         }
-    }
 }

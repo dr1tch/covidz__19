@@ -58,11 +58,11 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'birth_date' => ['date'],
-            'bio' => ['string', 'max:1000'],
+            // 'bio' => ['string', 'max:1000'],
             'gender' => ['boolean'],
-            'avatar' => ['mimes:jpeg,jpg,png|max:2048'],
-            'wilaya' => ['string'],
-            'profession' => ['string']
+            // 'avatar' => ['mimes:jpeg,jpg,png|max:2048'],
+            // 'wilaya' => ['string'],
+            // 'profession' => ['string']
         ]);
     }
 
@@ -79,18 +79,18 @@ class RegisterController extends Controller
             'lname' => $data['lname'],
             'fname' => $data['fname'],
             'email' => $data['email'],
-            'bio' => $data['bio'],
+            // 'bio' => $data['bio'],
             'password' => Hash::make($data['password']),
-            'avatar' => '/images/default.jpg',
+            // 'avatar' => '/images/default.jpg',
             'gender' => $data['gender'],
-            'wilaya' => $data['wilaya'],
-            'profession' => $data['profession'],
+            // 'wilaya' => $data['wilaya'],
+            // 'profession' => $data['profession'],
         ]);
 
         
-        $role = Role::select('id')->where('name', 'user')->first();
+        // $role = Role::select('id')->where('name', 'user')->first();
 
-        $user->role()->attach($role);
+        // $user->role()->attach($role);
 
         return $user;
     }
