@@ -14,6 +14,7 @@ import Home from './components/user/pages/Home';
 import Timeline from './components/user/Timeline';
 import Profile from './components/user/Profile.vue';
 import EditProfile from './components/user/EditProfile';
+import Bookmarks from './components/user/Bookmarks.vue';
 
 
 // Admin Routes
@@ -34,9 +35,10 @@ let router = new VueRouter({
         { path: '/register', component: RegisterPage, name: 'register' },
 
         // USER ROUTES:
+        { path: '/bookmarks' , component: Bookmarks, name: 'Bookmarks'},
         { path: '/home' , component: Home, name: 'Home'},
         { path: '/ideas' , component: Timeline, name: 'Ideas'},
-        { path: "/:username" , component: Profile, name: 'Profile', props: true,},
+        { path: "/:username" , component: Profile, name: 'Profile'},
         { path: "/:username/edit" , component: EditProfile, name: 'EditProfile'},
 
 

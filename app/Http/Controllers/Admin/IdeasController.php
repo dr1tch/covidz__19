@@ -14,8 +14,8 @@ class IdeasController extends Controller
     }
     public function getData(){
         return [
-            "pending" => Idea::where('status', 0)->latest()->paginate(4), 
-            "approved" => Idea::where('status', 1)->latest()->paginate(4), 
+            "pending" => Idea::with('category')->where('status', 0)->latest()->paginate(4), 
+            "approved" => Idea::with('category')->where('status', 1)->latest()->paginate(4), 
         ];
     }
     public function index()

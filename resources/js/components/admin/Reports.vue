@@ -26,10 +26,10 @@
                         <td v-text="report.body.substr(0, 20) + '....'"></td>
                         <td class="hidden-md">
                             <a href="" data-toggle="tooltip" data-placement="bottom" title="View profile">
-                                <img class="avatar" :src="'/storage/'+ report.image" alt="">
+                                <img class="avatar" :src="report.image" alt="">
                             </a>
                         </td>
-                        <td><span class="btn-sm btn-warning font-weight-bold border-0" v-text="report.category[0].name"></span></td>
+                        <td><span class="btn-sm btn-warning font-weight-bold border-0" v-text="report.category.name"></span></td>
                         <td class="hidden-md" v-text="moment(report.created_at).format('DD-MM-YYYY')"></td>
                         <td><span class="btn-sm btn-info font-weight-bold border-0">pending</span></td>
                         <td>

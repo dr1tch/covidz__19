@@ -26,10 +26,10 @@
                         <td v-text="idea.body.substr(0, 20) + '....'"></td>
                         <td class="hidden-md">
                             <a v-if="idea.image" href="" data-toggle="tooltip" data-placement="bottom" title="View profile">
-                                <img class="avatar" :src="'/storage/'+ idea.image" alt="">
+                                <img class="avatar" :src="idea.image" alt="">
                             </a>
                         </td>
-                        <td></td>
+                        <td><span class="btn-sm btn-warning font-weight-bold border-0" v-text="idea.category.name"></span></td>
                         <td class="hidden-md" v-text="moment(idea.created_at).format('DD-MM-YYYY')"></td>
                         <td><span class="btn-sm btn-info font-weight-bold border-0">pending</span></td>
                         <td>
@@ -84,8 +84,6 @@
                             <button type="button" @click='deleteIdea(ideaId.id)' class="btn btn-sm btn-success">Delete</button>
                         </div>
                     </div>
-                </form>
-
             </div>
         </modal>
 </div>

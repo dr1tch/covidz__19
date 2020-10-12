@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Disease;
+use App\Models\Job;
 use App\Models\Wilaya;
 use Auth;
 
@@ -31,9 +33,10 @@ class HomeController extends Controller
 
     public function getData(){
         
-        $users = User::all();
+        $users = User::where('username',"<>" , '4dm1n')->get();
         $users =  $users->except(6);
         $user = Auth::user();
+        $bookmarks = Auth::user()->bookmarks;
         $role = $user->role;
         if($user->role){
             $role = 'admin';
@@ -48,7 +51,10 @@ class HomeController extends Controller
             "auth" =>  $authCheck,
             "users" => $users,
             "categories" => Category::all(),
+            'jobs' => Job::all(),
+            'diseases' => Disease::all(),
             "wilayas" => Wilaya::all(),
+            "bookmarks" => $bookmarks,
         ];
         return $data;
         }

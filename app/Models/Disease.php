@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Idea;
+use App\Models\User;
 
 class Disease extends Model
 {
     use HasFactory;
-    public function ideas()
+    protected $guarded = [];
+    public function user()
     {
-    	return $this->belongsToMany(Idea::class);
+    	return $this->hasMany(User::class);
     }
 }

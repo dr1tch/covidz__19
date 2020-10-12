@@ -28,6 +28,9 @@ class DatabaseSeeder extends Seeder
         $this->call(IdeasTableSeeder::class);
         $this->call(WilayasTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
+        $this->call(DiseaseTableSeeder::class);
+        $this->call(JobTableSeeder::class);
+        $this->call(ReportsTableSeeder::class);
         // supposed to only apply to a single connection and reset it's self
         // but I like to explicitly undo what I've done for clarity
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

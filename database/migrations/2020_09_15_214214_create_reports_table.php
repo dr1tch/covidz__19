@@ -16,6 +16,8 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
+            $table->foreignId('category_id');
+            $table->foreignId('wilaya_id');
             $table->text('address');
             $table->text('image');
             $table->string('title');

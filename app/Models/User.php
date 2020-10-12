@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Role;
 use App\Http\Controllers\Auth;
 use App\Models\Reports;
+use App\Models\Wilaya;
+use App\Models\Job;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
@@ -53,5 +55,31 @@ class User extends Authenticatable
         return $this->hasMany(Reports::class)->latest();
     }
 
-   
+    public function wilaya(){
+        return $this->belongsTo(Wilaya::class);
+    }
+
+    public function disease(){
+        return $this->belongsTo(Disease::class);
+    }
+
+    public function job(){
+        return $this->belongsTo(Job::class);
+    }
+
+    public function addBookmark(Idea $idea){
+        return $this->bookmarks()->attach($idea->id);
+      }
+  
+      public function removeBookmark(Idea $idea){
+        return $this->bookmarks()->attach($idea->id);
+      }
+  
+      public function toggleBookmark(Idea $idea){
+        return $this->bookmarks()->toggle($idea);
+      } 
+
+    public function bookmarks(){
+        return $this->belongsToMany(Idea::class, 'ideas_bookmarks', 'user_id', 'idea_id')->withTimeStamps();
+    }
 }

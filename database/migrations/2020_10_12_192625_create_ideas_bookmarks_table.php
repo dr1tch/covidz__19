@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIdeasTable extends Migration
+class CreateIdeasBookmarksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,10 @@ class CreateIdeasTable extends Migration
      */
     public function up()
     {
-        Schema::create('ideas', function (Blueprint $table) {
+        Schema::create('ideas_bookmarks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('idea_id');
             $table->foreignId('user_id');
-            $table->foreignId('category_id');
-            $table->string('title');
-            $table->text('body');
-            $table->text('image')->nullable();
-            $table->text('video')->nullable();
-            $table->unsignedBigInteger('likes')->default(0);
-            $table->boolean('status');
             $table->timestamps();
         });
     }
@@ -34,6 +28,6 @@ class CreateIdeasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ideas');
+        Schema::dropIfExists('ideas_bookmarks');
     }
 }

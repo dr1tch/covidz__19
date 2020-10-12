@@ -27,7 +27,7 @@
                         <td v-if="!user.role"><span class="btn btn-sm btn-success font-weight-bold py-2 px-3 border-0">user</span></td>
                         <td>
                             <a href="" data-toggle="tooltip" data-placement="bottom" title="View profile">
-                                <img class="avatar" src="/images/profile.jpg" alt="">
+                                <img class="avatar" :src="user.avatar" alt="">
                             </a>
                         </td>
                         <td>

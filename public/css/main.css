@@ -140,6 +140,13 @@ a:hover {
     transition: 0.5s;
 }
 
+.main-wall-header {
+    border: 1px #eee solid;
+    border-top: none;
+    right: 349px;
+    left: 274px;
+}
+
 div.card {
     background-color: transparent;
 }
@@ -311,7 +318,7 @@ a.logo:hover {
 .posts {
     /*padding: 5px;*/
     position: relative;
-    top: 72px;
+    top: 63px;
 }
 
 .icon {
@@ -469,7 +476,7 @@ ul a:hover {
 }
 
 .main-wall-header {
-    max-width: 748px;
+    max-width: 750px;
     margin-right: auto;
     padding: 10px 15px;
     border-bottom: 1px solid rgb(238, 238, 238);
@@ -1115,7 +1122,7 @@ ul a:hover {
     }
 
     .main-wall-header {
-        left: 75px;
+        left: 74px;
         margin: auto 1px;
         margin-right: 0;
         right: 0;

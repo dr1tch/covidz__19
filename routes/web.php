@@ -32,18 +32,29 @@ Route::middleware('auth')->group(function(){
 
     Route::middleware('can:user')->group(function (){
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+        Route::get('/bookmarks', [App\Http\Controllers\User\IdeaController::class, 'view']);
         // Ideas:
         Route::get('/ideas', [App\Http\Controllers\User\IdeaController::class, 'index']);
         Route::get('ideas/data', [App\Http\Controllers\User\IdeaController::class, 'getData']);
         Route::patch('/ideas/create', [App\Http\Controllers\User\IdeaController::class, 'store']);
         Route::get('/{user:username}', [App\Http\Controllers\User\ProfileController::class, 'index']);
+        Route::patch('/ideas/find', [App\Http\Controllers\User\IdeaController::class, 'categoryOrder']);
+
+
+        // Bookmarks:
+        // Route::patch('/ideas/bookmark/{idea:id}/add', [App\Http\Controllers\User\IdeaController::class, 'addBookmark']);
+        // Route::patch('/ideas/bookmark/{idea:id}/delete', [App\Http\Controllers\User\IdeaController::class, 'deleteBookmark']);
+        Route::patch('/bookmark/{idea:id}', [App\Http\Controllers\User\IdeaController::class, 'add']);
+        
+        
         // Route::get('/{user:username}/edit', [App\Http\Controllers\User\ProfileController::class, 'edit']);
         Route::get('/{user:username}/update', [App\Http\Controllers\User\ProfileController::class, 'update']);
+        
         // Reports:
         Route::get('/reports', [App\Http\Controllers\User\ReportsController::class, 'index']);
         Route::get('reports/data', [App\Http\Controllers\User\ReportsController::class, 'getData']);
         Route::patch('/reports/create', [App\Http\Controllers\User\ReportsController::class, 'store']);
+        Route::patch('/reports/find', [App\Http\Controllers\User\ReportsController::class, 'categoryOrder']);
 
     });
     
@@ -68,7 +79,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/reports', [App\Http\Controllers\Admin\ReportsController::class, 'index']);
         Route::post('/reports/{report:id}/update', [App\Http\Controllers\Admin\ReportsController::class, 'update']);
         Route::post('/reports/{report:id}/delete', [App\Http\Controllers\Admin\ReportsController::class, 'delete']);
-
+        
     });
 });
 

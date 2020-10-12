@@ -10,9 +10,18 @@
                 </div>
                 <form action="/ideas/create" method="POST" @submit.prevent="addIdea">
                     <div class="card-body">
-                        <div>
-                            <input type="text" class=" form-control bg-secondary text-light mb-3" placeholder="Title ..." v-model="title">
-                            <!-- <span class=" alert text-danger" v-if="errors" v-text="form.errors.errors.errors.tagName[0]"></span> -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class=" form-control bg-secondary text-light mb-3" placeholder="Title ..." v-model="title">
+                                <!-- <span class=" alert text-danger" v-if="errors" v-text="form.errors.errors.errors.tagName[0]"></span> -->
+                            </div>
+                            <div class="col-md-6">
+                                <select name="" v-model="category" id="" class="form-control bg-secondary text-light mb-3">
+                                    <option value="" selected disabled>Category...</option>
+                                    <option v-for="category in $store.state.categories" :key="category.id" :value="category.id">{{category.name}}</option>
+                                </select>
+                            </div>
+
                         </div>
                         <div>
                             <textarea type="text" class=" form-control bg-secondary text-light mb-3" placeholder="Body ..." v-model="body"></textarea>
@@ -123,7 +132,7 @@
         <div>
             <ul>
                 <router-link class="menu-item-link " to="/ideas">
-                    <li class="menu-item selected">
+                    <li :class="[currentPage('Tags') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
                             <!-- <img class="logo-img-menu"  src="/images/side-menu-icons/lamp.svg" alt=""> -->
                             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-house-door" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -135,7 +144,7 @@
                     </li>
                 </router-link>
                 <router-link class="menu-item-link hide-menu" to="/reports">
-                    <li class="menu-item ">
+                    <li :class="[currentPage('Tags') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
 
                             <svg width="1.5625em" height="1.5em" viewBox="0 0 17 16" class="bi bi-exclamation-triangle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -204,8 +213,8 @@
                         </div>
                     </li>
                 </a> -->
-                <a class="menu-item-link hide-menu" href="">
-                    <li class="menu-item">
+                <router-link class="menu-item-link hide-menu" to="/bookmarks">
+                    <li :class="[currentPage('Tags') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
                             <!-- <img class="logo-img-menu"  src="/images/side-menu-icons/bookmark.svg" alt=""> -->
                             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-bookmark" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -214,7 +223,7 @@
                             <h5 class="header-logo-text-sidebar ml-3" style="font-weight: bold;">Bookmarks</h5>
                         </div>
                     </li>
-                </a>
+                </router-link>
                 <router-link @click="edit" :to="'/' + $store.state.user.username" class="menu-item-link hide-menu">
                     <li class="menu-item">
                         <div class="menu-item-container">
@@ -482,9 +491,13 @@ export default {
             this.$router.push({
                 name: 'EditProfile',
                 params: {
-                    username: joke.username
+                    username: joke.username,
+                     "user": this.$store.state.user
                 }
             })
+        },
+        currentPage(slug){
+            return this.$route.name.includes(slug);
         },
 
         // Ideas APIs
@@ -499,6 +512,7 @@ export default {
             this.data.set('title', this.title);
             this.data.set('body', this.body);
             this.data.set('image', this.cover);
+            this.data.set("category", this.category);
             this.data.set('_method', "patch");
             this.callAPI('post', '/ideas/create', this.data)
                 .then((response) => {

@@ -52,6 +52,9 @@ export default {
                 users: '',
                 categories: '',
                 wilayas: '',
+                diseases: '',
+                jobs: '',
+                bookmarks: '',
             },
 
         }
@@ -86,10 +89,10 @@ export default {
     beforeMount() {
         axios.get('/data')
             .then((response) => {
-                // console.log(response.data);
+                // console.log(response);
                 this.data = response.data;
+
                 this.$store.commit('addData', this.data);
-                this.$store.commit('removeAdmin');
             });
     },
     mounted() {
@@ -98,7 +101,8 @@ export default {
             .then((response) => {
                 // console.log(response.data);
                 this.data = response.data;
-                this.$store.commit('addData', this.data);
+            }).catch((errors) => {
+                console.log(errors);
             });
 
     },

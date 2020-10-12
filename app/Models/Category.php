@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Idea;
+use App\Models\Reports;
+
 class Category extends Model
 {
     use HasFactory;
@@ -12,11 +14,11 @@ class Category extends Model
     protected $guarded = [];
 
     public function report(){
-        return $this->belongsToMany(Reports::class);
+        return $this->hasMany(Reports::class);
     }
 
-    public function ideas()
+    public function idea()
     {
-    	return $this->belongsToMany(Idea::class);
+    	return $this->hasMany(Idea::class);
     }
 }

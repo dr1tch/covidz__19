@@ -14,11 +14,11 @@ class Reports extends Model
     protected $guarded = [];
 
     public function wilaya(){
-        return $this->belongsToMany(Wilaya::class);
+        return $this->belongsTo(Wilaya::class);
     }
 
     public function category(){
-        return $this->belongsToMany(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function user(){

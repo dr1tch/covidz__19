@@ -15,13 +15,15 @@ class UserController extends Controller
     }
 
     public function getData(){
-        return User::where('username',"!=" , '4dm1n')->paginate(4);
+        return User::where('username',"<>" , '4dm1n')->paginate(4);
     }
 
     public function index()
     {   
         return view('app');
     }
+
+    
 
     public function edit(User $user){
         $roles = Role::all();

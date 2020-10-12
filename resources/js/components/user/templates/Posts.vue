@@ -1,10 +1,15 @@
 <template>
-        <div class="posts">
-            <div v-if="ideas" class="p-0 m-0" v-for="idea in ideas" :key="idea.id">
+    <div>
+        <div class="posts" v-if="ideas.length">
+            <div class="p-0 m-0" v-for="idea in ideas" :key="idea.id">
                 <Post :idea="idea" ></Post> 
             </div>
-            <h2 v-else class="alert text-center p-5 text-warning">NO IDEAS ADDED YET!!!!</h2>
 	    </div>
+        <div class="posts" v-else>
+            <h2  class="alert text-center p-5 text-warning">NO IDEAS ADDED YET!!!!</h2>
+        </div>
+    </div>
+        
         
 </template>
 

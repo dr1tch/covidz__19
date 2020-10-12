@@ -13,6 +13,15 @@ use Auth;
 
 class ReportsController extends Controller
 {
+    public function categoryOrder(Request $request){
+        return [
+            "pending" => Reports::with(['category', 'wilaya'])
+                ->where('status', 0)
+                ->where('category_id', $request['category_id'])
+                ->latest()->paginate(4), 
+            "approved" => Reports::with(['category', 'wilaya'])->where('status', 1)->latest()->paginate(4), 
+        ];
+    }
     public function getData(){
         return [Reports::with(['category', 'wilaya'])->get()];
     }
@@ -40,6 +49,8 @@ class ReportsController extends Controller
           
         $report = Reports::create([
             'user_id' => auth()->id(),
+            'category_id' => $attributes['category'],
+            'wilaya_id' => $attributes['wilaya'],
             'title' => $attributes['title'],
             'body' => $attributes['body'],
             'address' => $attributes['address'],
@@ -50,8 +61,8 @@ class ReportsController extends Controller
         
            
   
-        $report->category()->attach($attributes['category']);
-        $report->wilaya()->attach($attributes['wilaya']);
+        // $report->category()->attach($attributes['category']);
+        // $report->wilaya()->attach($attributes['wilaya']);
         return auth()->user()->reports;
         }
 }

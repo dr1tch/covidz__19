@@ -17,4 +17,8 @@ class UserController extends Controller
         $users = User::all();
         return view('app', ['users' => json_decode($users, true)]);
     }
+
+    public function bookmarks(){
+
+    }
 }

@@ -18,6 +18,9 @@ export default new Vuex.Store({
       user: [],
       categories: [],
       wilayas: [],
+      jobs: [],
+      diseases: [],
+      bookmarks: [],
     },
     getters: {
         auth: state =>{
@@ -31,18 +34,32 @@ export default new Vuex.Store({
 
     mutations: {
         addData(state, data){
+          console.log(data);
           state.auth = data.auth;
           state.role = data.role;
           state.users = data.users;
           state.user = data.user;
           state.categories = data.categories;
           state.wilayas = data.wilayas;
+          state.jobs = data.jobs;
+          state.diseases = data.diseases;
+          state.bookmarks = data.bookmarks;
         },
-        removeAdmin: (state) => {
-          state.users.slice(3,1);
-        },
-        afterPagination : (state, users) => {
-          state.users = users;
+        pushBookmark(state, data){
+          let item = 0;
+          state.bookmarks.map((bookmark) => {
+            if(bookmark.id == data.id){
+              return item;
+            } else {
+              item++;
+            }
+          })
+          console.log(item);
+          if(item !== state.bookmarks.length){
+            state.bookmarks.splice(item, 1);
+          } else {
+            state.bookmarks.push(data);
+          }
         }
     },
 

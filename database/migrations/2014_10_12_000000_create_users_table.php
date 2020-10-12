@@ -26,9 +26,10 @@ class CreateUsersTable extends Migration
             $table->boolean('isActivated')->default(0);
             // 0 for user and 1 for admin
             $table->boolean('role')->default(0);
+            $table->foreignId('wilaya_id');
+            $table->foreignId('job_id');
+            $table->foreignId('disease_id')->nullable();
             // 0 => Male , 1 => female
-            $table->string('wilaya')->nullable();
-            $table->string('profession')->nullable();
             $table->boolean('gender')->nullable();
             $table->date('birth_date')->nullable();
             $table->text('avatar')->nullable();
