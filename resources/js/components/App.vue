@@ -1,7 +1,7 @@
 <template>
 <div style="height: 100%;">
     <AdminSidebar v-if="admin"></AdminSidebar>
-    <UserSidebar v-if="user"></UserSidebar>
+    <UserSidebar v-if="user" :categories="categoriess" :wilayas="wilayass"></UserSidebar>
     <div :class="mainWall()" style="height: 100%;">
         <Navbar v-if="admin"></Navbar>
         <router-view></router-view>
@@ -49,7 +49,9 @@ export default {
                 user: '',
                 role: '',
                 auth: '',
-                users: ''
+                users: '',
+                categories: '',
+                wilayas: '',
             },
 
         }
@@ -74,7 +76,12 @@ export default {
         auth(){
             return this.data.auth;
         },
-        
+        categoriess(){
+            return this.categories;
+        },
+        wilayass(){
+            return this.wilayas;
+        }
     },
     beforeMount() {
         axios.get('/data')

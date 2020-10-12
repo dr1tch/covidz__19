@@ -2,45 +2,33 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\Idea;
 use App\Models\User;
 use App\Models\Category;
-use App\Models\Tag;
+use App\Models\Wilaya;
+use App\Models\Reports;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 
 
-class IdeaController extends Controller
+class ReportsController extends Controller
 {
-    public function getData()
-    {
-      return [Idea::with('user')->where('status', 1)->orderBy('likes', 'desc')->get()];
+    public function getData(){
+        return [Reports::with(['category', 'wilaya'])->get()];
     }
-
     public function index()
     {
         return view('app');
     }
 
-    // public function like(Idea $idea, Request $request)
-    // {
-    //     $value = $post->like;
-    //     $post->like = $value+1;
-    //     $post->save();
-    //     return response()->json([
-    //         'message'=>'Thanks',
-    //     ]);
-    // }
-
-
-
     public function store(Request $request){
         $attributes = request()->validate([
             'title' => 'required|max:255',
+            'category' => 'required|integer',
+            'wilaya' => 'required|integer',
+            'address' => 'required|string',
             'body' => 'required',
-            'categorie' => '',
-            // 'image' => 'file',
+            'image' => 'file',
             'video' => 'file'
           ]);
           if(request('image')){
@@ -50,10 +38,11 @@ class IdeaController extends Controller
             $attributes['image'] = null;
         }
           
-        $idea = Idea::create([
-            'user_id' => Auth::user()->id,
+        $report = Reports::create([
+            'user_id' => auth()->id(),
             'title' => $attributes['title'],
             'body' => $attributes['body'],
+            'address' => $attributes['address'],
             'image' => $attributes['image'],
             'status' => 0
         ]);
@@ -61,6 +50,8 @@ class IdeaController extends Controller
         
            
   
-        // $idea->categorie()->associate($request->categorie);
+        $report->category()->attach($attributes['category']);
+        $report->wilaya()->attach($attributes['wilaya']);
+        return auth()->user()->reports;
         }
 }

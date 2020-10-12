@@ -5,7 +5,7 @@
             <h1 v-text="routeName"></h1>
         </div>
         <div class='table-responsive card-body'>
-            <table class="table table-bordered" v-if="!arrayLength">
+            <table class="table table-bordered">
                 <thead class="text-success font-weight-bold">
                     <tr>
                         <th>ID</th>
@@ -18,7 +18,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="user in showUsers" :key="user.id">
+                    <tr v-for="user in users" :key="user.id">
                         <td v-text="user.id"></td>
                         <td class="hidden-sm">{{user.fname + ' ' + user.lname}}</td>
                         <td v-text="user.username"></td>
@@ -39,22 +39,22 @@
                     </tr>
                 </tbody>
             </table>
-            <h2 v-else class="alert text-center p-5 text-warning">NO ALBUMS ADDED YET!!!!</h2>
+            <!-- <h2 v-else class="alert text-center p-5 text-warning">NO ALBUMS ADDED YET!!!!</h2> -->
         </div>
 
-        <div class="card-footer" v-if="!arrayLength">
+        <div class="card-footer">
             <div class=" flex justify-content-between align-items-center">
                 <div class="my-4">
                     <ul class="pagination pagination-md justify-content-center text-center">
-                        <li class="page-item" :class="page === 1 ? 'disabled' : ''">
-                            <a class="page-link" @click="prevPage">
+                        <li class="page-item" :class="from === 1 ? 'disabled' : ''">
+                            <a class="page-link" @click="previousPage">
                                 Previous
                             </a>
                         </li>
                         <li class="page-link" style="background-color: inherit">
-                            {{ page }} of {{ lastPage }}
+                            {{ currentPage }} of {{ pages }}
                         </li>
-                        <li class="page-item" :class="page === lastPage ? 'disabled' : ''">
+                        <li class="page-item" :class="to === total ? 'disabled' : ''">
                             <a class="page-link" @click="nextPage">
                                 Next
                             </a>
@@ -72,7 +72,7 @@
             <div class="card-header">
                 <h4 class="font-weight-bold">Edit User</h4>
             </div>
-            <form :action="`/admin/users/${editedUser.id}/update`" method="POST" @submit.prevent="editUser">
+            <form :action="`/admin/users/${editedUser.id}/update`" method="POST" @submit.prevent="editUser(editedUser.id)">
                 <div class="card-body">
                     <div>
                         <select class="custom-select bg-secondary" name="role" id="role" v-model="role" required>
@@ -116,7 +116,7 @@
         </div>
     </modal>
 
-     <!-- Delete All Albums Modal -->
+    <!-- Delete All Albums Modal -->
 
     <modal name="delete-users-modal" height="auto" width="500px" classes="text-light bg-secondary">
         <div class="card">
@@ -139,7 +139,6 @@
 
         </div>
     </modal>
-
 
 </div>
 </template>
@@ -167,36 +166,27 @@ export default {
             role: '',
             fresh: {},
             perPage: 4,
-            currentPage: 1,
+            currentPage: '',
             page: 1,
+            from: '',
+            to: '',
+            next: '',
+            prev: '',
+            total: '',
+            pages: '',
         }
     },
     mounted() {
         console.log(this.$route.name);
-        axios.get('/data')
-                    .then((response) => {
-                        // console.log(response.data);
-                        this.users = response.data.users;
-                    })
-                .catch(error => console.log(error));
+        this.callAPI('get', '/admin/users/data')
+            .then((responce) => {
+                this.afterRequest(responce);
+            })
+            .catch(error => console.log(error));
     },
     computed: {
         routeName() {
             return this.$route.name;
-        },
-        arrayLength() {
-            console.log(this.$store.commit('length') > 0);
-            return this.$store.commit('length') > 0;
-        },
-        showUsers() {
-            let start = (this.page - 1) * this.perPage
-            let end = start + this.perPage
-            this.loading = false
-            return this.users.slice(start, end)
-        },
-        lastPage() {
-            let length = this.users.length;
-            return Math.floor(length / this.perPage) + 1;
         },
     },
     methods: {
@@ -205,34 +195,30 @@ export default {
             this.$modal.show(name);
         },
         afterRequest(data) {
-            this.fresh = data;
-            this.$store.commit('addData', this.fresh);
-            this.$store.commit('removeAdmin');
             this.role = '';
             this.editedUser = {};
             this.users = data.users;
+            this.users = data.data;
+            this.currentPage = data.current_page;
+            this.from = data.from;
+            this.perPage = data.per_page;
+            this.next = data.next_page_url;
+            this.prev = data.prev_page_url;
+            this.to = data.to;
+            this.total = data.total;
+            this.pages = data.last_page;
         },
-        prevPage() {
-            this.loading = true
-            this.page--
-        },
-        nextPage() {
-            this.loading = true
-            this.page++
-        },
-
         // Users APIs:
-        editUser() {
+        editUser(id) {
             this.data.set('role', this.role);
             console.log(this.role);
-            axios.post(`/admin/users/${this.editedUser.id}/update`, this.data)
+            axios.post(`/admin/users/${id}/update`, this.data)
                 .then(response => {
                     this.$modal.hide('edit-user-modal')
                 })
-                .then(() => axios.get('/data')
-                    .then((response) => {
-                        console.log('kjdlkqjljd' +response.data.users);
-                        this.users = response.data.users;
+                .then(() => this.callAPI('get', `/admin/users/data?page=${this.currentPage}`)
+                    .then((responce) => {
+                        this.users = responce.data;
                         this.afterRequest(response.data);
                     }))
                 .catch(error => console.log(error));
@@ -250,12 +236,12 @@ export default {
                     }))
                 .catch(error => console.log(error));
         },
-        deleteAllUsers(){
-            this.callAPI('post','/admin/users/deleteAll')
-            .then(response => {
+        deleteAllUsers() {
+            this.callAPI('post', '/admin/users/deleteAll')
+                .then(response => {
                     this.$modal.hide('delete-users-modal')
                 })
-            .then(() => axios.get('/data')
+                .then(() => axios.get('/data')
                     .then((response) => {
                         // console.log(response.data);
                         this.users = response.data.users;

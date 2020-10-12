@@ -1,7 +1,7 @@
 <template>
 <div class="m-0 p-0">
     <!-- Add Ideas Modal -->
-    <modal name="add-idea-modal" height="auto" width="500px" classes="text-light bg-secondary">
+    <modal name="add-idea-modal" height="auto" width="600px" classes="text-light bg-secondary">
         <div>
 
             <div class="card">
@@ -29,12 +29,77 @@
                                 </label>
                             </button>
                             <input type="file" name="path" id="path" @change="newCover" style="display: none;">
-                            <img :src="imgPreview" alt="" class="img-preview img-fluid rounded-lg">
+                            <img :src="imgPreview" alt="" class="img-preview img-fluid rounded-lg" width="100px">
                         </div>
                     </div>
                     <div class="card-footer">
                         <div class="flex align-items-center justify-content-between">
                             <button type="button" @click="$modal.hide('add-idea-modal')" class="btn btn-sm btn-danger">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-success">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </modal>
+    <!-- Add Reports Modal -->
+    <modal name="add-report-modal" height="auto" width="750px" classes="text-light bg-secondary">
+        <div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="font-weight-bold">Report Something</h4>
+                </div>
+                <form action="/reports/create" method="POST" @submit.prevent="addReport">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class=" form-control bg-secondary text-light mb-3" placeholder="Title ..." v-model="title">
+                                <!-- <span class=" alert text-danger" v-if="errors" v-text="form.errors.errors.errors.tagName[0]"></span> -->
+                            </div>
+                            <div class="col-md-6">
+                                <select name="" v-model="category" id="" class="form-control bg-secondary text-light mb-3">
+                                    <option value="" selected disabled>Category...</option>
+                                    <option v-for="category in $store.state.categories" :key="category.id" :value="category.id">{{category.name}}</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select name="" v-model="wilaya" id="" class="form-control bg-secondary text-light mb-3">
+                                    <option value="" selected disabled>Willaya...</option>
+                                    <option v-for="wilaya in $store.state.wilayas" :key="wilaya.id" :value="wilaya.id">{{wilaya.name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class=" form-control bg-secondary text-light mb-3" placeholder="Address ..." v-model="address">
+                                <!-- <span class=" alert text-danger" v-if="errors" v-text="form.errors.errors.errors.tagName[0]"></span> -->
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <textarea type="text" class=" form-control bg-secondary text-light mb-3 mx-3" placeholder="Body ..." v-model="body"></textarea>
+                            <!-- <span class=" alert text-danger" v-if="errors" v-text="form.errors.errors.errors.tagName[0]"></span> -->
+                        </div>
+                        <div class="flex justify-content-between align-items-center p-2">
+                            <button type="button" class="btn" data-toggle="tooltip" data-placement="bottom" title="Select a Cover Image">
+                                <label for="path" class="flex" style="margin-bottom: 0;">
+                                    <div>
+                                        <svg width="1.5625em" height="1.5em" viewBox="0 0 17 16" class="bi bi-image-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15.002 9.5V13a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1v-1zm5-6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                                        </svg>
+                                    </div>
+                                </label>
+                            </button>
+                            <input type="file" name="path" id="path" @change="newCover" style="display: none;">
+                            <img :src="imgPreview" alt="" class="img-preview rounded-lg" width="150px">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="flex align-items-center justify-content-between">
+                            <button type="button" @click="$modal.hide('add-report-modal')" class="btn btn-sm btn-danger">Cancel</button>
                             <button type="submit" class="btn btn-sm btn-success">Add</button>
                         </div>
                     </div>
@@ -57,7 +122,7 @@
 
         <div>
             <ul>
-                <a class="menu-item-link " href="">
+                <router-link class="menu-item-link " to="/ideas">
                     <li class="menu-item selected">
                         <div class="menu-item-container">
                             <!-- <img class="logo-img-menu"  src="/images/side-menu-icons/lamp.svg" alt=""> -->
@@ -68,8 +133,8 @@
                             <h5 class="ml-3 header-logo-text-sidebar" style="font-weight: bold;">Ideas</h5>
                         </div>
                     </li>
-                </a>
-                <a class="menu-item-link hide-menu" href="">
+                </router-link>
+                <router-link class="menu-item-link hide-menu" to="/reports">
                     <li class="menu-item ">
                         <div class="menu-item-container">
 
@@ -80,7 +145,7 @@
                             <h5 class="header-logo-text-sidebar ml-3" style="font-weight: bold;">Reports</h5>
                         </div>
                     </li>
-                </a>
+                </router-link>
                 <a class="menu-item-link" href="">
                     <li class="menu-item">
                         <div class="menu-item-container">
@@ -154,8 +219,8 @@
                     <li class="menu-item">
                         <div class="menu-item-container">
                             <!-- <img class="logo-img-menu"  src="/images/side-menu-icons/bookmark.svg" alt=""> -->
-                           <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                            <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                             </svg>
                             <h5 class="header-logo-text-sidebar ml-3" style="font-weight: bold;">Profile</h5>
                         </div>
@@ -173,7 +238,7 @@
                             </button>
                         </div>
                         <div>
-                            <button id="report" class="btn btn-danger btn-sidebar m-b-report">
+                            <button @click="$modal.show('add-report-modal')" id="report" class="btn btn-danger btn-sidebar m-b-report">
                                 <svg width="1.5625em" height="1.5em" viewBox="0 0 17 16" class="bi bi-exclamation-triangle-fill text-light" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 5zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                                 </svg>
@@ -195,7 +260,7 @@
                 </li>
 
                 <li class="profile-bottom hide-menu">
-                    <button class="btn" style="width:100%">
+                    <button class="btn" style="width:100%" @click="toggle_menu('settings')">
                         <div class="profile-sidebar">
                             <div class="profile-link-right-side profile-ticket">
                                 <img class="img-pb img-bottom" :src="$store.state.user.avatar" alt="">
@@ -218,6 +283,25 @@
                     </button>
                 </li>
             </ul>
+            <div id="settings" class="card shadow" style="display: none">
+                <!-- <router-link :to="'/' + $store.state.user.username" >
+                        <li>
+                            <span class="font-weight-bold">Profile</span>
+                        </li>
+                    </router-link> -->
+                <!-- <a href="">
+                        <li>
+                            <span class="font-weight-bold">Settings</span>
+                        </li>
+                    </a> -->
+
+                <a class="btn text-light py-2 px-2" type="button" @click="logout">
+                    <span class="font-weight-bold">Logout</span>
+                    <form style="display: hidden" action="/logout" method="POST" id="logout">
+                        <input type="hidden" name="_token" :value="csrf_token" />
+                    </form>
+                </a>
+            </div>
         </div>
     </div>
     <div id="side-menu" class="dropd-menu" style="display: none;">
@@ -280,33 +364,98 @@
             </a>
 
         </ul>
+
     </div>
+
 </div>
 </template>
 
-<style>
+<style scoped>
+div#settings {
+    position: absolute;
+    bottom: 130px;
+    left: 24px;
+    /* background: rgb(255, 109, 122); */
+    background: rgb(28, 40, 51);
+    /* background: rgb(21, 32, 43); */
+    height: 100px;
+    width: 240px;
+    border-radius: 25px;
+    box-shadow: 0 25px 20px -20px rgba(0, 0, 0, 0.1), 0 0 15px rgba(0, 0, 0, 0.06);
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
 
+div#settings {
+    padding-inline-start: 0px;
+    margin-bottom: 0;
+}
+
+div#settings a {
+    /* display: flex;
+        justify-content: center;
+        align-items: center; */
+    border-bottom: #666 1px solid;
+    border-top: #666 1px solid;
+}
+
+div#settings a span {
+    font-size: 1.15em;
+}
+
+/* div#settings ul a:last-child {
+        border-bottom: none;
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+    }
+    div#settings ul a:first-child {
+        border-top-left-radius: 25px;
+        border-top-right-radius: 25px;
+    } */
+div#settings a:hover {
+    background-color: rgba(58, 193, 114, 0.1) !important;
+}
 </style>
 
 <script>
 export default {
-
+    props: ["categories", "wilayas"],
     data: function () {
         return {
-             ideas: [],
+            // categories: [],
+            // wilayas: [],
+            ideas: [],
+            reports: [],
             cover: '',
             title: '',
+            category: '',
+            wilaya: '',
+            address: '',
             body: '',
             imgPreview: '',
             data: new FormData(),
+            csrf_token: window.csrf_token,
         }
     },
 
     mounted() {
-
+        this.getData();
+        this.$route.push({
+            "user": this.$store.state.user
+        });
     },
 
     methods: {
+        toggle_menu(e) {
+            var d = document.getElementById(e);
+
+            if (d.style.display == 'none') {
+                d.style.display = 'flex';
+            } else {
+                d.style.display = 'none';
+            }
+        },
         hamb_click() {
             let e = document.querySelector("#side-menu");
             let v = document.querySelector('div.main-wall');
@@ -320,7 +469,7 @@ export default {
             }
         },
         logout() {
-            document.getElementById('logout-form').submit();
+            document.getElementById('logout').submit();
         },
         newCover(event) {
             let files = event.target.files;
@@ -329,11 +478,14 @@ export default {
             console.log(this.cover)
             this.imgPreview = URL.createObjectURL(event.target.files[0]);
         },
-        edit: function(joke) {
-            this.$router.push({ name: 'EditProfile', params: { username: joke.username }})
+        edit: function (joke) {
+            this.$router.push({
+                name: 'EditProfile',
+                params: {
+                    username: joke.username
+                }
+            })
         },
-
-
 
         // Ideas APIs
         getData() {
@@ -343,7 +495,7 @@ export default {
                     this.ideas = response;
                 })
         },
-        addIdea(){
+        addIdea() {
             this.data.set('title', this.title);
             this.data.set('body', this.body);
             this.data.set('image', this.cover);
@@ -363,6 +515,38 @@ export default {
                     this.title = '';
                     this.body = '';
                     this.cover = '';
+                    this.imgPreview = ''
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        addReport() {
+            this.data.set('title', this.title);
+            this.data.set('body', this.body);
+            this.data.set('image', this.cover);
+            this.data.set('address', this.address);
+            this.data.set("category", this.category);
+            this.data.set("wilaya", this.wilaya);
+            this.data.set('_method', "patch");
+            this.callAPI('post', '/reports/create', this.data)
+                .then((response) => {
+                    console.log(response);
+                }).then(() => {
+                    this.callAPI('get', '/reports/data')
+                        .then((response) => {
+                            this.reports = response;
+                            console.log(response);
+                        })
+                })
+                .then(() => {
+                    this.$modal.hide("add-report-modal");
+                    this.title = '';
+                    this.body = '';
+                    this.cover = '';
+                    this.address = '';
+                    this.category = '';
+                    this.wilaya = '';
                     this.imgPreview = ''
                 })
                 .catch((error) => {

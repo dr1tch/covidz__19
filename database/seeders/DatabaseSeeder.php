@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 use Illuminate\Support\Facades\DB;
@@ -25,7 +26,8 @@ class DatabaseSeeder extends Seeder
     	// $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(IdeasTableSeeder::class);
-        // $this->call(WilayasTableSeeder::class);
+        $this->call(WilayasTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
         // supposed to only apply to a single connection and reset it's self
         // but I like to explicitly undo what I've done for clarity
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

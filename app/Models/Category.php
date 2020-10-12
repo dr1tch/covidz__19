@@ -9,6 +9,12 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
+    public function report(){
+        return $this->belongsToMany(Reports::class);
+    }
+
     public function ideas()
     {
     	return $this->belongsToMany(Idea::class);

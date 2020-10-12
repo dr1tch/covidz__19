@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('app');
 // });
 
-Route::get('/', [App\Http\Controllers\AppController::class, 'get']);
+Route::get('/', [App\Http\Controllers\AppController::class, 'get'])->middleware('guest');
 
 
 Auth::routes();
@@ -40,7 +40,10 @@ Route::middleware('auth')->group(function(){
         Route::get('/{user:username}', [App\Http\Controllers\User\ProfileController::class, 'index']);
         // Route::get('/{user:username}/edit', [App\Http\Controllers\User\ProfileController::class, 'edit']);
         Route::get('/{user:username}/update', [App\Http\Controllers\User\ProfileController::class, 'update']);
-
+        // Reports:
+        Route::get('/reports', [App\Http\Controllers\User\ReportsController::class, 'index']);
+        Route::get('reports/data', [App\Http\Controllers\User\ReportsController::class, 'getData']);
+        Route::patch('/reports/create', [App\Http\Controllers\User\ReportsController::class, 'store']);
 
     });
     
@@ -48,13 +51,24 @@ Route::middleware('auth')->group(function(){
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         
         // Users:
+        Route::get('/users/data', [App\Http\Controllers\Admin\UserController::class, 'getData']);
         Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index']);
         Route::post('/users/{user:id}/update', [App\Http\Controllers\Admin\UserController::class, 'update']);
         Route::post('/users/{user:id}/delete', [App\Http\Controllers\Admin\UserController::class, 'delete']);
         Route::post('/users/deleteAll', [App\Http\Controllers\Admin\UserController::class, 'deleteAll']);
 
         // Ideas:
-        Route::get('/ideas', [App\Http\Controllers\Admin\IdeaController::class, 'index']);
+        Route::get('/ideas/data', [App\Http\Controllers\Admin\IdeasController::class, 'getData']);
+        Route::get('/ideas', [App\Http\Controllers\Admin\IdeasController::class, 'index']);
+        Route::post('/ideas/{idea:id}/update', [App\Http\Controllers\Admin\IdeasController::class, 'update']);
+        Route::post('/ideas/{idea:id}/delete', [App\Http\Controllers\Admin\IdeasController::class, 'delete']);
+
+        // Reports:
+        Route::get('/reports/data', [App\Http\Controllers\Admin\ReportsController::class, 'getData']);
+        Route::get('/reports', [App\Http\Controllers\Admin\ReportsController::class, 'index']);
+        Route::post('/reports/{report:id}/update', [App\Http\Controllers\Admin\ReportsController::class, 'update']);
+        Route::post('/reports/{report:id}/delete', [App\Http\Controllers\Admin\ReportsController::class, 'delete']);
+
     });
 });
 

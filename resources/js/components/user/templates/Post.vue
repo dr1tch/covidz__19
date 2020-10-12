@@ -20,7 +20,7 @@
             <div class="bookmark">
 						<button class="btn flex" type="button">
 							<div>
-								<span class="react text-secondary"> <i id="empty-bookmark" class="far fa-bookmark"></i></span>
+								<span class="react text-primary"> <i id="empty-bookmark" class="fa fa-bookmark"></i></span>
 
 							</div>
 						</button>
@@ -46,7 +46,7 @@
 					<div class="full-heart">
 						<div class="flex">
 							<button class="btn" type="button">
-                                <span class="react text-secondary red-hover"> <i id="empty-heart" class="far fa-heart"></i></span>
+                                <span class="react text-danger"> <i id="empty-heart" class="fa fa-heart"></i></span>
 							</button>
 							
 							<div class="react-count-container">

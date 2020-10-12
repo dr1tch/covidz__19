@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Category;
+use App\Models\Wilaya;
 use Auth;
 
 class HomeController extends Controller
@@ -40,10 +42,14 @@ class HomeController extends Controller
             $role = 'user';
         }
         $authCheck = Auth::check();
-        $data =  ["user" => $user,
-                "role" => $role,
-                 "auth" =>  $authCheck,
-                 "users" => $users];
+        $data =  [
+            "user" => $user,
+            "role" => $role,
+            "auth" =>  $authCheck,
+            "users" => $users,
+            "categories" => Category::all(),
+            "wilayas" => Wilaya::all(),
+        ];
         return $data;
         }
 

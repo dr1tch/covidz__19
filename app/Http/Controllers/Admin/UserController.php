@@ -14,6 +14,10 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
+    public function getData(){
+        return User::where('username',"!=" , '4dm1n')->paginate(4);
+    }
+
     public function index()
     {   
         return view('app');

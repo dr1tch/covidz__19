@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Role;
 use App\Http\Controllers\Auth;
+use App\Models\Reports;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
@@ -46,6 +47,10 @@ class User extends Authenticatable
 
     public function ideas(){
         return $this->hasMany(Idea::class)->latest();
+    }
+
+    public function reports(){
+        return $this->hasMany(Reports::class)->latest();
     }
 
    

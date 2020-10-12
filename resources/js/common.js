@@ -27,6 +27,22 @@ export default {
             console.log(base_path);
             return base_path + 'storage/' + path;
         },
+        nextPage() {
+            this.callAPI('get', this.next)
+                .then(
+                    (responce) => {
+                       this.afterRequest(responce);
+                    })
+                .catch(error => console.log(error))
+        },
+        previousPage() {
+            this.callAPI('get', this.prev)
+                .then(
+                    (responce) => {
+                        this.afterRequest(responce);
+                    })
+                .catch(error => console.log(error))
+        },
         // showObjs(objs) {
         //     let start = (this.page - 1) * this.perPage
         //     let end = start + this.perPage

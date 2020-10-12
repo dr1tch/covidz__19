@@ -37,7 +37,7 @@
                     </li>
                 </router-link>
                 <router-link to="/admin/users">
-                    <li data-toggle="tooltip" data-placement="bottom" title="Users" :class="[currentPage('admin-users') ? activeClass : '', 'menu-item']">
+                    <li data-toggle="tooltip" data-placement="bottom" title="Users" :class="[currentPage('Users') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
                             <!-- <img class="logo-img-menu"  src="/images/side-menu-icons/lamp.svg" alt=""> -->
                             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-people-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +47,7 @@
                         </div>
                     </li>
                 </router-link>
-                <router-link to="/ideas">
+                <router-link to="/admin/ideas">
                     <li data-toggle="tooltip" data-placement="bottom" title="Ideas" :class="[currentPage('Ideas') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
 
@@ -58,7 +58,7 @@
                         </div>
                     </li>
                 </router-link>
-                <router-link to="/reports" class="">
+                <router-link to="/admin/reports" class="">
                     <li data-toggle="tooltip" data-placement="bottom" title="Reports" :class="[currentPage('Reports') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
 

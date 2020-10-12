@@ -20,6 +20,7 @@ import EditProfile from './components/user/EditProfile';
 import adminHome from './components/admin/Home'
 import adminUsers from './components/admin/Users'
 import adminIdeas from './components/admin/Ideas'
+import adminReports from './components/admin/Reports'
 
 
 import VueRouter from 'vue-router';
@@ -35,7 +36,7 @@ let router = new VueRouter({
         // USER ROUTES:
         { path: '/home' , component: Home, name: 'Home'},
         { path: '/ideas' , component: Timeline, name: 'Ideas'},
-        { path: "/:username" , component: Profile, name: 'Profile'},
+        { path: "/:username" , component: Profile, name: 'Profile', props: true,},
         { path: "/:username/edit" , component: EditProfile, name: 'EditProfile'},
 
 
@@ -44,6 +45,7 @@ let router = new VueRouter({
         { path: '/admin/home' , component: adminHome, name: 'Admin-Home'},
         { path: '/admin/users' , component: adminUsers, name: 'Manage Users'},
         { path: '/admin/ideas' , component: adminIdeas, name: 'Manage Ideas'},
+        { path: '/admin/reports' , component: adminReports, name: 'Manage Reports'},
 
     ],
 });

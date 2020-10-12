@@ -16,6 +16,8 @@ export default new Vuex.Store({
       role: '',
       users: [],
       user: [],
+      categories: [],
+      wilayas: [],
     },
     getters: {
         auth: state =>{
@@ -33,6 +35,8 @@ export default new Vuex.Store({
           state.role = data.role;
           state.users = data.users;
           state.user = data.user;
+          state.categories = data.categories;
+          state.wilayas = data.wilayas;
         },
         removeAdmin: (state) => {
           state.users.slice(3,1);
@@ -43,30 +47,10 @@ export default new Vuex.Store({
     },
 
     actions :{
-      callAPI (method, url, data=null){
-        return new Promise((resolve, reject) => {
-          axios[method](url, data)
-              .then(response => {
-                  resolve(response.data);
-              })
-              .catch(error => {
-                  reject(error.response.data);
-              });
-        });
-        
-      },
       asset(path) {
           let base_path = window.asset || '';
           console.log(base_path);
           return base_path + 'storage/' + path;
-      },
-      prevPage() {
-        state.loading = true
-        state.page--
-      },
-      nextPage() {
-          state.loading = true
-          state.page++
       },
     }
 });
