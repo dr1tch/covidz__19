@@ -32,15 +32,8 @@ export default {
     }, 
     props: [ "ideas" ],
     methods: {
-        // getUser(id){
-        //     return this.users.filter(user => user.id === id);
-        // },
-        // getPost(idea){
-        //     // console.log(idea);
-        //     this.idea = idea;
-        //     this.idea.user = this.getUser(idea.user_id);
-        //     // console.log(this.idea);
-        //     return this.idea;
+        // isBookmarked(data){
+        //     return this.$store.state.bookmarks.filter(b => b.id == data.id);
         // }
     }
 }

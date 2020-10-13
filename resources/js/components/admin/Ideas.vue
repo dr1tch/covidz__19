@@ -22,7 +22,7 @@
                 <tbody>
                     <tr v-for="idea in pending" :key="idea.id">
                         <td v-text="idea.id"></td>
-                        <td class="hidden-sm" v-text="idea.title"></td>
+                        <td class="hidden-sm" v-text="idea.title.substr(0, 15) + '....'"></td>
                         <td v-text="idea.body.substr(0, 20) + '....'"></td>
                         <td class="hidden-md">
                             <a v-if="idea.image" href="" data-toggle="tooltip" data-placement="bottom" title="View profile">

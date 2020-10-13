@@ -21,6 +21,7 @@ export default new Vuex.Store({
       jobs: [],
       diseases: [],
       bookmarks: [],
+      isBookmarked: '',
     },
     getters: {
         auth: state =>{
@@ -28,8 +29,10 @@ export default new Vuex.Store({
         },
         users: state =>{
           return state.users;
+        },
+        isBookmarked: state => {
+          return state.isBookmarked;
         }
-        
     },
 
     mutations: {
@@ -60,7 +63,23 @@ export default new Vuex.Store({
           } else {
             state.bookmarks.push(data);
           }
-        }
+        },
+        isBooked: (state, data) => {
+          let item = 0;
+          state.bookmarks.map((bookmark) => {
+            if(bookmark.id == data.id){
+              return item;
+            } else {
+              item++;
+            }
+          });
+          console.log(item);
+          if(item !== state.bookmarks.length){
+            state.isBookmarked = true;
+          } else {
+            state.isBookmarked = false;
+          }
+        },
     },
 
     actions :{

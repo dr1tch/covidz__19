@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function(){
 
     Route::middleware('can:user')->group(function (){
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        Route::get('/bookmarks', [App\Http\Controllers\User\IdeaController::class, 'view']);
+        Route::get('/bookmarks', [App\Http\Controllers\User\BookmarksController::class, 'index']);
         // Ideas:
         Route::get('/ideas', [App\Http\Controllers\User\IdeaController::class, 'index']);
         Route::get('ideas/data', [App\Http\Controllers\User\IdeaController::class, 'getData']);

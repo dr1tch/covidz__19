@@ -48,9 +48,9 @@ class IdeaController extends Controller
         return back();
     }
 
-    public function view(){
-      return view('app');
-    }
+    // public function view(){
+    //   return view('app');
+    // }
 
 
     public function getIdeasBookmarks(){

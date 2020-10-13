@@ -37,6 +37,12 @@ class HomeController extends Controller
         $users =  $users->except(6);
         $user = Auth::user();
         $bookmarks = Auth::user()->bookmarks;
+        foreach ($bookmarks as $bookmark) {
+            //dd($bookmark->pivot->user_id);
+            $bookUser = User::where('id', $bookmark->user_id)->first();
+            // dd($bookUser);
+            $bookmark['user'] = $bookUser;
+        }
         $role = $user->role;
         if($user->role){
             $role = 'admin';

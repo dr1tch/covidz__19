@@ -131,8 +131,8 @@
 
         <div>
             <ul>
-                <router-link class="menu-item-link " to="/ideas">
-                    <li :class="[currentPage('Tags') ? activeClass : '', 'menu-item']">
+                <router-link to="/ideas">
+                    <li :class="[currentPage('Ideas') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
                             <!-- <img class="logo-img-menu"  src="/images/side-menu-icons/lamp.svg" alt=""> -->
                             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-house-door" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -143,8 +143,8 @@
                         </div>
                     </li>
                 </router-link>
-                <router-link class="menu-item-link hide-menu" to="/reports">
-                    <li :class="[currentPage('Tags') ? activeClass : '', 'menu-item']">
+                <router-link class="hide-menu" to="/reports">
+                    <li :class="[currentPage('Reports') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
 
                             <svg width="1.5625em" height="1.5em" viewBox="0 0 17 16" class="bi bi-exclamation-triangle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -214,7 +214,7 @@
                     </li>
                 </a> -->
                 <router-link class="menu-item-link hide-menu" to="/bookmarks">
-                    <li :class="[currentPage('Tags') ? activeClass : '', 'menu-item']">
+                    <li :class="[currentPage('Bookmarks') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
                             <!-- <img class="logo-img-menu"  src="/images/side-menu-icons/bookmark.svg" alt=""> -->
                             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-bookmark" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -445,6 +445,7 @@ export default {
             imgPreview: '',
             data: new FormData(),
             csrf_token: window.csrf_token,
+            activeClass: 'active',
         }
     },
 
