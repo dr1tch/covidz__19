@@ -110,4 +110,30 @@ class IdeaController extends Controller
   
         // $idea->categorie()->associate($request->categorie);
         }
+        public function update(Request $request, Idea $idea){
+          $attributes = request()->validate([
+              'title' => 'required|max:255',
+              'body' => 'required',
+              'category_id' => 'required|integer',
+              'image' => 'file',
+              'video' => 'file'
+            ]);
+            if(request('image')){
+  
+              $attributes['image'] = request('image')->store('covers');
+            } else {
+              $attributes['image'] = null;
+          }
+            
+          $idea->update([
+            'user_id' => Auth::user()->id,
+            'category_id' => $attributes['category_id'],
+            'title' => $attributes['title'],
+            'body' => $attributes['body'],
+            'image' => $attributes['image'],
+          ]);
+             
+    
+          // $idea->categorie()->associate($request->categorie);
+          }
 }

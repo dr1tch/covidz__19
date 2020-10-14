@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/ideas', [App\Http\Controllers\User\IdeaController::class, 'index']);
         Route::get('ideas/data', [App\Http\Controllers\User\IdeaController::class, 'getData']);
         Route::patch('/ideas/create', [App\Http\Controllers\User\IdeaController::class, 'store']);
+        Route::patch('ideas/{idea:id}/update', [App\Http\Controllers\User\IdeaController::class, 'update']);
         Route::get('/{user:username}', [App\Http\Controllers\User\ProfileController::class, 'index']);
         Route::patch('/ideas/find', [App\Http\Controllers\User\IdeaController::class, 'categoryOrder']);
 

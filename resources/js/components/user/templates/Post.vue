@@ -1,5 +1,4 @@
 <template lang="">
-<div>
     <div class="post flex">
         <div class="mr-3 mt-1 flex-shrink-0">
             <a :href="'/' + idea.user.username">
@@ -42,7 +41,7 @@
                         </div>
                         <div v-if="idea.user_id == $store.state.user.id">
                             <div class="dropdown-divider"></div>
-                            <button @click='showModal("edit-idea-user-modal", idea)' class="dropdown-item text-light center" type="button">Edit Idea</button>
+                            <button @click='showModal("edit-idea-modal", idea)' class="dropdown-item text-light center" type="button">Edit Idea</button>
                             <div class="dropdown-divider"></div>
                             <button class="dropdown-item text-light" type="button">Delete Idea</button>
                         </div>
@@ -93,7 +92,7 @@
 
     </div>
     
-</div>
+
 </template>
 
 <style scoped>
@@ -194,7 +193,8 @@ export default {
         },
         showModal(modal, idea) {
             this.$modal.show(modal);
-            this.ideaId = idea;
+            this.$emit('open', idea);
+            console.log('message emit from child component')
         },
     },
 }

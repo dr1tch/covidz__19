@@ -22,7 +22,7 @@
 
         </div>
     </div>
-    <Posts :ideas="ideas"></Posts>
+    <Posts :ideas="ideas" @edited='updateData' ></Posts>
 </div>
 </template>
 
@@ -68,6 +68,9 @@ export default {
             if (files.length) this.cover = files[0];
             console.log(this.cover)
             this.imgPreview = URL.createObjectURL(event.target.files[0]);
+        },
+        updateData(e){
+            this.ideas = e;
         },
 
         // Ideas APIs
