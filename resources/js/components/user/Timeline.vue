@@ -70,6 +70,7 @@ export default {
             this.imgPreview = URL.createObjectURL(event.target.files[0]);
         },
         updateData(e){
+            console.log('heeeeeeeeeey',e);
             this.ideas = e;
         },
 
@@ -77,7 +78,7 @@ export default {
         getData() {
             this.callAPI('get', '/ideas/data')
                 .then((response) => {
-                    console.log(response);
+                    console.log('Timeline: ' + response);
                     this.ideas = response;
                 })
         },

@@ -84,6 +84,9 @@ Route::middleware('auth')->group(function(){
         Route::get('/reports', [App\Http\Controllers\Admin\ReportsController::class, 'index']);
         Route::post('/reports/{report:id}/update', [App\Http\Controllers\Admin\ReportsController::class, 'update']);
         Route::post('/reports/{report:id}/delete', [App\Http\Controllers\Admin\ReportsController::class, 'delete']);
+
+        // Publication:
+        Route::get('/publications', [App\Http\Controllers\Admin\PublicationController::class, 'index']);
         
     });
 });

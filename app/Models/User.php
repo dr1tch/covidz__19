@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth;
 use App\Models\Reports;
 use App\Models\Wilaya;
 use App\Models\Job;
+use App\Models\Publication;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
@@ -65,6 +66,10 @@ class User extends Authenticatable
 
     public function job(){
         return $this->belongsTo(Job::class);
+    }
+
+    public function publication(){
+        return $this->belongsTo(Publication::class);
     }
 
     public function addBookmark(Idea $idea){

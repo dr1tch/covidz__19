@@ -27,20 +27,20 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <input type="text" class=" form-control bg-secondary text-light mb-3" placeholder="Title ..." v-model="title">
-                                <span class=" alert text-danger" v-if="errors" v-text="errors.title[0]"></span>
+                                <!-- <span class=" alert text-danger" v-if="errors" v-text="errors.title[0]"></span> -->
                             </div>
                             <div class="col-md-6">
                                 <select @change="clear($event.target.name)" name="" v-model="category" id="" class="form-control bg-secondary text-light mb-3">
                                     <option value="" disabled>Category...</option>
                                     <option v-for="cat in $store.state.categories" :key="cat.id" :value="cat.id" :selected="cat.id == category">{{cat.name}}</option>
                                 </select>
-                                 <span class=" alert text-danger" v-if="errors" v-text="errors.category[0]"></span>
+                                 <!-- <span class=" alert text-danger" v-if="errors" v-text="errors.category[0]"></span> -->
                             </div>
 
                         </div>
                         <div>
                             <textarea type="text" class=" form-control bg-secondary text-light mb-3" placeholder="Body ..." v-model="body"></textarea>
-                            <span class=" alert text-danger" v-if="errors" v-text="errors.body[0]"></span>
+                            <!-- <span class=" alert text-danger" v-if="errors" v-text="errors.body[0]"></span> -->
                         </div>
                         <div class="flex justify-content-between align-items-center p-2">
                             <button type="button" class="btn" data-toggle="tooltip" data-placement="bottom" title="Select a Cover Image">
@@ -55,7 +55,7 @@
                             <input type="file" name="path" id="path" @change="newCover" style="display: none;">
                             <img :src="asset(cover)" alt="" class="img-preview img-fluid rounded-lg "  width="100px" v-if="! imgPreview">
                             <img :src="imgPreview" alt="" class="img-preview img-fluid rounded-lg" v-if="imgPreview"  width="100px">
-                            <span class=" alert text-danger" v-if="errors.image" v-text="errors.image[0]"></span>
+                            <!-- <span class=" alert text-danger" v-if="errors.image" v-text="errors.image[0]"></span> -->
                         </div>
                     </div>
                     <div class="card-footer">
@@ -184,7 +184,7 @@ export default {
             this.title = id.title;
             this.category = id.category_id;
             this.body = id.body;
-            this.cover = id.image;
+            // this.cover = id.image;
             this.imgPreview = '/storage/' + id.image;
         },
         clear(field){
@@ -199,7 +199,8 @@ export default {
             if(e){
                 this.callAPI('get', '/ideas/data')
                 .then((responce) => {
-                    this.ideas = responce;
+                    // this.ideas = responce;
+                    this.$emit('edited', responce);
                 })
                 .catch((error) => {console.log(error)});
             }
@@ -219,7 +220,7 @@ export default {
                 }).then(() => {
                     this.callAPI('get', '/ideas/data')
                         .then((response) => {
-                            this.ideaId = response;
+                            // this.ideas = response;
                             this.$emit('edited', response);
                             console.log(response);
                         })

@@ -4,6 +4,7 @@ namespace App\Models;
 use App\Models\Reports;
 use App\Models\User;
 use App\Models\Idea;
+use App\Models\Publication;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,5 +24,9 @@ class Wilaya extends Model
 
     public function idea(){
         return $this->hasMany(Idea::class);
+    }
+    public function publication()
+    {
+    	return $this->hasMany(Publication::class);
     }
 }

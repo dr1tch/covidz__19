@@ -22,6 +22,8 @@ import adminHome from './components/admin/Home'
 import adminUsers from './components/admin/Users'
 import adminIdeas from './components/admin/Ideas'
 import adminReports from './components/admin/Reports'
+import adminPublications from './components/admin/Publications'
+
 
 
 import VueRouter from 'vue-router';
@@ -48,13 +50,24 @@ let router = new VueRouter({
         { path: '/admin/users' , component: adminUsers, name: 'Manage Users'},
         { path: '/admin/ideas' , component: adminIdeas, name: 'Manage Ideas'},
         { path: '/admin/reports' , component: adminReports, name: 'Manage Reports'},
+        { path: '/admin/publications' , component: adminPublications, name: 'Manage Publications'},
 
     ],
 });
 
 
 router.beforeEach((to, from, next) => {
+    // If this isn't an initial page load.
+    if (to.name) {
+        // Start the route progress bar.
+        NProgress.start()
+    }
         next();
 });
+
+router.afterEach((to, from) => {
+    // Complete the animation of the route progress bar.
+    NProgress.done()
+  })
 
 export default router;

@@ -147,7 +147,7 @@ export default {
         this.category = this.idea.category_id;
         this.body = this.idea.body;
         this.imgPreview = '/storage/' + this.idea.image;
-        this.image = '/storage/' + this.idea.image;
+        // this.image = '/storage/' + this.idea.image;
     },
     components: {
         React
@@ -172,7 +172,7 @@ export default {
         newCover(event) {
             let files = event.target.files;
             console.log("file: " + files[0]);
-            if (files.length) this.cover = files[0];
+            if (files.length) this.image = files[0];
             console.log(this.cover)
             this.imgPreview = URL.createObjectURL(event.target.files[0]);
         },

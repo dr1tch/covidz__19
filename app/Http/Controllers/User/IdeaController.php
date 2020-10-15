@@ -147,7 +147,7 @@ class IdeaController extends Controller
               'title' => 'required|max:255',
               'body' => 'required',
               'category_id' => 'required|integer',
-              'image' => 'nullable|mimes:jpeg,jpg,png|max:2048',
+              'image' => 'sometimes|nullable|mimes:jpeg,jpg,png|max:2048',
               'video' => 'file'
           ]);
           if(request('image')){
@@ -158,7 +158,7 @@ class IdeaController extends Controller
             'category_id' => $attributes['category_id'],
             'title' => $attributes['title'],
             'body' => $attributes['body'],
-            'image' => $attributes['image'],
+            // 'image' => $attributes['image'],
           ]);
         }
 
