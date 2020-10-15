@@ -82,4 +82,20 @@ class User extends Authenticatable
     public function bookmarks(){
         return $this->belongsToMany(Idea::class, 'ideas_bookmarks', 'user_id', 'idea_id')->withTimeStamps();
     }
+
+    // public function addLike(Idea $idea){
+    //     return $this->likes()->attach($idea->id);
+    //   }
+  
+    //   public function removeLike(Idea $idea){
+    //     return $this->likes()->attach($idea->id);
+    //   }
+  
+    //   public function toggleLikes(Idea $idea){
+    //     return $this->likes()->toggle($idea);
+    //   } 
+
+    // public function likes(){
+    //     return $this->belongsToMany(Idea::class, 'idea_likes', 'user_id', 'idea_id')->withTimeStamps();
+    // }
 }

@@ -16,6 +16,9 @@
                     <div class="ml-2">
                         <span class="text-secondary" style="font-size: .9em;"> {{ '@' + idea.user.username}}</span>
                     </div>
+                    <div class="ml-3" v-if="route == 'Bookmarks'">
+                        <span class="btn-sm btn-dark font-weight-bold border-0" v-text='idea.category.name'></span>
+                    </div>
                 </div>
                 <!-- <div class="bookmark flex justify-content-end">
                 <span class="btn-sm btn-dark font-weight-bold border-0" v-text="idea.category.name"></span>
@@ -43,7 +46,7 @@
                             <div class="dropdown-divider"></div>
                             <button @click='showModal("edit-idea-modal", idea)' class="dropdown-item text-light center" type="button">Edit Idea</button>
                             <div class="dropdown-divider"></div>
-                            <button class="dropdown-item text-light" type="button">Delete Idea</button>
+                            <button @click='showModal("delete-idea-modal", idea)' class="dropdown-item text-light" type="button">Delete Idea</button>
                         </div>
                     </div>
                 </div>
@@ -65,11 +68,13 @@
                     </div>
                 </div>
             </a>
-            <div class="flex btn-group justify-between react-container ">
+            
+            <React v-if="$route.name != 'Bookmarks'" @liked='reacted' :idea="idea"></React>
+            <!-- <div class="flex btn-group justify-between react-container ">
                 <div class="full-heart">
                     <div class="flex">
                         <button class="btn" type="button">
-                            <span class="react text-danger"> <i id="empty-heart" class="fa fa-heart"></i></span>
+                            <span class="react text-danger"><i id="empty-heart" class="fa fa-heart"></i></span>
                         </button>
 
                         <div class="react-count-container">
@@ -78,7 +83,7 @@
                             </span>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- <div>
                 <button class="btn flex" type="button">
                     <div>
@@ -128,17 +133,21 @@ export default {
             body: '',
             image: '',
             imgPreview: '',
-            ideaId: ''
+            ideaId: '', 
+            // isLiked: '',
+            categoryName:''
         }
     },
-    props: ["idea", 'user'],
+    props: ["idea", 'user', 'route'],
     mounted() {
         this.$store.commit('isBooked', this.idea);
         this.bookmarked = this.$store.getters.isBookmarked;
+        
         this.title = this.idea.title;
         this.category = this.idea.category_id;
         this.body = this.idea.body;
-        this.imgPreview = this.idea.image;
+        this.imgPreview = '/storage/' + this.idea.image;
+        this.image = '/storage/' + this.idea.image;
     },
     components: {
         React
@@ -194,8 +203,14 @@ export default {
         showModal(modal, idea) {
             this.$modal.show(modal);
             this.$emit('open', idea);
+            this.$emit('delete', idea);
             console.log('message emit from child component')
         },
+        reacted(e){
+            if(e){
+                this.$emit('reload', true);
+            }
+        }, 
     },
 }
 </script>

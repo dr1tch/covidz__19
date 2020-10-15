@@ -43,6 +43,18 @@ export default {
                     })
                 .catch(error => console.log(error))
         },
+        clear(field) {
+            if (field) {
+                delete this.errors[field];
+    
+                return;
+            }
+    
+            this.errors = {};
+        },
+        any(errors){
+            return Object.keys(errors).length > 0;
+        }
         // showObjs(objs) {
         //     let start = (this.page - 1) * this.perPage
         //     let end = start + this.perPage

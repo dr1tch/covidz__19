@@ -8,24 +8,25 @@
                 <div class="card-header">
                     <h4 class="font-weight-bold">Add Idea</h4>
                 </div>
-                <form action="/ideas/create" method="POST" @submit.prevent="addIdea">
+                <form @change="clear($event.target.name)" action="/ideas/create" method="POST" @submit.prevent="addIdea" @keyup="clear($event.target.name)">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <input type="text" class=" form-control bg-secondary text-light mb-3" placeholder="Title ..." v-model="title">
-                                <!-- <span class=" alert text-danger" v-if="errors" v-text="form.errors.errors.errors.tagName[0]"></span> -->
+                                <span class=" alert-sm text-sm text-danger" v-if="errors.title" v-text="errors.title[0]"></span>
                             </div>
                             <div class="col-md-6">
-                                <select name="" v-model="category" id="" class="form-control bg-secondary text-light mb-3">
+                                <select @change="clear($event.target.name)" name="category" v-model="category" id="" class="form-control bg-secondary text-light mb-3">
                                     <option value="" selected disabled>Category...</option>
                                     <option v-for="category in $store.state.categories" :key="category.id" :value="category.id">{{category.name}}</option>
                                 </select>
+                                <span class=" help text-sm text-danger" v-if="errors.category" v-text="errors.category[0]"></span>
                             </div>
 
                         </div>
                         <div>
                             <textarea type="text" class=" form-control bg-secondary text-light mb-3" placeholder="Body ..." v-model="body"></textarea>
-                            <!-- <span class=" alert text-danger" v-if="errors" v-text="form.errors.errors.errors.tagName[0]"></span> -->
+                            <span class=" alert-sm text-sm text-danger" v-if="errors.body" v-text="errors.body[0]"></span>
                         </div>
                         <div class="flex justify-content-between align-items-center p-2">
                             <button type="button" class="btn" data-toggle="tooltip" data-placement="bottom" title="Select a Cover Image">
@@ -40,11 +41,12 @@
                             <input type="file" name="path" id="path" @change="newCover" style="display: none;">
                             <img :src="imgPreview" alt="" class="img-preview img-fluid rounded-lg" width="100px">
                         </div>
+                        <span class=" alert-sm text-sm text-danger" v-if="errors.image" v-text="errors.image[0]"></span>
                     </div>
                     <div class="card-footer">
                         <div class="flex align-items-center justify-content-between">
                             <button type="button" @click="$modal.hide('add-idea-modal')" class="btn btn-sm btn-danger">Cancel</button>
-                            <button type="submit" class="btn btn-sm btn-success">Add</button>
+                            <button type="submit" class="btn btn-sm btn-success" :disabled="any(errors)">Add</button>
                         </div>
                     </div>
                 </form>
@@ -446,6 +448,7 @@ export default {
             data: new FormData(),
             csrf_token: window.csrf_token,
             activeClass: 'active',
+            errors: '',
         }
     },
 
@@ -500,7 +503,14 @@ export default {
         currentPage(slug){
             return this.$route.name.includes(slug);
         },
-
+        clear(field){
+            console.log(field);
+            if(field){
+                delete this.errors[field];
+                return;
+            }
+            this.errors = {};
+        },
         // Ideas APIs
         getData() {
             this.callAPI('get', '/ideas/data')
@@ -534,6 +544,7 @@ export default {
                 })
                 .catch((error) => {
                     console.log(error);
+                    this.errors = error.errors;
                 });
         },
         addReport() {
@@ -566,6 +577,7 @@ export default {
                 })
                 .catch((error) => {
                     console.log(error);
+                    this.errors = error.errors;
                 });
         }
 

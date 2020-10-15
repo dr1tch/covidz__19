@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Disease;
 use App\Models\Job;
+use App\Models\Idea;
 use App\Models\Wilaya;
 use Auth;
 
@@ -37,11 +38,14 @@ class HomeController extends Controller
         $users =  $users->except(6);
         $user = Auth::user();
         $bookmarks = Auth::user()->bookmarks;
+        // $likes = Idea::with('users')->where('status', 1)->get();
         foreach ($bookmarks as $bookmark) {
             //dd($bookmark->pivot->user_id);
             $bookUser = User::where('id', $bookmark->user_id)->first();
+            $bookCategory = Category::where('id', $bookmark->category_id)->first();
             // dd($bookUser);
             $bookmark['user'] = $bookUser;
+            $bookmark['category'] = $bookCategory;
         }
         $role = $user->role;
         if($user->role){
@@ -58,6 +62,7 @@ class HomeController extends Controller
             "users" => $users,
             "categories" => Category::all(),
             'jobs' => Job::all(),
+            // 'likes' => $likes,
             'diseases' => Disease::all(),
             "wilayas" => Wilaya::all(),
             "bookmarks" => $bookmarks,

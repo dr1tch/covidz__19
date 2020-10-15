@@ -22,7 +22,7 @@
 
         </div>
     </div>
-    <Posts :ideas="ideas" @edited='updateData' ></Posts>
+    <Posts :ideas="ideas" @edited='updateData' :route="$route.name"></Posts>
 </div>
 </template>
 
@@ -78,7 +78,7 @@ export default {
             this.callAPI('get', '/ideas/data')
                 .then((response) => {
                     console.log(response);
-                    this.ideas = response[0];
+                    this.ideas = response;
                 })
         },
         addIdea() {
@@ -92,7 +92,7 @@ export default {
                 }).then(() => {
                     this.callAPI('get', '/ideas/data')
                         .then((response) => {
-                            this.ideas = response[0];
+                            this.ideas = response;
                             console.log(response);
                         })
                 })

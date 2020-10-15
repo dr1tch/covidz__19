@@ -28,4 +28,20 @@ class Idea extends Model
     // public function likes(){
     //     return $this->belongsToMany(Like::class);
     // }
+
+    public function addLike(User $user){
+      return $this->users()->attach($user->id);
+    }
+
+    public function removeLike(User $user){
+      return $this->users()->attach($user->id);
+    }
+
+    public function toggleLikes(User $user){
+      return $this->users()->toggle($user);
+    } 
+
+  public function users(){
+      return $this->belongsToMany(User::class, 'idea_likes', 'idea_id', 'user_id')->withTimeStamps();
+  }
 }

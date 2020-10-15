@@ -22,6 +22,7 @@ export default new Vuex.Store({
       diseases: [],
       bookmarks: [],
       isBookmarked: '',
+      isClicked: '',
     },
     getters: {
         auth: state =>{
@@ -30,8 +31,14 @@ export default new Vuex.Store({
         users: state =>{
           return state.users;
         },
+        user: state => {
+          return state.user;
+        },
         isBookmarked: state => {
           return state.isBookmarked;
+        },
+        isLiked: state => {
+          return state.isClicked;
         }
     },
 
@@ -79,6 +86,23 @@ export default new Vuex.Store({
           } else {
             state.isBookmarked = false;
           }
+        },
+        clicked: (state, idea) => {
+          let item = 0;
+          idea.users.map((i) => {
+            if(i.id == state.user.id){
+              return item;
+            } else {
+              item++;
+            }
+          });
+          console.log(item);
+          if(item !== idea.users.length){
+            state.isClicked = true;
+          } else {
+            state.isClicked = false;
+          }
+          // console.log(state.isClicked);
         },
     },
 

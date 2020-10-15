@@ -29,7 +29,7 @@ class IdeaFactory extends Factory
             'title' => $this->faker->realText(rand(10,20)),
             'body' => $this->faker->realText(rand(100,500)),
             'image' => $this->faker->imageUrl($width = 640, $height = 480),
-            'likes' => $this->faker->randomDigitNotNull,
+            'likes' => 0,
             'created_at' => $this->faker->dateTimeThisYear(),
             'status' => '0'
         ];

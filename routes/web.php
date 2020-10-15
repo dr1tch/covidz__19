@@ -38,14 +38,18 @@ Route::middleware('auth')->group(function(){
         Route::get('ideas/data', [App\Http\Controllers\User\IdeaController::class, 'getData']);
         Route::patch('/ideas/create', [App\Http\Controllers\User\IdeaController::class, 'store']);
         Route::patch('ideas/{idea:id}/update', [App\Http\Controllers\User\IdeaController::class, 'update']);
+        Route::patch('/ideas/{idea:id}/delete', [App\Http\Controllers\User\IdeaController::class, 'delete']);
         Route::get('/{user:username}', [App\Http\Controllers\User\ProfileController::class, 'index']);
         Route::patch('/ideas/find', [App\Http\Controllers\User\IdeaController::class, 'categoryOrder']);
-
+        Route::patch('/bookmark/find', [App\Http\Controllers\User\IdeaController::class, 'bookmark']);
+        // Route::patch('/bookmarks/find', [App\Http\Controllers\User\IdeaController::class, 'BookmarkCategoryOrder']);
 
         // Bookmarks:
         // Route::patch('/ideas/bookmark/{idea:id}/add', [App\Http\Controllers\User\IdeaController::class, 'addBookmark']);
         // Route::patch('/ideas/bookmark/{idea:id}/delete', [App\Http\Controllers\User\IdeaController::class, 'deleteBookmark']);
-        Route::patch('/bookmark/{idea:id}', [App\Http\Controllers\User\IdeaController::class, 'add']);
+        Route::patch('/bookmark/{idea:id}', [App\Http\Controllers\User\IdeaController::class, 'bookmark']);
+        Route::patch('/like/{idea:id}', [App\Http\Controllers\User\IdeaController::class, 'like']);
+
         
         
         // Route::get('/{user:username}/edit', [App\Http\Controllers\User\ProfileController::class, 'edit']);

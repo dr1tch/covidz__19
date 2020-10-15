@@ -27,15 +27,37 @@ class IdeaController extends Controller
                             ->where('user_id', '<>', 1)
                             ->latest()->paginate(4), 
     ];
-}
+  }
+
+  // public function bookmarkCategoryOrder(Request $request){
+  //   $bookmarks = collect(Auth::user()->bookmarks);
+  //   dd($bookmarks);
+  //   // $send = array();
+  //   foreach ($bookmarks as $bookmark) {
+  //     if($bookmark->category_id != $request['category_id']){
+  //       $bookmarks->pull($bookmark);
+  //     }
+  //   }
+  //   return $bookmarks;
+  // }
 
     public function getData()
     {
-      return [Idea::with(['user', 'category'])
+      $ideas = Idea::with(['user', 'category', 'users'])
                     ->where('status', 1)
                     ->where('user_id', '<>', 1)
                     ->orderBy('likes', 'desc')
-                    ->get()];
+                    ->get();
+      foreach ($ideas as $idea) {
+        foreach ($idea->users as $user) {
+          if($user->id == Auth::user()->id){
+              $idea['liked'] = 1;
+          } else {
+              $idea['liked'] = 0;
+          }
+        }
+      }
+      return $ideas;
     }
 
     public function index()
@@ -43,8 +65,16 @@ class IdeaController extends Controller
         return view('app');
     }
 
-    public function add(Idea $idea){
+    public function bookmark(Idea $idea){
         auth()->user()->toggleBookmark($idea);
+        return back();
+    }
+
+    public function like(Idea $idea){
+      $idea->toggleLikes(Auth::user());
+      // $idea->update([
+      //   'likes' => count($idea->users),
+      // ]);
         return back();
     }
 
@@ -82,11 +112,12 @@ class IdeaController extends Controller
 
 
     public function store(Request $request){
+      // dd($request);
         $attributes = request()->validate([
             'title' => 'required|max:255',
             'body' => 'required',
             'category' => 'required|integer',
-            'image' => 'file',
+            'image' => 'nullable|sometimes|mimes:jpeg,jpg,png|max:2048',
             'video' => 'file'
           ]);
           if(request('image')){
@@ -111,20 +142,17 @@ class IdeaController extends Controller
         // $idea->categorie()->associate($request->categorie);
         }
         public function update(Request $request, Idea $idea){
+          // dd(request());
           $attributes = request()->validate([
               'title' => 'required|max:255',
               'body' => 'required',
               'category_id' => 'required|integer',
-              'image' => 'file',
+              'image' => 'nullable|mimes:jpeg,jpg,png|max:2048',
               'video' => 'file'
-            ]);
-            if(request('image')){
-  
-              $attributes['image'] = request('image')->store('covers');
-            } else {
-              $attributes['image'] = null;
-          }
-            
+          ]);
+          if(request('image')){
+            $idea->image = request('image')->store('covers');
+          }            
           $idea->update([
             'user_id' => Auth::user()->id,
             'category_id' => $attributes['category_id'],
@@ -132,8 +160,9 @@ class IdeaController extends Controller
             'body' => $attributes['body'],
             'image' => $attributes['image'],
           ]);
-             
-    
-          // $idea->categorie()->associate($request->categorie);
-          }
+        }
+
+        public function delete(Idea $idea){
+          $idea->delete();
+        }
 }

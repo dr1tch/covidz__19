@@ -20,7 +20,7 @@ class IdeaController extends Controller
             'title' => 'required|max:255',
             'body' => 'required',
             'categorie' => '',
-            'image' => 'file',
+            'image' => 'required|mimes:jpeg,jpg,png|max:2048',
             'video' => 'file'
           ]);
   
