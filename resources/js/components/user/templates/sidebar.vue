@@ -560,7 +560,7 @@ export default {
             this.data.set('image', this.cover);
             this.data.set('address', this.address);
             this.data.set("category", this.category);
-            this.data.set("wilaya", this.wilaya);
+            this.data.set("wilaya", array(this.wilaya));
             this.data.set('_method', "patch");
             this.callAPI('post', '/reports/create', this.data)
                 .then((response) => {

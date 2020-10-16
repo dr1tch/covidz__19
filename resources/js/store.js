@@ -34,6 +34,15 @@ export default new Vuex.Store({
         user: state => {
           return state.user;
         },
+        wilayas: state => {
+          return state.wilayas;
+        },
+        diseases: state => {
+          return state.diseases;
+        },
+        jobs: state => {
+          return state.jobs;
+        },
         isBookmarked: state => {
           return state.isBookmarked;
         },

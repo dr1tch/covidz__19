@@ -69,6 +69,5 @@ class HomeController extends Controller
         ];
         return $data;
         }
-
     
 }

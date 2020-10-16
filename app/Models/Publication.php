@@ -16,16 +16,16 @@ class Publication extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function wilaya(){
-        return $this->belongsTo(Wilaya::class);
+    public function wilayas(){
+        return $this->belongsToMany(Wilaya::class)->withTimestamps();
     }
 
-    public function job(){
-        return $this->belongsTo(Job::class);
+    public function jobs(){
+        return $this->belongsToMany(Job::class)->withTimestamps();
     }
 
-    public function disease(){
-        return $this->belongsTo(Disease::class);
+    public function diseases(){
+        return $this->belongsToMany(Disease::class)->withTimestamps();
     }
 
     public function user(){

@@ -23,9 +23,10 @@ class CreatePublicationsTable extends Migration
             // $table->foreignId('source_id');
             $table->text('source');
             $table->unsignedBigInteger('likes')->default(0);
-            $table->foreignId('job_id');
-            $table->foreignId('disease_id');
-            $table->foreignId('wilaya_id');
+            $table->unsignedBigInteger('dislikes')->default(0);
+            // $table->foreignId('job_id');
+            // $table->foreignId('disease_id');
+            // $table->foreignId('wilaya_id');
             $table->timestamps();
         });
     }

@@ -22,6 +22,7 @@ class CreateIdeasTable extends Migration
             $table->text('image')->nullable();
             $table->text('video')->nullable();
             $table->unsignedBigInteger('likes')->default(0);
+            $table->unsignedBigInteger('dislikes')->default(0);
             $table->boolean('status');
             $table->timestamps();
         });

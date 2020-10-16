@@ -89,6 +89,11 @@ Route::middleware('auth')->group(function(){
 
         // Publication:
         Route::get('/publications', [App\Http\Controllers\Admin\PublicationController::class, 'index']);
+        Route::get('/publications/get', [App\Http\Controllers\Admin\PublicationController::class, 'get']);
+        Route::patch('/publications/create', [App\Http\Controllers\Admin\PublicationController::class, 'store']);
+
+        // API Data:
+        Route::get('/pulications/get', [App\Http\Controllers\HomeController::class, 'getPubsData']);
         
     });
 });

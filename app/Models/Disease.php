@@ -15,8 +15,8 @@ class Disease extends Model
     {
     	return $this->hasMany(User::class);
     }
-    public function publication()
+    public function publications()
     {
-    	return $this->hasMany(Publication::class);
+        return $this->belongsToMany(Publication::class);
     }
 }

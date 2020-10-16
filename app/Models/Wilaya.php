@@ -25,8 +25,8 @@ class Wilaya extends Model
     public function idea(){
         return $this->hasMany(Idea::class);
     }
-    public function publication()
+    public function publications()
     {
-    	return $this->hasMany(Publication::class);
+        return $this->belongsToMany(Publication::class);
     }
 }
