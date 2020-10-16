@@ -451,12 +451,15 @@ export default {
             errors: '',
         }
     },
-
+    beforeMount() {
+        this.$Progress.start();
+    },
     mounted() {
         this.getData();
         this.$route.push({
             "user": this.$store.state.user
         });
+        this.$Progress.finish();
     },
 
     methods: {
@@ -520,6 +523,7 @@ export default {
                 })
         },
         addIdea() {
+            this.$Progress.start();
             this.data.set('title', this.title);
             this.data.set('body', this.body);
             this.data.set('image', this.cover);
@@ -545,9 +549,12 @@ export default {
                 .catch((error) => {
                     console.log(error);
                     this.errors = error.errors;
+                    this.$Progress.fail();
                 });
+            this.$Progress.finish();
         },
         addReport() {
+            this.$Progress.start();
             this.data.set('title', this.title);
             this.data.set('body', this.body);
             this.data.set('image', this.cover);
@@ -578,7 +585,9 @@ export default {
                 .catch((error) => {
                     console.log(error);
                     this.errors = error.errors;
+                    this.$Progress.fail();
                 });
+            this.$Progress.finish();
         }
 
     }

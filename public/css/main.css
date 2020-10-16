@@ -462,6 +462,17 @@ ul a:hover {
     /*margin-left: 7%;*/
     /*padding: auto 5px*/
 }
+.vue-progress-path path {
+    stroke-width: 12;
+  }
+  
+  .vue-progress-path .progress {
+    stroke: red;
+  }
+  
+  .vue-progress-path .background {
+    stroke: #edd;
+  }
 
 .btn-sidebar {
     display: block;

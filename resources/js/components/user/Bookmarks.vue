@@ -21,7 +21,7 @@
         </div> -->
     </div>
     <!-- <Posts :ideas="$store.state.bookmarks" @edited='updateData' :route='$route.name'></Posts> -->
-        <Posts :ideas="$store.state.bookmarks" :route='$route.name'></Posts>
+        <Posts :len='$store.state.bookmarks.length' :ideas="$store.state.bookmarks" :route='$route.name'></Posts>
 
 </div>
 </template>
@@ -41,10 +41,13 @@ export default {
     components: {
         Posts
     },
-
+    beforeMount() {
+        this.$Progress.start();
+    },
     mounted() {
         this.bookmarks = this.getBookmarks();
         console.log(`bookmarks: ${this.getBookmarks()}`);
+        this.$Progress.finish();
     },
     computed: {
        

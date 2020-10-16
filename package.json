@@ -32,6 +32,8 @@
         "globally": "^0.0.0",
         "moment": "^2.28.0",
         "vue-js-modal": "^2.0.0-rc.6",
+        "vue-progress-path": "^0.0.2",
+        "vue-progressbar": "^0.7.5",
         "vue-router": "^3.4.3",
         "vue-server-renderer": "^2.6.12",
         "vuex": "^3.5.1"

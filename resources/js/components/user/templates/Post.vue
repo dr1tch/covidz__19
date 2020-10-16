@@ -139,6 +139,9 @@ export default {
         }
     },
     props: ["idea", 'user', 'route'],
+    beforeMount() {
+        // this.$Progress.start();
+    },
     mounted() {
         this.$store.commit('isBooked', this.idea);
         this.bookmarked = this.$store.getters.isBookmarked;
@@ -148,6 +151,7 @@ export default {
         this.body = this.idea.body;
         this.imgPreview = '/storage/' + this.idea.image;
         // this.image = '/storage/' + this.idea.image;
+        // this.$Progress.finish();
     },
     components: {
         React
@@ -177,7 +181,7 @@ export default {
             this.imgPreview = URL.createObjectURL(event.target.files[0]);
         },
         toggleBookmark() {
-            this.$store.commit('pushBookmark', this.idea);
+            this.$Progress.start();
             this.data.set('_method', "patch");
             this.callAPI('post', `/bookmark/${this.idea.id}`, this.data)
                 .then(() => {
@@ -189,13 +193,15 @@ export default {
                         e.classList.remove("fa");
                         e.classList.add("far");
                     }
-
                 })
                 .catch((errors) => {
                     console.log(errors);
+                    this.$Progress.fail();
                 });
+            this.$store.commit('pushBookmark', this.idea);
             this.$store.commit('isBooked', this.idea);
             this.bookmarked = this.$store.getters.isBookmarked;
+            this.$Progress.finish();
         },
         isBook() {
             this.$store.commit('isBooked', this.idea);

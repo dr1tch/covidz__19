@@ -20,7 +20,7 @@
             </div>
 			<div class="border-left border-dark flex justify-content-start align-items-center" v-if="idea.users.length > 0">
 				<span class="mr-1 ml-2">liked by</span>
-				<span v-for="user in idea.users" :key="user.id" class="font-weight-bold mr-1 text-info text-sm" v-text=" ' ' + user.lname + ' ' +user.fname+', '"></span>
+				<span v-for="user in idea.users" :key="user.id" class="font-weight-bold mr-1 text-info text-sm" v-text=" ', ' + user.lname + ' ' +user.fname+'.'"></span>
 			<span></span>
 			</div>
         </div>
@@ -28,7 +28,11 @@
 
 </div>
 </template>
-
+<style scoped>
+	.border-left {
+		border-left: 2px solid #343a40 !important;
+	}
+</style>
 <script>
 export default {
 	data() {

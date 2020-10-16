@@ -176,13 +176,20 @@ export default {
             pages: '',
         }
     },
+    beforeMount() {
+        this.$Progress.start();
+    },
     mounted() {
         console.log(this.$route.name);
         this.callAPI('get', '/admin/users/data')
             .then((responce) => {
                 this.afterRequest(responce);
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                this.$Progress.fail();
+            });
+        this.$Progress.finish();
     },
     computed: {
         routeName() {
@@ -197,7 +204,7 @@ export default {
         afterRequest(data) {
             this.role = '';
             this.editedUser = {};
-            this.users = data.users;
+            // this.users = data.users;
             this.users = data.data;
             this.currentPage = data.current_page;
             this.from = data.from;
@@ -210,6 +217,7 @@ export default {
         },
         // Users APIs:
         editUser(id) {
+            this.$Progress.start();
             this.data.set('role', this.role);
             console.log(this.role);
             axios.post(`/admin/users/${id}/update`, this.data)
@@ -218,25 +226,36 @@ export default {
                 })
                 .then(() => this.callAPI('get', `/admin/users/data?page=${this.currentPage}`)
                     .then((responce) => {
-                        this.users = responce.data;
-                        this.afterRequest(response.data);
+                        this.users = responce.users;
+                        this.afterRequest(responce);
                     }))
-                .catch(error => console.log(error));
+                .catch(error => {
+                    console.log(error);
+                    this.$Progress.fail();
+                });
+            this.$Progress.finish();
         },
         deleteUser() {
+            this.$Progress.start();
             this.callAPI('post', `/admin/users/${this.editedUser.id}/delete`)
                 .then(response => {
                     this.$modal.hide('delete-user-modal')
                 })
-                .then(() => axios.get('/data')
+                .then(() => this.callAPI('get', '/admin/users/data')
                     .then((response) => {
-                        // console.log(response.data);
-                        this.users = response.data.users;
-                        this.afterRequest(response.data);
+                        console.log('Axios; ', response);
+                        this.users = response.users;
+                        console.log('users: ', this.users);
+                        this.afterRequest(response);
                     }))
-                .catch(error => console.log(error));
+                .catch(error => {
+                    console.log(error);
+                    this.$Progress.fail();
+                });
+            this.$Progress.finish();
         },
         deleteAllUsers() {
+            this.$Progress.start();
             this.callAPI('post', '/admin/users/deleteAll')
                 .then(response => {
                     this.$modal.hide('delete-users-modal')
@@ -247,7 +266,11 @@ export default {
                         this.users = response.data.users;
                         this.afterRequest(response.data);
                     }))
-                .catch(error => console.log(error));
+                .catch(error => {
+                    console.log(error);
+                    this.$Progress.fail();
+                });
+            this.$Progress.finish();
         }
     },
 }

@@ -5,6 +5,7 @@
     <div :class="mainWall()" style="height: 100%;">
         <Navbar v-if="admin"></Navbar>
         <router-view></router-view>
+        <vue-progress-bar></vue-progress-bar>
     </div>
     <!-- <admin v-if="admin"></admin>
     <user v-if="user"></user>
@@ -13,28 +14,27 @@
 </template>
 
 <style scoped>
-    .welcome {
-        border: none;
-        width: 100%;
-        margin-right:auto;
-        margin-left: 0 !important;
-    }
-    .main-wall {
-        border: none;
-    }
-    .admin {
-        max-width: 100%;
-        margin-right: auto;
-    }
+.welcome {
+    border: none;
+    width: 100%;
+    margin-right: auto;
+    margin-left: 0 !important;
+}
+
+.main-wall {
+    border: none;
+}
+
+.admin {
+    max-width: 100%;
+    margin-right: auto;
+}
 </style>
 
-
 <script>
-
 // Admin Templates:
 import AdminSidebar from './admin/templates/sidebar'
 import Navbar from './admin/templates/navbar'
-
 
 // User Templates:
 import UserSidebar from './user/templates/sidebar'
@@ -76,17 +76,18 @@ export default {
             // console.log('User: ' + this.role === 'user' && this.auth === true);
             return this.data.role === 'user';
         },
-        auth(){
+        auth() {
             return this.data.auth;
         },
-        categoriess(){
+        categoriess() {
             return this.categories;
         },
-        wilayass(){
+        wilayass() {
             return this.wilayas;
         }
     },
     beforeMount() {
+        this.$Progress.start();
         axios.get('/data')
             .then((response) => {
                 // console.log(response);
@@ -103,8 +104,9 @@ export default {
                 this.data = response.data;
             }).catch((errors) => {
                 console.log(errors);
+                this.$Progress.fail();
             });
-
+        this.$Progress.finish();
     },
     methods: {
         adminClass() {
@@ -115,13 +117,13 @@ export default {
             // console.log('User: ' + this.role === 'user' && this.auth === true);
             return this.data.role === 'user';
         },
-        authClass(){
+        authClass() {
             return this.data.auth;
         },
-        mainWall(){
-            if(this.authClass() && this.userClass()){
+        mainWall() {
+            if (this.authClass() && this.userClass()) {
                 return 'container-fluid main-wall';
-            } else if(this.authClass() && this.adminClass()){
+            } else if (this.authClass() && this.adminClass()) {
                 return 'container-fluid main-wall admin';
             } else {
                 return 'container-fluid welcome';

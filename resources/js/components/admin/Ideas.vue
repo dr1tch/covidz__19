@@ -68,24 +68,24 @@
     </div>
     <!-- Delete Idea Modal -->
 
-        <modal name="delete-idea-modal" height="auto" width="500px" classes="text-light bg-secondary">
-            <div class="card">
-                <!-- <div class="card-header">
+    <modal name="delete-idea-modal" height="auto" width="500px" classes="text-light bg-secondary">
+        <div class="card">
+            <!-- <div class="card-header">
                             <h4 class="font-weight-bold">Delete </h4>
                         </div> -->
-                    <div class="card-body">
-                        <div>
-                            <h5 class="alert font-size-lg m-auto text-center">Are You Sure you want to delete <span class="font-weight-bold text-warning">{{'@'+ideaId.title}}</span> ?</h5>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="flex align-items-center justify-content-between">
-                            <button type="button" @click="$modal.hide('delete-idea-modal')" class="btn btn-sm btn-danger">Cancel</button>
-                            <button type="button" @click='deleteIdea(ideaId.id)' class="btn btn-sm btn-success">Delete</button>
-                        </div>
-                    </div>
+            <div class="card-body">
+                <div>
+                    <h5 class="alert font-size-lg m-auto text-center">Are You Sure you want to delete <span class="font-weight-bold text-warning">{{'@'+ideaId.title}}</span> ?</h5>
+                </div>
             </div>
-        </modal>
+            <div class="card-footer">
+                <div class="flex align-items-center justify-content-between">
+                    <button type="button" @click="$modal.hide('delete-idea-modal')" class="btn btn-sm btn-danger">Cancel</button>
+                    <button type="button" @click='deleteIdea(ideaId.id)' class="btn btn-sm btn-success">Delete</button>
+                </div>
+            </div>
+        </div>
+    </modal>
 </div>
 </template>
 
@@ -108,12 +108,18 @@ export default {
             ideaId: {},
         }
     },
+    beforeMount() {
+        this.$Progress.start();
+    },
     mounted() {
         this.callAPI('get', '/admin/ideas/data')
             .then((responce) => {
                 this.afterRequest(responce);
-            }).catch(error => console.log(error));
-
+            }).catch(error => {
+                console.log(error);
+                this.$Progress.fail();
+            });
+        this.$Progress.finish();
     },
     computed: {
         routeName() {
@@ -134,27 +140,43 @@ export default {
         },
         // Ideas API:
         approveIdea(id) {
+            this.$Progress.start();
             this.callAPI('post', `/admin/ideas/${id}/update`)
                 .then(() => this.callAPI('get', '/admin/ideas/data')
                     .then((responce) => {
                         this.afterRequest(responce);
-                    }).catch(error => console.log(error))
+                    }).catch(error => {
+                        console.log(error);
+                        this.$Progress.fail();
+                    })
                 )
-                .catch(error => console.log(error));
+                .catch(error => {
+                    console.log(error);
+                    this.$Progress.fail();
+                });
+            this.$Progress.finish();
         },
-        showModal(modal, idea){
+        showModal(modal, idea) {
             this.$modal.show(modal);
             this.ideaId = idea;
         },
         deleteIdea(id) {
+            this.$Progress.start();
             this.callAPI('post', `/admin/ideas/${id}/delete`)
                 .then((responce) => this.$modal.hide("delete-idea-modal"))
                 .then(() => this.callAPI('get', '/admin/ideas/data')
                     .then((responce) => {
                         this.afterRequest(responce);
-                    }).catch(error => console.log(error))
+                    }).catch(error => {
+                        console.log(error);
+                        this.$Progress.fail();
+                    })
                 )
-                .catch(error => console.log(error));
+                .catch(error => {
+                    console.log(error);
+                    this.$Progress.fail();
+                });
+            this.$Progress.finish();
         }
 
     },

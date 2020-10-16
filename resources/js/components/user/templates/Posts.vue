@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="posts" v-if="ideas.length">
+    <div class="posts" v-if="len">
         <div class="p-0 m-0" v-for="idea in ideas" :key="idea.id">
             <Post @reload='reload' :idea="idea" @open='setIdea' :route="route"></Post> 
         </div> 
@@ -132,19 +132,26 @@ export default {
             imgPreview: '',
             ideaId: '',
             id: '',
-            errors:''
+            errors:'',
+            length: true,
         }
-    },
-    mounted() {
-        // this.$store.commit('isBooked', this.idea);
-        console.log(this.ideas.length);
-        // this.ideas = this.ideas.reverse();
-        
     },
     components: {
         Post,
     },
-    props: ["ideas", "route"],
+    props: ["ideas", "route", 'len'],
+    beforeMount() {
+        // this.$Progress.start();
+    },
+    computed: {
+    },
+    mounted() {
+        // this.$Progress.finish();
+        this.$store.commit('isBooked', this.idea);
+        // this.ideas = this.ideas.reverse();
+        this.length = this.ideas.length;
+        // console.log('length: ' + this.ideas.length);
+    },
     methods: {
        getPath(imgSrc) {
             console.log(imgSrc);
@@ -196,18 +203,26 @@ export default {
             this.errors = {};
         },
         reload(e){
+            // this.$Progress.start();
             if(e){
+                // this.$Progress.start();
                 this.callAPI('get', '/ideas/data')
                 .then((responce) => {
                     // this.ideas = responce;
                     this.$emit('edited', responce);
                 })
-                .catch((error) => {console.log(error)});
+                .catch((error) => {
+                    console.log(error);
+                    // this.$Progress.fail();
+                });
+                // this.$Progress.finish();
             }
+            // this.$Progress.finish;
         },
 
         // Ideas API:
         editIdea(){
+            this.$Progress.start();
             this.data.set('title', this.title);
             this.data.set('body', this.body);
             this.data.set('image', this.cover);
@@ -235,9 +250,12 @@ export default {
                 .catch((error) => {
                     console.log(error);
                     this.errors = error.errors;
+                    this.$Progress.fail();
                 });
+            this.$Progress.finish();
         },
         deleteIdea(id){
+            this.$Progress.start();
             this.data.set('_method', 'patch');
             this.callAPI('post', `/ideas/${id}/delete`, this.data)
                 .then((responce) => {
@@ -259,7 +277,9 @@ export default {
                 .catch((error) => {
                     console.log(error);
                     this.errors = error.errors;
+                    this.$progress.fail();
                 });
+            this.$Progress.finish();
         }
 
 

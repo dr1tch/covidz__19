@@ -70,6 +70,13 @@ export default new Vuex.Store({
           } else {
             state.bookmarks.push(data);
           }
+          // axios.get('/bookmarks/data')
+          //       .then((response) => {
+          //         console.log(response);
+          //         state.bookmarks = response;
+          //       }).catch((errors) => {
+          //         console.log(errors);
+          //       })
         },
         isBooked: (state, data) => {
           let item = 0;

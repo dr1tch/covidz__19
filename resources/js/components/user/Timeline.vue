@@ -22,7 +22,7 @@
 
         </div>
     </div>
-    <Posts :ideas="ideas" @edited='updateData' :route="$route.name"></Posts>
+    <Posts :len='ideas.length' :ideas="ideas" @edited='updateData' :route="$route.name"></Posts>
 </div>
 </template>
 
@@ -52,8 +52,12 @@ export default {
         // Header,
         Posts,
     },
+    beforeMount() {
+        this.$Progress.start();
+    },
     mounted() {
         this.getData();
+        this.$Progress.finish();
     },
     computed: {
         route() {
@@ -76,13 +80,20 @@ export default {
 
         // Ideas APIs
         getData() {
+            // this.$Progress.start();
             this.callAPI('get', '/ideas/data')
                 .then((response) => {
                     console.log('Timeline: ' + response);
                     this.ideas = response;
                 })
+                .catch((error) => {
+                    console.log(error);
+                    this.$Progress.fail();
+                })
+            this.$Progress.finish();
         },
         addIdea() {
+            this.$Progress.start();
             this.data.set('title', this.title);
             this.data.set('body', this.body);
             this.data.set('image', this.cover);
@@ -102,12 +113,15 @@ export default {
                 })
                 .catch((error) => {
                     console.log(error);
+                    this.$Progress.fail();
                 });
+            this.$Progress.finish();
         },
         categoryOrder() {
             // if (this.category == 9999) {
             //     this.getData();
             // } else {
+                this.$Progress.start();
                 this.data.set('category_id', this.category);
                 this.data.set('_method', "patch");
                 this.callAPI('post', '/ideas/find', this.data)
@@ -118,7 +132,9 @@ export default {
                     .then()
                     .catch((errors) => {
                         console.log(errors);
+                        this.$Progress.fail();
                     });
+                this.$Progress.finish();
             // }
         }
     }

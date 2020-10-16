@@ -28,20 +28,30 @@ export default {
             return base_path + 'storage/' + path;
         },
         nextPage() {
+            this.$Progress.start();
             this.callAPI('get', this.next)
                 .then(
                     (responce) => {
                        this.afterRequest(responce);
                     })
-                .catch(error => console.log(error))
+                .catch(error => {
+                    console.log(error);
+                    this.$Progress.fail();
+                });
+            this.$Progress.finish();
         },
         previousPage() {
+            this.$Progress.start();
             this.callAPI('get', this.prev)
                 .then(
                     (responce) => {
                         this.afterRequest(responce);
                     })
-                .catch(error => console.log(error))
+                .catch(error => {
+                    console.log(error);
+                    this.$Progress.fail();
+                });
+            this.$Progress.finish();
         },
         clear(field) {
             if (field) {
@@ -54,7 +64,16 @@ export default {
         },
         any(errors){
             return Object.keys(errors).length > 0;
-        }
+        },
+        // start () {
+        //     this.$Progress.start()
+        // },
+        // finish () {
+        //     this.$Progress.finish()
+        // },
+        // fail () {
+        //     this.$Progress.fail()
+        // },
         // showObjs(objs) {
         //     let start = (this.page - 1) * this.perPage
         //     let end = start + this.perPage

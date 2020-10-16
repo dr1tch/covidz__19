@@ -49,6 +49,8 @@ Route::middleware('auth')->group(function(){
         // Route::patch('/ideas/bookmark/{idea:id}/delete', [App\Http\Controllers\User\IdeaController::class, 'deleteBookmark']);
         Route::patch('/bookmark/{idea:id}', [App\Http\Controllers\User\IdeaController::class, 'bookmark']);
         Route::patch('/like/{idea:id}', [App\Http\Controllers\User\IdeaController::class, 'like']);
+        Route::get('/bookmarks/data', [App\Http\Controllers\User\BookmarksController::class, 'getBookmarks']);
+
 
         
         

@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import axios from 'axios';
 import store from './store';
+import VueProgressBar from "vue-progressbar";
+
 
 // Routes imports:
 
@@ -61,6 +63,7 @@ router.beforeEach((to, from, next) => {
     if (to.name) {
         // Start the route progress bar.
         NProgress.start()
+        // this.$Progress.start()    
     }
         next();
 });
@@ -68,6 +71,7 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to, from) => {
     // Complete the animation of the route progress bar.
     NProgress.done()
+    // this.$Progress.finish();
   })
 
 export default router;

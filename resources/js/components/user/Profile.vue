@@ -23,11 +23,18 @@ export default {
         ProfileIdeas,
         Header,
     },
+    beforeMount() {
+        this.$Progress.start();
+    },
     mounted() {
         this.callAPI('get', `/getData${this.path}`).then((response) => {
             this.userInfo = response;
             console.log(this.userInfo);
-        }).catch(error => console.log(error));
+        }).catch(error => {
+            console.log(error);
+            this.$Progress.fail();
+        });
+        this.$Progress.finish();
     }
 }
 </script>
