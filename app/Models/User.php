@@ -88,6 +88,21 @@ class User extends Authenticatable
         return $this->belongsToMany(Idea::class, 'ideas_bookmarks', 'user_id', 'idea_id')->withTimeStamps();
     }
 
+    public function pubBookmarks(){
+        return $this->belongsToMany(Publication::class, 'publications_bookmarks', 'user_id', 'publication_id')->withTimeStamps();
+    }
+
+    public function addPubBookmark(Publication $publication){
+        return $this->pubBookmarks()->attach($publication->id);
+      }
+  
+      public function removePubBookmark(Publication $publication){
+        return $this->pubBookmarks()->attach($publication->id);
+      }
+  
+      public function togglePubBookmark(Publication $publication){
+        return $this->pubBookmarks()->toggle($publication);
+      } 
     // public function addLike(Idea $idea){
     //     return $this->likes()->attach($idea->id);
     //   }

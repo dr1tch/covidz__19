@@ -23,6 +23,8 @@ export default new Vuex.Store({
       bookmarks: [],
       isBookmarked: '',
       isClicked: '',
+      pubsBookmarks: '',
+      isPubsBookmarked: '',
     },
     getters: {
         auth: state =>{
@@ -46,6 +48,9 @@ export default new Vuex.Store({
         isBookmarked: state => {
           return state.isBookmarked;
         },
+        isPubBookmarked: state => {
+          return state.isPubsBookmarked;
+        },
         isLiked: state => {
           return state.isClicked;
         }
@@ -63,6 +68,7 @@ export default new Vuex.Store({
           state.jobs = data.jobs;
           state.diseases = data.diseases;
           state.bookmarks = data.bookmarks;
+          state.pubsBookmarks = data.pubsBookmarks;
         },
         pushBookmark(state, data){
           let item = 0;
@@ -79,13 +85,22 @@ export default new Vuex.Store({
           } else {
             state.bookmarks.push(data);
           }
-          // axios.get('/bookmarks/data')
-          //       .then((response) => {
-          //         console.log(response);
-          //         state.bookmarks = response;
-          //       }).catch((errors) => {
-          //         console.log(errors);
-          //       })
+        },
+        pushPubsBookmark(state, data){
+          let item = 0;
+          state.pubsBookmarks.map((bookmark) => {
+            if(bookmark.id == data.id){
+              return item;
+            } else {
+              item++;
+            }
+          })
+          console.log(item);
+          if(item !== state.pubsBookmarks.length){
+            state.pubsBookmarks.splice(item, 1);
+          } else {
+            state.pubsBookmarks.push(data);
+          }
         },
         isBooked: (state, data) => {
           let item = 0;
@@ -101,6 +116,22 @@ export default new Vuex.Store({
             state.isBookmarked = true;
           } else {
             state.isBookmarked = false;
+          }
+        },
+        isBookedPubs: (state, data) => {
+          let item = 0;
+          state.pubsBookmarks.map((bookmark) => {
+            if(bookmark.id == data.id){
+              return item;
+            } else {
+              item++;
+            }
+          });
+          console.log(item);
+          if(item !== state.pubsBookmarks.length){
+            state.isPubsBookmarked = true;
+          } else {
+            state.isPubsBookmarked = false;
           }
         },
         clicked: (state, idea) => {

@@ -157,18 +157,18 @@
                         </div>
                     </li>
                 </router-link>
-                <a class="menu-item-link" href="">
-                    <li class="menu-item">
+                <router-link  to="/publications">
+                    <li :class="[currentPage('Publications') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
                             <!-- <img class="logo-img-menu"  src="/images/side-menu-icons/newsfeed.svg" alt="">-->
                             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-layout-text-window-reverse" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M2 1h12a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm12-1a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z" />
                                 <path fill-rule="evenodd" d="M5 15V4H4v11h1zM.5 4h15V3H.5v1zM13 6.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5zm0 3a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5zm0 3a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5z" />
                             </svg>
-                            <h5 class="header-logo-text-sidebar ml-3" style="font-weight: bold;">News</h5>
+                            <h5 class="header-logo-text-sidebar ml-3" style="font-weight: bold;">Publications</h5>
                         </div>
                     </li>
-                </a>
+                </router-link>
                 <a class="menu-item-link" href="">
                     <li class="menu-item">
                         <div class="menu-item-container">

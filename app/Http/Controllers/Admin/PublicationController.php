@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Publication;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -66,4 +67,59 @@ class PublicationController extends Controller
         $pub->diseases()->attach($diseases);
         return $pub;
     }
+
+
+    public function update(Publication $publication, Request $request){
+         // dd($request);
+         $attributes = request()->validate([
+            'title' => 'required|max:255',
+            'body' => 'required',
+            'image' => 'nullable|sometimes|mimes:jpeg,jpg,png|max:2048',
+            'video' => 'nullable|file',
+            'source' => 'required|string',
+            'wilayas' => 'required',
+            'diseases' => 'required',
+            'jobs' => 'required',
+        ]);
+        if(request('image')){
+            $publication->image = request('image')->store('covers/publications');
+        }
+        // } else {
+        //     $attributes['image'] = null;
+        // }
+        
+       
+        $wilayas = explode(",", $attributes['wilayas']);
+        // $newWilayas = array_diff($wilayas, $publication->wilayas->pluck('id'));
+        $publication->wilayas()->detach();
+        $publication->wilayas()->attach($wilayas);
+
+        $jobs = explode(',', $attributes['jobs']);
+        // $newJobs = array_diff($jobs, $publication->jobs->pluck('id'));
+        $publication->jobs()->detach();
+        $publication->jobs()->attach($jobs);
+
+        $diseases = explode(',', $attributes['diseases']);
+        // $newDiseases = array_diff($diseases, $publication->diseases->pluck('id'));
+        $publication->diseases()->detach();
+        $publication->diseases()->attach($diseases);
+
+
+        $publication->update([
+            'title' => $attributes['title'],
+            'body' => $attributes['body'],
+            'source' => $attributes['source']
+        ]);
+
+        return 'success';
+    }
+    public function delete(Publication $publication){
+        $publication->diseases()->detach();
+        $publication->wilayas()->detach();
+        $publication->jobs()->detach();
+        $publication->delete();
+        return 'success';
+    }
+
+  
 }

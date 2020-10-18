@@ -17,6 +17,8 @@ import Timeline from './components/user/Timeline';
 import Profile from './components/user/Profile.vue';
 import EditProfile from './components/user/EditProfile';
 import Bookmarks from './components/user/Bookmarks.vue';
+import Publications from './components/user/Publications.vue';
+
 
 
 // Admin Routes
@@ -42,6 +44,7 @@ let router = new VueRouter({
         { path: '/bookmarks' , component: Bookmarks, name: 'Bookmarks'},
         { path: '/home' , component: Home, name: 'Home'},
         { path: '/ideas' , component: Timeline, name: 'Ideas'},
+        { path: '/publications' , component: Publications, name: 'Publications'},
         { path: "/:username" , component: Profile, name: 'Profile'},
         { path: "/:username/edit" , component: EditProfile, name: 'EditProfile'},
 

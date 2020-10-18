@@ -47,6 +47,22 @@ class HomeController extends Controller
             $bookmark['user'] = $bookUser;
             $bookmark['category'] = $bookCategory;
         }
+        $pubsBookmarks = Auth::user()->pubBookmarks;
+        // $likes = Idea::with('users')->where('status', 1)->get();
+        foreach ($pubsBookmarks as $bookmark) {
+            //dd($bookmark->pivot->user_id);
+            $bookUser = User::where('id', $bookmark->user_id)->first();
+            $bookWilayas = Wilaya::where('id', $bookmark->wilaya_id)->get();
+            $bookJobs = Job::where('id', $bookmark->job_id)->get();
+            $bookDiseases = Disease::where('id', $bookmark->disease_id)->get();
+            // $bookWilaya = Wilaya::where('id', $bookmark->wilaya_id)->first();
+
+            // dd($bookUser);
+            $bookmark['user'] = $bookUser;
+            $bookmark['wilayas'] = $bookWilayas;
+            $bookmark['jobs'] = $bookJobs;
+            $bookmark['diseases'] = $bookDiseases;
+        }
         $role = $user->role;
         if($user->role){
             $role = 'admin';
@@ -66,6 +82,7 @@ class HomeController extends Controller
             'diseases' => Disease::all(),
             "wilayas" => Wilaya::all(),
             "bookmarks" => $bookmarks,
+            'pubsBookmarks' => $pubsBookmarks,
         ];
         return $data;
         }

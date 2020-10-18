@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [App\Http\Controllers\AppController::class, 'get'])->middleware('guest');
+Route::get('/publications/data', [App\Http\Controllers\User\PublicationController::class, 'data']);
 
 
 Auth::routes();
@@ -25,12 +26,15 @@ Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function(){
+
     Route::get('/data', [App\Http\Controllers\HomeController::class, 'getData']);
     Route::get('/{user:username}/edit', [App\Http\Controllers\User\ProfileController::class, 'edit']);
     Route::patch('/{user:username}/update', [App\Http\Controllers\User\ProfileController::class, 'update']);
     Route::get('/getData/{user:username}', [App\Http\Controllers\User\ProfileController::class, 'getData']);
 
     Route::middleware('can:user')->group(function (){
+        Route::get('/publications', [App\Http\Controllers\User\PublicationController::class, 'index']);
+
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         Route::get('/bookmarks', [App\Http\Controllers\User\BookmarksController::class, 'index']);
         // Ideas:
@@ -47,10 +51,16 @@ Route::middleware('auth')->group(function(){
         // Bookmarks:
         // Route::patch('/ideas/bookmark/{idea:id}/add', [App\Http\Controllers\User\IdeaController::class, 'addBookmark']);
         // Route::patch('/ideas/bookmark/{idea:id}/delete', [App\Http\Controllers\User\IdeaController::class, 'deleteBookmark']);
+
+        // Ideas:
         Route::patch('/bookmark/{idea:id}', [App\Http\Controllers\User\IdeaController::class, 'bookmark']);
         Route::patch('/like/{idea:id}', [App\Http\Controllers\User\IdeaController::class, 'like']);
         Route::get('/bookmarks/data', [App\Http\Controllers\User\BookmarksController::class, 'getBookmarks']);
 
+        //Publications:
+        Route::patch('/bookmark/{publication:id}/publication', [App\Http\Controllers\User\PublicationController::class, 'bookmark']);
+        Route::patch('/like/{publication:id}/publication', [App\Http\Controllers\User\PublicationController::class, 'like']);
+        Route::get('/bookmarks/publications/data', [App\Http\Controllers\User\PublicationController::class, 'getPubBookmarks']);
 
         
         
@@ -62,6 +72,9 @@ Route::middleware('auth')->group(function(){
         Route::get('reports/data', [App\Http\Controllers\User\ReportsController::class, 'getData']);
         Route::patch('/reports/create', [App\Http\Controllers\User\ReportsController::class, 'store']);
         Route::patch('/reports/find', [App\Http\Controllers\User\ReportsController::class, 'categoryOrder']);
+
+        // Publication Controller 
+
 
     });
     
@@ -91,9 +104,14 @@ Route::middleware('auth')->group(function(){
         Route::get('/publications', [App\Http\Controllers\Admin\PublicationController::class, 'index']);
         Route::get('/publications/get', [App\Http\Controllers\Admin\PublicationController::class, 'get']);
         Route::patch('/publications/create', [App\Http\Controllers\Admin\PublicationController::class, 'store']);
+        Route::patch('/publications/{publication:id}/update', [App\Http\Controllers\Admin\PublicationController::class, 'update']);
+        Route::post('/publications/{publication:id}/delete', [App\Http\Controllers\Admin\PublicationController::class, 'delete']);
+
 
         // API Data:
-        Route::get('/pulications/get', [App\Http\Controllers\HomeController::class, 'getPubsData']);
+        // Route::get('/pulications/get', [App\Http\Controllers\HomeController::class, 'getPubsData']);
+        // Route::post('/reports/{report:id}/update', [App\Http\Controllers\Admin\ReportsController::class, 'update']);
+
         
     });
 });

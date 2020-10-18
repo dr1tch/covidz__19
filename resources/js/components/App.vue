@@ -29,6 +29,10 @@
     max-width: 100%;
     margin-right: auto;
 }
+.pub {
+    max-width: 100% !important;
+    margin-right: 0 !important;
+}
 </style>
 
 <script>
@@ -55,6 +59,7 @@ export default {
                 diseases: '',
                 jobs: '',
                 bookmarks: '',
+                pubsBookmarks: ''
             },
 
         }
@@ -122,7 +127,11 @@ export default {
         },
         mainWall() {
             if (this.authClass() && this.userClass()) {
-                return 'container-fluid main-wall';
+                if(this.$route.name == "Publications"){
+                    return 'container-fluid main-wall pub'
+                } else {
+                    return 'container-fluid main-wall';
+                }
             } else if (this.authClass() && this.adminClass()) {
                 return 'container-fluid main-wall admin';
             } else {

@@ -15,6 +15,8 @@ class CreatePublicationsBookmarksTable extends Migration
     {
         Schema::create('publications_bookmarks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('publication_id');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

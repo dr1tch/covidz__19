@@ -200,7 +200,7 @@ export default {
                 });
             this.$store.commit('pushBookmark', this.idea);
             this.$store.commit('isBooked', this.idea);
-            this.bookmarked = this.$store.getters.isBookmarked;
+            this.bookmarked = this.$store.getters.isPubsBookmarked;
             this.$Progress.finish();
         },
         isBook() {
