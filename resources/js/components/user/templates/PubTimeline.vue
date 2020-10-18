@@ -1,9 +1,12 @@
 <template>
     <div>
-        <div class="posts" v-if="pubs">
+        <div class="posts" v-if="len">
             <div class="p-0 m-0" v-for="pub in pubs" :key="pub.id">
-                <Post :pub='pub'></Post> 
+                <Post @booked="$emit('booked', true)" :pub='pub' @liked="reload"></Post> 
              </div> 
+        </div>
+        <div class="posts" v-else>
+                <h2 class="alert text-center p-5 text-warning">No Publications Found!</h2>
         </div>
     </div>
 </template>
@@ -38,6 +41,25 @@ export default {
     components: {
         Post,
     },
-    props: ["pubs"],
+    props: ["pubs", 'len'],
+    methods: {
+        reload(e){
+            // this.$Progress.start();
+            if(e){
+                // this.$Progress.start();
+                this.callAPI('get', '/publications/likes/data')
+                .then((responce) => {
+                    // this.ideas = responce;
+                    this.$emit('edited', responce);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    // this.$Progress.fail();
+                });
+                // this.$Progress.finish();
+            }
+            // this.$Progress.finish;
+        },
+    },
 }
 </script>

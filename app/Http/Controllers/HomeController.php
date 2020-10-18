@@ -50,14 +50,11 @@ class HomeController extends Controller
         $pubsBookmarks = Auth::user()->pubBookmarks;
         // $likes = Idea::with('users')->where('status', 1)->get();
         foreach ($pubsBookmarks as $bookmark) {
-            //dd($bookmark->pivot->user_id);
             $bookUser = User::where('id', $bookmark->user_id)->first();
             $bookWilayas = Wilaya::where('id', $bookmark->wilaya_id)->get();
             $bookJobs = Job::where('id', $bookmark->job_id)->get();
             $bookDiseases = Disease::where('id', $bookmark->disease_id)->get();
-            // $bookWilaya = Wilaya::where('id', $bookmark->wilaya_id)->first();
-
-            // dd($bookUser);
+           
             $bookmark['user'] = $bookUser;
             $bookmark['wilayas'] = $bookWilayas;
             $bookmark['jobs'] = $bookJobs;
@@ -85,6 +82,32 @@ class HomeController extends Controller
             'pubsBookmarks' => $pubsBookmarks,
         ];
         return $data;
+        }
+        public function guest(){
+            return [
+                "auth" =>  Auth::check(),
+                "categories" => Category::all(),
+                'jobs' => Job::all(),
+                'diseases' => Disease::all(),
+                "wilayas" => Wilaya::all(),
+            ];
+        }
+
+        public function bookmarks(){
+            $pubsBookmarks = Auth::user()->pubBookmarks;
+        // $likes = Idea::with('users')->where('status', 1)->get();
+        foreach ($pubsBookmarks as $bookmark) {
+            $bookUser = User::where('id', $bookmark->user_id)->first();
+            $bookWilayas = Wilaya::where('id', $bookmark->wilaya_id)->get();
+            $bookJobs = Job::where('id', $bookmark->job_id)->get();
+            $bookDiseases = Disease::where('id', $bookmark->disease_id)->get();
+           
+            $bookmark['user'] = $bookUser;
+            $bookmark['wilayas'] = $bookWilayas;
+            $bookmark['jobs'] = $bookJobs;
+            $bookmark['diseases'] = $bookDiseases;
+        }
+        return $pubsBookmarks;
         }
     
 }

@@ -46,17 +46,36 @@ class IdeaController extends Controller
       $ideas = Idea::with(['user', 'category', 'users'])
                     ->where('status', 1)
                     ->where('user_id', '<>', 1)
-                    ->orderBy('likes', 'desc')
+                    // ->orderBy('likes', 'desc')
+                    ->latest()
                     ->get();
-      foreach ($ideas as $idea) {
-        foreach ($idea->users as $user) {
-          if($user->id == Auth::user()->id){
-              $idea['liked'] = 1;
-          } else {
-              $idea['liked'] = 0;
-          }
-        }
-      }
+      // foreach ($ideas as $idea) {
+      //   foreach ($idea->users as $user) {
+      //     if($user->id == Auth::user()->id){
+      //         $idea['liked'] = 1;
+      //     } else {
+      //         $idea['liked'] = 0;
+      //     }
+      //   }
+      // }
+      return $ideas;
+    }
+
+    public function afterLike(){
+      $ideas = Idea::with(['user', 'category', 'users'])
+                    ->where('status', 1)
+                    ->where('user_id', '<>', 1)
+                    ->latest()
+                    ->get();
+      // foreach ($ideas as $idea) {
+      //   foreach ($idea->users as $user) {
+      //     if($user->id == Auth::user()->id){
+      //         $idea['liked'] = 1;
+      //     } else {
+      //         $idea['liked'] = 0;
+      //     }
+      //   }
+      // }
       return $ideas;
     }
 
@@ -72,9 +91,10 @@ class IdeaController extends Controller
 
     public function like(Idea $idea){
       $idea->toggleLikes(Auth::user());
-      // $idea->update([
-      //   'likes' => count($idea->users),
-      // ]);
+      $idea->update([
+        'likes' => count($idea->users),
+        'liked' => 1
+      ]);
         return back();
     }
 

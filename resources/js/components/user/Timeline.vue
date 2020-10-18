@@ -102,7 +102,7 @@ export default {
                 .then((response) => {
                     console.log(response);
                 }).then(() => {
-                    this.callAPI('get', '/ideas/data')
+                    this.callAPI('get', '/ideas/likes/data')
                         .then((response) => {
                             this.ideas = response;
                             console.log(response);

@@ -7,6 +7,7 @@
         <router-view></router-view>
         <vue-progress-bar></vue-progress-bar>
     </div>
+    <!-- <UserRightbar v-if="$route.name === 'Publications'"></UserRightbar> -->
     <!-- <admin v-if="admin"></admin>
     <user v-if="user"></user>
     <guest v-if="!auth"></guest> -->
@@ -29,10 +30,10 @@
     max-width: 100%;
     margin-right: auto;
 }
-.pub {
+/* .pub {
     max-width: 100% !important;
     margin-right: 0 !important;
-}
+} */
 </style>
 
 <script>
@@ -42,6 +43,7 @@ import Navbar from './admin/templates/navbar'
 
 // User Templates:
 import UserSidebar from './user/templates/sidebar'
+import UserRightbar from './user/templates/rightbar'
 
 // import admin from './admin'
 // import user from './user'
@@ -61,13 +63,21 @@ export default {
                 bookmarks: '',
                 pubsBookmarks: ''
             },
+            guest: {
+                auth: '',
+                categories: '',
+                wilayas: '',
+                diseases: '',
+                jobs: '',
+            }
 
         }
     },
     components: {
         AdminSidebar,
         Navbar,
-        UserSidebar
+        UserSidebar,
+        UserRightbar,
         // admin,
         // user,
         // guest,
@@ -103,15 +113,30 @@ export default {
     },
     mounted() {
         console.log('Component mounted.');
+        if(this.$store.state.auth){
         axios.get('/data')
             .then((response) => {
                 // console.log(response.data);
                 this.data = response.data;
+                this.$store.commit('addData', this.data);
             }).catch((errors) => {
                 console.log(errors);
                 this.$Progress.fail();
             });
         this.$Progress.finish();
+        } else {
+            axios.get('/get/data')
+            .then((response) => {
+                // console.log(response.data);
+                this.guest = response.data;
+                this.$store.commit('addGuest', this.guest);
+            }).catch((errors) => {
+                console.log(errors);
+                this.$Progress.fail();
+            });
+
+        this.$Progress.finish();
+        }
     },
     methods: {
         adminClass() {
@@ -134,8 +159,12 @@ export default {
                 }
             } else if (this.authClass() && this.adminClass()) {
                 return 'container-fluid main-wall admin';
-            } else {
+            } else if(this.$route.name == 'Welcome' || this.$route.name == 'login' || this.$route.name == 'register') {
                 return 'container-fluid welcome';
+            } else if(!this.$store.state.auth){
+                return 'container-fluid main-wall';
+            } else {
+                return 'container-fluid main-wall';
             }
         },
         logout() {

@@ -17,13 +17,15 @@ use Illuminate\Support\Facades\Route;
 //     return view('app');
 // });
 
-Route::get('/', [App\Http\Controllers\AppController::class, 'get'])->middleware('guest');
-Route::get('/publications/data', [App\Http\Controllers\User\PublicationController::class, 'data']);
+
 
 
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/publications', [App\Http\Controllers\User\PublicationController::class, 'index']);
+Route::get('/ideas', [App\Http\Controllers\User\IdeaController::class, 'index']);
+
 
 Route::middleware('auth')->group(function(){
 
@@ -33,19 +35,26 @@ Route::middleware('auth')->group(function(){
     Route::get('/getData/{user:username}', [App\Http\Controllers\User\ProfileController::class, 'getData']);
 
     Route::middleware('can:user')->group(function (){
-        Route::get('/publications', [App\Http\Controllers\User\PublicationController::class, 'index']);
+        // Route::get('/publications', [App\Http\Controllers\User\PublicationController::class, 'index']);
 
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         Route::get('/bookmarks', [App\Http\Controllers\User\BookmarksController::class, 'index']);
         // Ideas:
-        Route::get('/ideas', [App\Http\Controllers\User\IdeaController::class, 'index']);
-        Route::get('ideas/data', [App\Http\Controllers\User\IdeaController::class, 'getData']);
+        // Route::get('/ideas', [App\Http\Controllers\User\IdeaController::class, 'index']);
+        Route::patch('/bookmark/{idea:id}', [App\Http\Controllers\User\IdeaController::class, 'bookmark']);
+        Route::patch('/like/{idea:id}', [App\Http\Controllers\User\IdeaController::class, 'like']);
         Route::patch('/ideas/create', [App\Http\Controllers\User\IdeaController::class, 'store']);
         Route::patch('ideas/{idea:id}/update', [App\Http\Controllers\User\IdeaController::class, 'update']);
         Route::patch('/ideas/{idea:id}/delete', [App\Http\Controllers\User\IdeaController::class, 'delete']);
         Route::get('/{user:username}', [App\Http\Controllers\User\ProfileController::class, 'index']);
         Route::patch('/ideas/find', [App\Http\Controllers\User\IdeaController::class, 'categoryOrder']);
         Route::patch('/bookmark/find', [App\Http\Controllers\User\IdeaController::class, 'bookmark']);
+        Route::get('/publications/likes/data', [App\Http\Controllers\User\PublicationController::class, 'afterLike']);
+        Route::get('ideas/data', [App\Http\Controllers\User\IdeaController::class, 'getData']);
+
+        Route::get('ideas/likes/data', [App\Http\Controllers\User\IdeaController::class, 'afterLike']);
+        
+        Route::get('/publications/data', [App\Http\Controllers\User\PublicationController::class, 'data']);
         // Route::patch('/bookmarks/find', [App\Http\Controllers\User\IdeaController::class, 'BookmarkCategoryOrder']);
 
         // Bookmarks:
@@ -59,8 +68,9 @@ Route::middleware('auth')->group(function(){
 
         //Publications:
         Route::patch('/bookmark/{publication:id}/publication', [App\Http\Controllers\User\PublicationController::class, 'bookmark']);
-        Route::patch('/like/{publication:id}/publication', [App\Http\Controllers\User\PublicationController::class, 'like']);
+        Route::post('/like/{publication:id}/publication', [App\Http\Controllers\User\PublicationController::class, 'like']);
         Route::get('/bookmarks/publications/data', [App\Http\Controllers\User\PublicationController::class, 'getPubBookmarks']);
+        Route::post('/publications/find', [App\Http\Controllers\User\PublicationController::class, 'getOrder']);
 
         
         
@@ -74,6 +84,7 @@ Route::middleware('auth')->group(function(){
         Route::patch('/reports/find', [App\Http\Controllers\User\ReportsController::class, 'categoryOrder']);
 
         // Publication Controller 
+        Route::get('/get/bookmarks', [App\Http\Controllers\HomeController::class, 'bookmarks']);
 
 
     });
@@ -118,4 +129,8 @@ Route::middleware('auth')->group(function(){
 
 // Profile Part: 
 // Route::get('/{user:username}', [App\Http\Controllers\User\ProfileController::class, 'index']);
+
+// Route::get('/get/data', [App\Http\Controllers\HomeController::class, 'guest'])->middleware('guest');
+Route::get('/', [App\Http\Controllers\AppController::class, 'get'])->middleware('guest');
+// Route::get('/publications/guest/data', [App\Http\Controllers\User\PublicationController::class, 'getGuest'])->middleware('guest');
 

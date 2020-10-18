@@ -45,6 +45,12 @@ export default new Vuex.Store({
         jobs: state => {
           return state.jobs;
         },
+        ideasBookmarks: state => {
+          return state.bookmarks;
+        },
+        pubsBookmarks: state => {
+          return state.pubsBookmarks;
+        },
         isBookmarked: state => {
           return state.isBookmarked;
         },
@@ -69,6 +75,14 @@ export default new Vuex.Store({
           state.diseases = data.diseases;
           state.bookmarks = data.bookmarks;
           state.pubsBookmarks = data.pubsBookmarks;
+        },
+        addGuest(state, data){
+          console.log(data);
+          state.auth = data.auth;
+          state.categories = data.categories;
+          state.wilayas = data.wilayas;
+          state.jobs = data.jobs;
+          state.diseases = data.diseases;
         },
         pushBookmark(state, data){
           let item = 0;
@@ -134,9 +148,9 @@ export default new Vuex.Store({
             state.isPubsBookmarked = false;
           }
         },
-        clicked: (state, idea) => {
+        clicked: (state, pub) => {
           let item = 0;
-          idea.users.map((i) => {
+          pub.users.map((i) => {
             if(i.id == state.user.id){
               return item;
             } else {
@@ -144,7 +158,7 @@ export default new Vuex.Store({
             }
           });
           console.log(item);
-          if(item !== idea.users.length){
+          if(item !== pub.users.length){
             state.isClicked = true;
           } else {
             state.isClicked = false;
