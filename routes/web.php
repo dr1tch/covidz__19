@@ -55,6 +55,8 @@ Route::middleware('auth')->group(function(){
         Route::get('ideas/likes/data', [App\Http\Controllers\User\IdeaController::class, 'afterLike']);
         
         Route::get('/publications/data', [App\Http\Controllers\User\PublicationController::class, 'data']);
+        Route::get('/publications/data/all', [App\Http\Controllers\User\PublicationController::class, 'getGuest']);
+
         // Route::patch('/bookmarks/find', [App\Http\Controllers\User\IdeaController::class, 'BookmarkCategoryOrder']);
 
         // Bookmarks:
@@ -105,6 +107,7 @@ Route::middleware('auth')->group(function(){
         Route::post('/ideas/{idea:id}/update', [App\Http\Controllers\Admin\IdeasController::class, 'update']);
         Route::post('/ideas/{idea:id}/actions', [App\Http\Controllers\Admin\IdeasController::class, 'actions']);
         Route::post('/ideas/{idea:id}/delete', [App\Http\Controllers\Admin\IdeasController::class, 'delete']);
+        Route::patch('ideas/{idea:id}/update', [App\Http\Controllers\User\IdeaController::class, 'update']);
 
         // Reports:
         Route::get('/reports/data', [App\Http\Controllers\Admin\ReportsController::class, 'getData']);
@@ -133,5 +136,13 @@ Route::middleware('auth')->group(function(){
 
 // Route::get('/get/data', [App\Http\Controllers\HomeController::class, 'guest'])->middleware('guest');
 Route::get('/', [App\Http\Controllers\AppController::class, 'get'])->middleware('guest');
+Route::get('/guest/idee', function () {
+                                            return view('app');
+                                        });
+Route::get('/guest/news', function () {
+    return view('app');
+});
+Route::post('/start', [App\Http\Controllers\AppController::class, 'data']);
+
 // Route::get('/publications/guest/data', [App\Http\Controllers\User\PublicationController::class, 'getGuest'])->middleware('guest');
 

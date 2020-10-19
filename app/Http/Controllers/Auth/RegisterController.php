@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 use App\Models\Role;
 
@@ -58,10 +59,10 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'birth_date' => ['date'],
-            'bio' => ['string', 'max:500'],
+            // 'bio' => ['string', 'max:500'],
             'gender' => ['boolean'],
             'avatar' => ['mimes:jpeg,jpg,png|max:2048'],
-            'wilaya' => ['required', 'integer'],
+            'wilaya' => ['integer'],
             'job' => ['integer'],
             'disease' => ['integer'],
         ]);
@@ -75,12 +76,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // return $data;
         $user = User::create([
             'username' => $data['username'],
             'lname' => $data['lname'],
             'fname' => $data['fname'],
             'email' => $data['email'],
-            'bio' => $data['bio'],
+            // 'bio' => $data['bio'],
             'password' => Hash::make($data['password']),
             'avatar' => '/images/default.jpg',
             'gender' => $data['gender'],
@@ -100,5 +102,15 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         return view('app');
+    }
+
+    public function redirectTo(){
+        if(Auth::user()->role){
+            $this->redirectTo = '/admin/home';
+            return $this->redirectTo;
+        } else {
+        $this->redirectTo = '/publications';
+            return $this->redirectTo;
+        }
     }
 }

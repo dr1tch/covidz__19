@@ -19,9 +19,9 @@ class IdeasController extends Controller
     }
     public function getData(){
         return [
-            "pending" => Idea::with('category')->where('status', 0)->latest()->get(), 
-            "approved" => Idea::with('category')->where('status', 1)->latest()->get(), 
-            "refused" => Idea::with('category')->where('status', 2)->latest()->get(), 
+            "pending" => Idea::with(['user', 'category', 'users'])->where('status', 0)->latest()->get(), 
+            "approved" => Idea::with(['user', 'category', 'users'])->where('status', 1)->latest()->get(), 
+            "refused" => Idea::with(['user', 'category', 'users'])->where('status', 2)->latest()->get(), 
 
         ];
         // return [ 'ideas' => Idea::with('category')->where('status', $request['status'])->latest()->paginate(4)];

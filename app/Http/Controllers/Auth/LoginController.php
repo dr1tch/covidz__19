@@ -47,7 +47,7 @@ class LoginController extends Controller
             $this->redirectTo = '/admin/home';
             return $this->redirectTo;
         } else {
-        $this->redirectTo = '/home';
+        $this->redirectTo = '/publications';
             return $this->redirectTo;
         }
     }

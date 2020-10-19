@@ -60,7 +60,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="flex align-items-center justify-content-between">
-                            <button type="button" @click="$modal.hide('add-idea-modal')" class="btn btn-sm btn-danger">Cancel</button>
+                            <button type="button" @click="$modal.hide('edit-idea-modal')" class="btn btn-sm btn-danger">Cancel</button>
                             <button type="submit" class="btn btn-sm btn-success">Edit</button>
                         </div>
                     </div>

@@ -151,6 +151,15 @@
                     </button>
 
                 </li>
+                <!-- <li class="mx-4 justify-content-center align-items-center" style="list-style: none">
+                    <button class="ml-3 btn btn-sm btn-danger justify-content-center align-items-center" @click="logout">Log Out</button>
+                    <form style="display: hidden" action="/logout" method="POST" id="logout">
+                        <input type="hidden" name="_token" :value="csrf_token" />
+                    </form>
+                     <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a> 
+                </li> -->
 
             </ul>
         </div>
@@ -266,7 +275,7 @@ export default {
             }
         },
         logout() {
-            document.getElementById('logout-form').submit();
+            document.getElementById('logout').submit();
         },
         currentPage(slug){
             return this.$route.name.includes(slug);

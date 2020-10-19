@@ -19,8 +19,8 @@ class ReportsController extends Controller
 
     public function getData(){
         return [
-            "pending" => Reports::with(['category', 'wilaya'])->where('status', 0)->latest()->paginate(4), 
-            "approved" => Reports::with(['category', 'wilaya'])->where('status', 1)->latest()->paginate(4), 
+            "pending" => Reports::with(['category', 'wilaya'])->where('status', 0)->latest()->get(), 
+            "approved" => Reports::with(['category', 'wilaya'])->where('status', 1)->latest()->get(), 
         ];
     }
 

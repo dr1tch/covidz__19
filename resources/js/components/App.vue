@@ -113,7 +113,7 @@ export default {
     },
     mounted() {
         console.log('Component mounted.');
-        if(this.$store.state.auth){
+        
         axios.get('/data')
             .then((response) => {
                 // console.log(response.data);
@@ -124,19 +124,6 @@ export default {
                 this.$Progress.fail();
             });
         this.$Progress.finish();
-        } else {
-            axios.get('/get/data')
-            .then((response) => {
-                // console.log(response.data);
-                this.guest = response.data;
-                this.$store.commit('addGuest', this.guest);
-            }).catch((errors) => {
-                console.log(errors);
-                this.$Progress.fail();
-            });
-
-        this.$Progress.finish();
-        }
     },
     methods: {
         adminClass() {

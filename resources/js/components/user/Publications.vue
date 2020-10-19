@@ -28,7 +28,7 @@
                 </div>
             </form>
             <div class="flex justify-content-end align-items-top pr-4 pb-4" style="margin-top: -9.5%">
-                <button @click='getData' class="btn btn-sm btn-success font-weight-bold">
+                <button @click='getAll' class="btn btn-sm btn-success font-weight-bold">
                     ShowAll
                 </button>
             </div>
@@ -81,7 +81,7 @@ export default {
     },
     mounted() {
        
-            this.getData();
+        this.getData();
         this.$Progress.finish();
         
     },
@@ -92,7 +92,7 @@ export default {
         },
         getData() {
             this.$Progress.start();
-            this.callAPI('get', 'publications/data')
+            this.callAPI('get', '/publications/data')
                 .then((responce) => {
                     console.log(responce);
                     this.publications = responce.pubs;
@@ -104,6 +104,20 @@ export default {
             this.filter();
             this.$Progress.finish();
             
+        },
+        getAll(){
+             this.$Progress.start();
+            this.callAPI('get', '/publications/data/all')
+                .then((responce) => {
+                    console.log(responce);
+                    this.publications = responce.pubs;
+                    this.user = responce.user;
+                }).catch(error => {
+                    console.log(error);
+                    this.$Progress.fail();
+                });
+            this.filter();
+            this.$Progress.finish();
         },
         filter() {
             Object.keys(this.publications).forEach(element => {

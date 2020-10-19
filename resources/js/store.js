@@ -19,6 +19,8 @@ export default new Vuex.Store({
       categories: [],
       wilayas: [],
       jobs: [],
+      ideas: [],
+      pubs: [],
       diseases: [],
       bookmarks: [],
       isBookmarked: '',
@@ -78,11 +80,12 @@ export default new Vuex.Store({
         },
         addGuest(state, data){
           console.log(data);
-          state.auth = data.auth;
           state.categories = data.categories;
           state.wilayas = data.wilayas;
           state.jobs = data.jobs;
           state.diseases = data.diseases;
+          state.ideas = data.ideas;
+          state.pubs = data.pubs;
         },
         pushBookmark(state, data){
           let item = 0;

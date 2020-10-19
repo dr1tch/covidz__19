@@ -1,6 +1,6 @@
 <template>
 <div>
-    <nav class="flex justify-content-between align-items-center mb-3 mx-5">
+    <nav class="flex justify-content-end align-items-center mb-3 mx-5">
         <!-- Logo Part -->
         <!-- <div class="flex justify-content-between align-items-center top-logo"> -->
 
@@ -16,7 +16,7 @@
 
             <!-- </div>
         <div></div> -->
-            <div>
+           <!--  <div>
                 <form class="search-bar" method="POST" action="">
                     <div class="full-width">
                         <div class="flex btn-group">
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </form>
-            </div>
+            </div> -->
             <div class="dropdown">
                 <button class="btn btn-sm btn-outline-success rounded-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

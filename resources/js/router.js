@@ -10,6 +10,7 @@ import VueProgressBar from "vue-progressbar";
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import Welcome from './components/Welcome';
+import IdeaPage from './components/Idee.vue'
 
 // User Auth Routes
 import Home from './components/user/pages/Home';
@@ -39,6 +40,10 @@ let router = new VueRouter({
         { path: '/' , component: Welcome, name: 'Welcome'},
         { path: '/login', component: LoginPage, name: 'login' },
         { path: '/register', component: RegisterPage, name: 'register' },
+        { path: '/idee', component: IdeaPage, name: 'idea' },
+        // { path: '/pub', component: PubPage, name: 'pub' },
+
+
 
         // USER ROUTES:
         { path: '/bookmarks' , component: Bookmarks, name: 'Bookmarks'},

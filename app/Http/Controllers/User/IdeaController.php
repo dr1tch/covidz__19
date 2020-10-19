@@ -143,15 +143,17 @@ class IdeaController extends Controller
           if(request('image')){
 
             $attributes['image'] = request('image')->store('covers');
-          } else {
+           } 
+           else {
             $attributes['image'] = null;
         }
-        if(request('video')){
+      //   if(request('video')){
 
-          $attributes['video'] = request('video')->store('covers');
-        } else {
-          $attributes['video'] = null;
-      }
+      //     $attributes['video'] = request('video')->store('covers');
+      //    } 
+      // else {
+      //     $attributes['video'] = null;
+      // }
           
         $idea = Idea::create([
             'user_id' => Auth::user()->id,
@@ -159,7 +161,7 @@ class IdeaController extends Controller
             'title' => $attributes['title'],
             'body' => $attributes['body'],
             'image' => $attributes['image'],
-            'image' => $attributes['video'],
+            // 'image' => $attributes['video'],
             'status' => 0
         ]);
   

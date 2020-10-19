@@ -123,12 +123,24 @@ class PublicationController extends Controller
 
 
     public function getGuest(){
-            return Publication::with('wilayas')
+            $pubs = Publication::with('wilayas')
                                 ->with('jobs')
                                 ->with('diseases')
                                 ->with('users')
                                 ->latest()
                                 ->get();
+                                foreach ($pubs as $idea) {
+                                    foreach ($idea->users as $user) {
+                                      if($user->id == Auth::user()->id){
+                                          $idea['liked'] = 1;
+                                      } else {
+                                          $idea['liked'] = 0;
+                                      }
+                                    }
+                                  }
+                            return [ "pubs" => $pubs,
+                                    'user' => Auth::user()
+                                ];
     }
   
 
