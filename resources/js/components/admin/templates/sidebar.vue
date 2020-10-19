@@ -26,7 +26,7 @@
         <div>
             <ul class="block-menu">
                 <router-link to="/admin/home">
-                    <li data-toggle="tooltip" data-placement="bottom" title="Dashboard" :class="[currentPage('admin-home') ? activeClass : '', 'menu-item']">
+                    <li data-toggle="tooltip" data-placement="bottom" title="Dashboard" :class="[currentPage('Admin-Home') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
                             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-house-door-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6.5 10.995V14.5a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5V11c0-.25-.25-.5-.5-.5H7c-.25 0-.5.25-.5.495z"/>
@@ -82,17 +82,16 @@
                         </div>
                     </li>
                 </router-link>
-                <router-link to="/galery" class="">
+                <!-- <router-link to="/galery" class="">
                     <li data-toggle="tooltip" data-placement="bottom" title="Galery" :class="[currentPage('Galery') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
-                            <!-- <img class="logo-img-menu"  src="/images/side-menu-icons/newsfeed.svg" alt="">-->
                             <svg width="1.5625em" height="1.5em" viewBox="0 0 17 16" class="bi bi-image-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15.002 9.5V13a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1v-1zm5-6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
                             </svg>
                             <h5 class="header-logo-text-sidebar ml-3" style="font-weight: bold;">Galery</h5>
                         </div>
                     </li>
-                </router-link>
+                </router-link> -->
                 <router-link to="/statistics" class="">
                     <li data-toggle="tooltip" data-placement="bottom" title="Statistics" :class="[currentPage('Statistics') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
@@ -105,19 +104,19 @@
                     </li>
                 </router-link>
 
-                <router-link to="/tags">
-                    <li data-toggle="tooltip" data-placement="bottom" title="Tags" :class="[currentPage('Tags') ? activeClass : '', 'menu-item']">
+                <router-link to="/admin/jobs">
+                    <li data-toggle="tooltip" data-placement="bottom" title="Tags" :class="[currentPage('Jobs') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
                             <!-- <img class="logo-img-menu"  src="/images/side-menu-icons/hashtag-half.svg" alt=""> -->
                             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-tag" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M2 2v4.586l7 7L13.586 9l-7-7H2zM1 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2z" />
                                 <path fill-rule="evenodd" d="M4.5 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
                             </svg>
-                            <h5 class="ml-3 header-logo-text-sidebar" style="font-weight: bold;">Tags</h5>
+                            <h5 class="ml-3 header-logo-text-sidebar" style="font-weight: bold;">Professions</h5>
                         </div>
                     </li>
                 </router-link>
-                <router-link to="/categories">
+                <router-link to="/admin/categories">
                     <li data-toggle="tooltip" data-placement="bottom" title="Categories" :class="[currentPage('Categories') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
                             <!-- <img class="logo-img-menu"  src="/images/side-menu-icons/bell.svg" alt=""> -->
@@ -128,14 +127,14 @@
                         </div>
                     </li>
                 </router-link>
-                <router-link to="/messages" class="hide-menu">
-                    <li data-toggle="tooltip" data-placement="bottom" title="Messages" :class="[currentPage('Messages') ? activeClass : '', 'menu-item']">
+                <router-link to="/admin/diseases" class="hide-menu">
+                    <li data-toggle="tooltip" data-placement="bottom" title="Messages" :class="[currentPage('Diseases') ? activeClass : '', 'menu-item']">
                         <div class="menu-item-container">
                             <!-- <img class="logo-img-menu"  src="/images/side-menu-icons/send.svg" alt=""> -->
                             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-envelope" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z" />
                             </svg>
-                            <h5 class="ml-3 header-logo-text-sidebar" style="font-weight: bold;">Messages</h5>
+                            <h5 class="ml-3 header-logo-text-sidebar" style="font-weight: bold;">Maladies</h5>
                         </div>
                     </li>
                 </router-link>

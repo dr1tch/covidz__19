@@ -28,6 +28,9 @@ import adminUsers from './components/admin/Users'
 import adminIdeas from './components/admin/Ideas'
 import adminReports from './components/admin/Reports'
 import adminPublications from './components/admin/Publications'
+import adminCategories from './components/admin/Categories.vue'
+import adminJobs from './components/admin/Jobs.vue'
+import adminDiseases from './components/admin/Diseases.vue'
 
 
 
@@ -61,6 +64,10 @@ let router = new VueRouter({
         { path: '/admin/ideas' , component: adminIdeas, name: 'Manage Ideas'},
         { path: '/admin/reports' , component: adminReports, name: 'Manage Reports'},
         { path: '/admin/publications' , component: adminPublications, name: 'Manage Publications'},
+        { path: '/admin/categories' , component: adminCategories, name: 'Manage Categories'},
+        { path: '/admin/jobs' , component: adminJobs, name: 'Manage Jobs'},
+        { path: '/admin/diseases' , component: adminDiseases, name: 'Manage Diseases'},
+
 
     ],
 });

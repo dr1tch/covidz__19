@@ -122,6 +122,31 @@ Route::middleware('auth')->group(function(){
         Route::patch('/publications/{publication:id}/update', [App\Http\Controllers\Admin\PublicationController::class, 'update']);
         Route::post('/publications/{publication:id}/delete', [App\Http\Controllers\Admin\PublicationController::class, 'delete']);
 
+        // Categories:
+        Route::get('/categories/get', [App\Http\Controllers\Admin\CategoriesController::class, 'get']);
+        Route::get('/categories', [App\Http\Controllers\Admin\CategoriesController::class, 'index']);
+        Route::post('/categories/create', [App\Http\Controllers\Admin\CategoriesController::class, 'store']);
+        Route::post('/categories/{category:id}/update', [App\Http\Controllers\Admin\CategoriesController::class, 'update']);
+        Route::post('/categories/{category:id}/delete', [App\Http\Controllers\Admin\CategoriesController::class, 'delete']);
+        Route::post('/categories/{category:id}/deleteAll', [App\Http\Controllers\Admin\CategoriesController::class, 'deleteAll']);
+
+
+        // Jobs:
+        Route::get('/jobs', [App\Http\Controllers\Admin\JobsController::class, 'index']);
+        Route::get('/jobs/get', [App\Http\Controllers\Admin\JobsController::class, 'get']);
+        Route::post('/jobs/create', [App\Http\Controllers\Admin\JobsController::class, 'store']);
+        Route::post('/jobs/{job:id}/update', [App\Http\Controllers\Admin\JobsController::class, 'update']);
+        Route::post('/jobs/{job:id}/delete', [App\Http\Controllers\Admin\JobsController::class, 'delete']);
+        Route::post('/jobs/{job:id}/deleteAll', [App\Http\Controllers\Admin\JobsController::class, 'deleteAll']);
+
+
+        // Diseases:
+        Route::get('/diseases', [App\Http\Controllers\Admin\DiseasesController::class, 'index']);
+        Route::get('/diseases/get', [App\Http\Controllers\Admin\DiseasesController::class, 'get']);
+        Route::post('/diseases/create', [App\Http\Controllers\Admin\DiseasesController::class, 'store']);
+        Route::post('diseases/{disease:id}/update', [App\Http\Controllers\Admin\DiseasesController::class, 'update']);
+        Route::post('/diseases/{disease:id}/delete', [App\Http\Controllers\Admin\DiseasesController::class, 'delete']);
+        Route::post('/diseases/{disease:id}/deleteAll', [App\Http\Controllers\Admin\DiseasesController::class, 'deleteAll']);
 
         // API Data:
         // Route::get('/pulications/get', [App\Http\Controllers\HomeController::class, 'getPubsData']);
