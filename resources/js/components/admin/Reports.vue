@@ -20,6 +20,7 @@
                         <!-- <th class="hidden-md">Reporter Profile</th> -->
                         <th>Cover</th>
                         <th>Category</th>
+                        <th>Wilaya</th>
                         <th>Date</th>
                         <th>Status</th>
                         <th>Actions</th>
@@ -35,7 +36,8 @@
                                 <img class="avatar" :src="'/storage/' + report.image" alt="">
                             </a>
                         </td>
-                        <td><span class="btn-sm btn-warning font-weight-bold border-0" v-text="report.category.name"></span></td>
+                        <td><span class="btn-sm btn-secondary font-weight-bold border-0" v-text="report.category.name"></span></td>
+                        <td><span class="btn-sm btn-dark font-weight-bold border-0" v-text="report.wilaya.name"></span></td>
                         <td class="hidden-md" v-text="moment(report.created_at).format('DD-MM-YYYY')"></td>
                         <td><span class="btn-sm btn-info font-weight-bold border-0">pending</span></td>
                         <td>
@@ -70,6 +72,7 @@
                         <!-- <th class="hidden-md">Reporter Profile</th> -->
                         <th>Cover</th>
                         <th>Category</th>
+                        <th>Wilaya</th>
                         <th>Date</th>
                         <th>Status</th>
                         <th>Actions</th>
@@ -85,7 +88,8 @@
                                 <img class="avatar" :src="'/storage/' + report.image" alt="">
                             </a>
                         </td>
-                        <td><span class="btn-sm btn-warning font-weight-bold border-0" v-text="report.category.name"></span></td>
+                        <td><span class="btn-sm btn-secondary font-weight-bold border-0" v-text="report.category.name"></span></td>
+                        <td><span class="btn-sm btn-dark font-weight-bold border-0" v-text="report.wilaya.name"></span></td>
                         <td class="hidden-md" v-text="moment(report.created_at).format('DD-MM-YYYY')"></td>
                         <td><span class="btn-sm btn-info font-weight-bold border-0">pending</span></td>
                         <td>

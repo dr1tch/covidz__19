@@ -37,7 +37,7 @@
                                 <img class="avatar" :src="idea.image" alt="">
                             </a>
                         </td> -->
-                        <td><span class="btn-sm btn-warning font-weight-bold border-0" v-text="idea.category.name"></span></td>
+                        <td><span class="btn-sm btn-dark font-weight-bold border-0" v-text="idea.category.name"></span></td>
                         <td class="hidden-md" v-text="moment(idea.created_at).format('DD-MM-YYYY')"></td>
                         <td><span class="btn-sm btn-info font-weight-bold border-0">pending</span></td>
                         <td>
@@ -75,6 +75,7 @@
                     <tr>
                         <th>ID</th>
                         <th class="hidden-sm">Title</th>
+                        <th>Likes</th>
                         <!-- <th>Body</th> -->
                         <!-- <th class="hidden-md">Reporter Profile</th> -->
                         <!-- <th>Cover</th> -->
@@ -95,7 +96,8 @@
                                 <img class="avatar" :src="idea.image" alt="">
                             </a>
                         </td> -->
-                        <td><span class="btn-sm btn-warning font-weight-bold border-0" v-text="idea.category.name"></span></td>
+                        <td v-text="idea.likes"></td>
+                        <td><span class="btn-sm btn-dark font-weight-bold border-0" v-text="idea.category.name"></span></td>
                         <td class="hidden-md" v-text="moment(idea.created_at).format('DD-MM-YYYY')"></td>
                         <td><span class="btn-sm btn-success font-weight-bold border-0">approved</span></td>
                         <td>
@@ -154,7 +156,7 @@
                                 <img class="avatar" :src="idea.image" alt="">
                             </a>
                         </td> -->
-                        <td><span class="btn-sm btn-warning font-weight-bold border-0" v-text="idea.category.name"></span></td>
+                        <td><span class="btn-sm btn-dark font-weight-bold border-0" v-text="idea.category.name"></span></td>
                         <td class="hidden-md" v-text="moment(idea.created_at).format('DD-MM-YYYY')"></td>
                         <td><span class="btn-sm btn-danger font-weight-bold border-0">refused</span></td>
                         <td>
