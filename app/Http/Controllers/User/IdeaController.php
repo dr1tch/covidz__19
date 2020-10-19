@@ -146,6 +146,12 @@ class IdeaController extends Controller
           } else {
             $attributes['image'] = null;
         }
+        if(request('video')){
+
+          $attributes['video'] = request('video')->store('covers');
+        } else {
+          $attributes['video'] = null;
+      }
           
         $idea = Idea::create([
             'user_id' => Auth::user()->id,
@@ -153,6 +159,7 @@ class IdeaController extends Controller
             'title' => $attributes['title'],
             'body' => $attributes['body'],
             'image' => $attributes['image'],
+            'image' => $attributes['video'],
             'status' => 0
         ]);
   

@@ -103,6 +103,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/ideas/data', [App\Http\Controllers\Admin\IdeasController::class, 'getData']);
         Route::get('/ideas', [App\Http\Controllers\Admin\IdeasController::class, 'index']);
         Route::post('/ideas/{idea:id}/update', [App\Http\Controllers\Admin\IdeasController::class, 'update']);
+        Route::post('/ideas/{idea:id}/actions', [App\Http\Controllers\Admin\IdeasController::class, 'actions']);
         Route::post('/ideas/{idea:id}/delete', [App\Http\Controllers\Admin\IdeasController::class, 'delete']);
 
         // Reports:

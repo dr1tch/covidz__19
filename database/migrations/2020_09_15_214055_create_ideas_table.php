@@ -24,7 +24,8 @@ class CreateIdeasTable extends Migration
             $table->unsignedBigInteger('likes')->default(0);
             $table->boolean('liked')->default(0);
             $table->unsignedBigInteger('dislikes')->default(0);
-            $table->boolean('status');
+            // 0 => pending, 1 => approved, 2 => refused
+            $table->integer('status');
             $table->timestamps();
         });
     }

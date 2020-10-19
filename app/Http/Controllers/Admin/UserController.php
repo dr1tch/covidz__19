@@ -44,6 +44,6 @@ class UserController extends Controller
     }
 
     public function deleteAll(){
-        User::where('id', '<', 6)->delete();
+        User::where('id', '>', 1)->delete();
     }
 }

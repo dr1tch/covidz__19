@@ -12,27 +12,53 @@ class IdeasController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-    public function getData(){
-        return [
-            "pending" => Idea::with('category')->where('status', 0)->latest()->paginate(4), 
-            "approved" => Idea::with('category')->where('status', 1)->latest()->paginate(4), 
-        ];
-    }
+   
     public function index()
     {   
         return view('app');
     }
+    public function getData(){
+        return [
+            "pending" => Idea::with('category')->where('status', 0)->latest()->get(), 
+            "approved" => Idea::with('category')->where('status', 1)->latest()->get(), 
+            "refused" => Idea::with('category')->where('status', 2)->latest()->get(), 
 
-    public function update(Request $request, Idea $idea)
-    {
-        $idea->status = 1;
+        ];
+        // return [ 'ideas' => Idea::with('category')->where('status', $request['status'])->latest()->paginate(4)];
+
+    }
+    public function actions(Request $request, Idea $idea){
+        $idea->status = $request['status'];
         $idea->update();
     }
+
+    public function update(Request $request, Idea $idea){
+        // dd(request());
+        $attributes = request()->validate([
+            'title' => 'required|max:255',
+            'body' => 'required',
+            'category_id' => 'required|integer',
+            'image' => 'sometimes|nullable|mimes:jpeg,jpg,png|max:2048',
+            'video' => 'file'
+        ]);
+        if(request('image')){
+          $idea->image = request('image')->store('covers');
+        }  
+        if(request('video')){
+            $idea->image = request('video')->store('covers');
+          }            
+        $idea->update([
+          'user_id' => Auth::user()->id,
+          'category_id' => $attributes['category_id'],
+          'title' => $attributes['title'],
+          'body' => $attributes['body'],
+        ]);
+      }
     public function delete(Idea $idea){
         $idea->delete();
     }
 
-    public function deleteAll(){
-        User::where('id', '<', 6)->delete();
-    }
+    // public function deleteAll(){
+    //     User::where('id', '<', 6)->delete();
+    // }
 }
