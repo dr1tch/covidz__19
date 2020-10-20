@@ -94,7 +94,7 @@
                         <td><span class="btn-sm btn-info font-weight-bold border-0">pending</span></td>
                         <td>
                             <div>
-                                <button @click.prevent="approveReport(report.id)" type="button" class="btn btn-sm btn-success">Approve</button>
+                                <!-- <button @click.prevent="approveReport(report.id)" type="button" class="btn btn-sm btn-success">Approve</button> -->
                                 <button @click.prevent="showModal('delete-report-modal', report)" type="button" class="btn btn-sm btn-danger">Delete</button>
                             </div>
                         </td>

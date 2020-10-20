@@ -47,7 +47,7 @@ export default {
             // this.$Progress.start();
             if(e){
                 // this.$Progress.start();
-                this.callAPI('get', '/publications/likes/data')
+                this.callAPI('get', '/publications/data/all')
                 .then((responce) => {
                     // this.ideas = responce;
                     this.$emit('edited', responce);

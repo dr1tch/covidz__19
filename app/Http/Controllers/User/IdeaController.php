@@ -19,13 +19,13 @@ class IdeaController extends Controller
                             ->where('status', 0)
                             ->where('category_id', $request['category_id'])
                             ->where('user_id', '!=', 1)
-                            ->latest()->paginate(4), 
+                            ->latest()->get(), 
 
         "approved" => Idea::with(['user', 'category'])
                             ->where('status', 1)
                             ->where('category_id', $request['category_id'])
                             ->where('user_id', '<>', 1)
-                            ->latest()->paginate(4), 
+                            ->latest()->get(), 
     ];
   }
 

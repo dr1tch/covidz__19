@@ -87,6 +87,7 @@ Route::middleware('auth')->group(function(){
 
         // Publication Controller 
         Route::get('/get/bookmarks', [App\Http\Controllers\HomeController::class, 'bookmarks']);
+        // Route::get('/carte_épidémiologique', 'StatsController@affData');
 
 
     });
@@ -107,7 +108,7 @@ Route::middleware('auth')->group(function(){
         Route::post('/ideas/{idea:id}/update', [App\Http\Controllers\Admin\IdeasController::class, 'update']);
         Route::post('/ideas/{idea:id}/actions', [App\Http\Controllers\Admin\IdeasController::class, 'actions']);
         Route::post('/ideas/{idea:id}/delete', [App\Http\Controllers\Admin\IdeasController::class, 'delete']);
-        Route::patch('ideas/{idea:id}/update', [App\Http\Controllers\User\IdeaController::class, 'update']);
+        Route::post('ideas/{idea:id}/update', [App\Http\Controllers\User\IdeaController::class, 'update']);
 
         // Reports:
         Route::get('/reports/data', [App\Http\Controllers\Admin\ReportsController::class, 'getData']);

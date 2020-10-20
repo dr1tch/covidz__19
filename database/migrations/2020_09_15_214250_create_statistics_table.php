@@ -15,6 +15,14 @@ class CreateStatisticsTable extends Migration
     {
         Schema::create('statistics', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('wilaya_id');
+            $table->integer('cas_tot');
+            $table->integer('deces_tot');
+            $table->integer('gueris_tot');
+            $table->integer('en_cours_soin');
+            $table->integer('gueris_24h');
+            $table->integer('deces_24h');
+            $table->date('date');
             $table->timestamps();
         });
     }
