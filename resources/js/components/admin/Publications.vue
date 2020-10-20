@@ -243,7 +243,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4 class="font-weight-bold">Add Publication</h4>
+                    <h4 class="font-weight-bold">Edit Publication</h4>
                 </div>
                 <form action="/publications/create" method="POST" @submit.prevent="editPub">
                     <div class="card-body row">
